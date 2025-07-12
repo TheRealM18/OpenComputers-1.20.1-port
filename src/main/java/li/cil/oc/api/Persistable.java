@@ -10,8 +10,7 @@ public interface Persistable {
      * Restores a previous state of the object from the specified NBT tag.
      *
      * @param nbt the tag to read the state from.
-     */
-    void loadData(CompoundNBT nbt);
+     */  CompletableFuture<Void> loadDataAsync(CompoundNBT nbt);
 
     /**
      * Saves the current state of the object into the specified NBT tag.
@@ -20,6 +19,5 @@ public interface Persistable {
      * {@link #loadData} is called with that tag.
      *
      * @param nbt the tag to save the state to.
-     */
-    void saveData(CompoundNBT nbt);
+     */  CompletableFuture<Void> saveDataAsync(CompoundNBT nbt);
 }

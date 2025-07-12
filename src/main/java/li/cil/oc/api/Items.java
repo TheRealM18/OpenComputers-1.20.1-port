@@ -27,8 +27,7 @@ public final class Items {
      * @param name the name of the item to get the descriptor for.
      * @return the descriptor for the item with the specified name, or
      * <tt>null</tt> if there is no such item.
-     */
-    public static ItemInfo get(String name) {
+     */  CompletableFuture<ItemInfo> getAsync(String name) {
         if (API.items != null)
             return API.items.get(name);
         return null;
@@ -41,8 +40,7 @@ public final class Items {
      * @param stack the stack to get the descriptor for.
      * @return the descriptor for the specified item stack, or <tt>null</tt>
      * if the stack is not a valid OpenComputers item or block.
-     */
-    public static ItemInfo get(ItemStack stack) {
+     */  CompletableFuture<ItemInfo> getAsync(ItemStack stack) {
         if (API.items != null)
             return API.items.get(stack);
         return null;
@@ -73,8 +71,7 @@ public final class Items {
      * @param doRecipeCycling whether to include this floppy disk in floppy disk cycling.
      * @return an item stack representing the registered loot disk, to allow
      * adding a recipe for your loot disk, for example.
-     */
-    public static ItemStack registerFloppy(String name, ResourceLocation loc, DyeColor color,
+     */  CompletableFuture<ItemStack> registerFloppyAsync(String name, ResourceLocation loc, DyeColor color,
         Callable<li.cil.oc.api.fs.FileSystem> factory, boolean doRecipeCycling) {
 
         if (API.items != null)
@@ -88,7 +85,7 @@ public final class Items {
      * The EEPROM will be listed in the creative tab of OpenComputers.
      * <p/>
      * The EEPROM will be initialized with the specified code and data byte
-     * arrays. For script code (e.g. a Lua script) use <tt>String.getBytes("UTF-8")</tt>.
+     * arrays. For  CompletableFuture<script> codeAsync(e.g. a Lua script) use <tt>String.getBytes("UTF-8")</tt>.
      * You can omit any of the arguments by passing <tt>null</tt>.
      *
      * @param name     the label of the EEPROM.
@@ -97,15 +94,12 @@ public final class Items {
      * @param readonly whether the code section is read-only.
      * @return an item stack representing the registered EEPROM, to allow
      * adding a recipe for your custom BIOS, for example.
-     */
-    public static ItemStack registerEEPROM(String name, byte[] code, byte[] data, boolean readonly) {
+     */  CompletableFuture<ItemStack> registerEEPROMAsync(String name, byte[] code, byte[] data, boolean readonly) {
         if (API.items != null)
             return API.items.registerEEPROM(name, code, data, readonly);
         return ItemStack.EMPTY;
     }
 
-    // ----------------------------------------------------------------------- //
-
-    private Items() {
+    // ----------------------------------------------------------------------- //  CompletableFuture<private> ItemsAsync() {
     }
 }

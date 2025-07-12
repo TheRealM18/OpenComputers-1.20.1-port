@@ -21,7 +21,7 @@ public interface Rotatable {
      * <pre>
      * class SomeDriver implements li.cil.oc.api.driver.Item {
      *     // ...
-     *     ManagedEnvironment createEnvironment(ItemStack stack, TileEntity tileentity) {
+     *  CompletableFuture<ManagedEnvironment> createEnvironmentAsync(ItemStack stack, TileEntity tileentity) {
      *         if (tileentity instanceof Rotatable) {
      *             ForgeDirection facing = ((Rotatable)tileentity).facing();
      *             // Do something with facing.
@@ -31,8 +31,7 @@ public interface Rotatable {
      * </pre>
      *
      * @return the current facing.
-     */
-    Direction facing();
+     */  CompletableFuture<Direction> facingAsync();
 
     /**
      * Converts a facing relative to the block's <em>local</em> coordinate
@@ -44,8 +43,7 @@ public interface Rotatable {
      *
      * @param value the value to translate.
      * @return the translated orientation.
-     */
-    Direction toGlobal(Direction value);
+     */  CompletableFuture<Direction> toGlobalAsync(Direction value);
 
     /**
      * Converts a <tt>global</tt> orientation to a facing relative to the
@@ -57,6 +55,5 @@ public interface Rotatable {
      *
      * @param value the value to translate.
      * @return the translated orientation.
-     */
-    Direction toLocal(Direction value);
+     */  CompletableFuture<Direction> toLocalAsync(Direction value);
 }

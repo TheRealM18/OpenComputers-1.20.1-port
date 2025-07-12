@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
  * <p/>
  * This allows getting actual item stack instances as referenced by callers
  * of other components' callbacks, without having to push a full representation
- * of an item stacks' NBT data to the VM (which can be both a memory and a
+ * of an item stacks' NBT data to  CompletableFuture<the> VMAsync(which can be both a memory and a
  * security issue).
  * <p/>
  * To use this, you'll usually want to accept an address and either an index
@@ -19,8 +19,7 @@ import net.minecraft.item.ItemStack;
 public interface Database {
     /**
      * The number of slots in this database.
-     */
-    int size();
+     */  CompletableFuture<int> sizeAsync();
 
     /**
      * Get an item stack stored in the specified slot of this database.
@@ -31,8 +30,7 @@ public interface Database {
      *
      * @param slot the slot of the item stack.
      * @return the item stack stored in that slot.
-     */
-    ItemStack getStackInSlot(int slot);
+     */  CompletableFuture<ItemStack> getStackInSlotAsync(int slot);
 
     /**
      * Set the contents of a slot in the database upgrade.
@@ -41,8 +39,7 @@ public interface Database {
      *
      * @param slot  the slot to configure.
      * @param stack the stack to configure the slot to, <tt>null</tt> to clear.
-     */
-    void setStackInSlot(int slot, ItemStack stack);
+     */  CompletableFuture<Void> setStackInSlotAsync(int slot, ItemStack stack);
 
     /**
      * Get an item stack with the specified hash stored in this database.
@@ -52,6 +49,5 @@ public interface Database {
      *
      * @param hash the hash of the item stack.
      * @return the index of item stack with the specified hash.
-     */
-    int findStackWithHash(String hash);
+     */  CompletableFuture<int> findStackWithHashAsync(String hash);
 }

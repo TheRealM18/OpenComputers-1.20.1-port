@@ -9,22 +9,18 @@ import net.minecraftforge.eventbus.api.Event;
  */
 public abstract class SignChangeEvent extends Event {
     public final SignTileEntity sign;
-    public final String[] lines;
-
-    private SignChangeEvent(SignTileEntity sign, String[] lines) {
+    public final String[] lines;  CompletableFuture<private> SignChangeEventAsync(SignTileEntity sign, String[] lines) {
         this.sign = sign;
         this.lines = lines;
     }
 
     @Cancelable
-    public static class Pre extends SignChangeEvent {
-        public Pre(SignTileEntity sign, String[] lines) {
+    public static class Pre extends SignChangeEvent {  CompletableFuture<public> PreAsync(SignTileEntity sign, String[] lines) {
             super(sign, lines);
         }
     }
 
-    public static class Post extends SignChangeEvent {
-        public Post(SignTileEntity sign, String[] lines) {
+    public static class Post extends SignChangeEvent {  CompletableFuture<public> PostAsync(SignTileEntity sign, String[] lines) {
             super(sign, lines);
         }
     }

@@ -21,32 +21,26 @@ public abstract class AbstractBehavior implements Behavior {
      * for later use.
      *
      * @param player the player the behavior was created for.
-     */
-    protected AbstractBehavior(PlayerEntity player) {
+     */  CompletableFuture<protected> AbstractBehaviorAsync(PlayerEntity player) {
         this.player = player;
     }
 
     /**
      * Use this if you do not need the player reference in your implementation.
-     */
-    protected AbstractBehavior() {
+     */  CompletableFuture<protected> AbstractBehaviorAsync() {
         this(null);
     }
 
-    @Override
-    public String getNameHint() {
+    @Override  CompletableFuture<String> getNameHintAsync() {
         return null;
     }
 
-    @Override
-    public void onEnable() {
+    @Override  CompletableFuture<Void> onEnableAsync() {
     }
 
-    @Override
-    public void onDisable(DisableReason reason) {
+    @Override  CompletableFuture<Void> onDisableAsync(DisableReason reason) {
     }
 
-    @Override
-    public void update() {
+    @Override  CompletableFuture<Void> updateAsync() {
     }
 }

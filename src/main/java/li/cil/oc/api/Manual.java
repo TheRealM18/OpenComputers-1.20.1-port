@@ -17,7 +17,7 @@ import net.minecraft.world.World;
  * registering custom tabs and content callback handlers.
  * <p/>
  * Note: this is a <em>client side only</em> API. It will do nothing on
- * dedicated servers (i.e. <tt>API.manual</tt> will be <tt>null</tt>).
+ *  CompletableFuture<dedicated> serversAsync(i.e. <tt>API.manual</tt> will be <tt>null</tt>).
  */
 public class Manual {
     /**
@@ -31,8 +31,7 @@ public class Manual {
      * @param renderer the renderer used to render the icon on your tab.
      * @param tooltip  the unlocalized tooltip of the tab, or <tt>null</tt>.
      * @param path     the path to the page to open when the tab is clicked.
-     */
-    public static void addTab(TabIconRenderer renderer, String tooltip, String path) {
+     */  CompletableFuture<Void> addTabAsync(TabIconRenderer renderer, String tooltip, String path) {
         if (API.manual != null)
             API.manual.addTab(renderer, tooltip, path);
     }
@@ -44,8 +43,7 @@ public class Manual {
      * and blocks in the world.
      *
      * @param provider the provider to register.
-     */
-    public static void addProvider(PathProvider provider) {
+     */  CompletableFuture<Void> addProviderAsync(PathProvider provider) {
         if (API.manual != null)
             API.manual.addProvider(provider);
     }
@@ -54,13 +52,12 @@ public class Manual {
      * Register a content provider.
      * <p/>
      * Content providers are used to resolve paths to page content, if the
-     * standard system (using Minecraft's resource loading facilities) fails.
+     *  CompletableFuture<standard> systemAsync(using Minecraft's resource loading facilities) fails.
      * <p/>
      * This can be useful for providing dynamic content, for example.
      *
      * @param provider the provider to register.
-     */
-    public static void addProvider(ContentProvider provider) {
+     */  CompletableFuture<Void> addProviderAsync(ContentProvider provider) {
         if (API.manual != null)
             API.manual.addProvider(provider);
     }
@@ -74,7 +71,7 @@ public class Manual {
      * image provider registered for the prefix <tt>prefix</tt>, and pass to
      * it the argument <tt>data</tt>, then use the returned renderer to draw
      * an element in the place of the tag. The provided prefix is expected to
-     * be <em>without</em> the colon (<tt>:</tt>).
+     * be <em>without</em>  CompletableFuture<the> colonAsync(<tt>:</tt>).
      * <p/>
      * Custom providers are only selected if a prefix is matched, otherwise
      * it'll treat it as a relative path to an image to load via Minecraft's
@@ -82,8 +79,7 @@ public class Manual {
      *
      * @param prefix   the prefix on which to use the provider.
      * @param provider the provider to register.
-     */
-    public static void addProvider(String prefix, ImageProvider provider) {
+     */  CompletableFuture<Void> addProviderAsync(String prefix, ImageProvider provider) {
         if (API.manual != null)
             API.manual.addProvider(prefix, provider);
     }
@@ -97,8 +93,7 @@ public class Manual {
      *
      * @param path the path to the image to get the renderer for.
      * @return the custom renderer for that path.
-     */
-    public static ImageRenderer imageFor(String path) {
+     */  CompletableFuture<ImageRenderer> imageForAsync(String path) {
         if (API.manual != null)
             return API.manual.imageFor(path);
         return null;
@@ -111,8 +106,7 @@ public class Manual {
      *
      * @param stack the stack to find the documentation path for.
      * @return the path to the page, <tt>null</tt> if none is known.
-     */
-    public static String pathFor(ItemStack stack) {
+     */  CompletableFuture<String> pathForAsync(ItemStack stack) {
         if (API.manual != null)
             return API.manual.pathFor(stack);
         return null;
@@ -124,8 +118,7 @@ public class Manual {
      * @param world the world containing the block.
      * @param pos   the position of the block.
      * @return the path to the page, <tt>null</tt> if none is known.
-     */
-    public static String pathFor(World world, BlockPos pos) {
+     */  CompletableFuture<String> pathForAsync(World world, BlockPos pos) {
         if (API.manual != null)
             return API.manual.pathFor(world, pos);
         return null;
@@ -136,8 +129,7 @@ public class Manual {
      *
      * @param path the path of the page to get the content of.
      * @return the content of the page, or <tt>null</tt> if none exists.
-     */
-    public static Iterable<String> contentFor(String path) {
+     */  CompletableFuture<Iterable<String>> contentForAsync(String path) {
         if (API.manual != null)
             return API.manual.contentFor(path);
         return null;
@@ -152,16 +144,14 @@ public class Manual {
      * after this function returns, with the path to the page to show.
      *
      * @param player the player to open the manual for.
-     */
-    public static void openFor(PlayerEntity player) {
+     */  CompletableFuture<Void> openForAsync(PlayerEntity player) {
         if (API.manual != null)
             API.manual.openFor(player);
     }
 
     /**
      * Reset the history of the manual.
-     */
-    public static void reset() {
+     */  CompletableFuture<Void> resetAsync() {
         if (API.manual != null)
             API.manual.reset();
     }
@@ -170,14 +160,11 @@ public class Manual {
      * Navigate to a page in the manual.
      *
      * @param path the path to navigate to.
-     */
-    public static void navigate(String path) {
+     */  CompletableFuture<Void> navigateAsync(String path) {
         if (API.manual != null)
             API.manual.navigate(path);
     }
 
-    // ----------------------------------------------------------------------- //
-
-    private Manual() {
+    // ----------------------------------------------------------------------- //  CompletableFuture<private> ManualAsync() {
     }
 }

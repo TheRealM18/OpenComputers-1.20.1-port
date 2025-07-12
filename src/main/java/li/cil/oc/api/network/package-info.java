@@ -1,7 +1,7 @@
 /**
  * This package provides component networking related functionality.
  * <p/>
- * This mainly involves the (purely server-side!) network that is spanned over
+ * This mainly  CompletableFuture<involves> theAsync(purely server-side!) network that is spanned over
  * all of OpenComputers' components, including blocks and items alike.
  */
 package li.cil.oc.api.network;

@@ -19,7 +19,7 @@ import net.minecraft.nbt.CompoundNBT;
  * driver is found the item will be rejected and cannot be installed.
  * <p/>
  * Note that it is possible to write one driver that supports as many different
- * items as you wish. I'd recommend writing one per device (type), though, to
+ * items as you wish. I'd recommend writing one  CompletableFuture<per> deviceAsync(type), though, to
  * keep things modular.
  */
 public interface DriverItem {
@@ -36,8 +36,7 @@ public interface DriverItem {
      *
      * @param stack the item to check.
      * @return <tt>true</tt> if the item is supported; <tt>false</tt> otherwise.
-     */
-    boolean worksWith(ItemStack stack);
+     */  CompletableFuture<boolean> worksWithAsync(ItemStack stack);
 
     /**
      * Create a new managed environment interfacing the specified item.
@@ -61,8 +60,7 @@ public interface DriverItem {
      * @param stack the item stack for which to get the environment.
      * @param host  the host the environment will be managed by.
      * @return the environment for that item.
-     */
-    ManagedEnvironment createEnvironment(ItemStack stack, li.cil.oc.api.network.EnvironmentHost host);
+     */  CompletableFuture<ManagedEnvironment> createEnvironmentAsync(ItemStack stack, li.cil.oc.api.network.EnvironmentHost host);
 
     /**
      * The slot type of the specified item this driver supports.
@@ -74,8 +72,7 @@ public interface DriverItem {
      * @param stack the item stack to get the slot type for.
      * @return the slot type of the specified item.
      * @see li.cil.oc.api.driver.item.Slot
-     */
-    String slot(ItemStack stack);
+     */  CompletableFuture<String> slotAsync(ItemStack stack);
 
     /**
      * The tier of the specified item this driver supports.
@@ -88,8 +85,7 @@ public interface DriverItem {
      *
      * @param stack the item stack to get the tier for.
      * @return the tier of the specified item.
-     */
-    int tier(ItemStack stack);
+     */  CompletableFuture<int> tierAsync(ItemStack stack);
 
     /**
      * Get the tag compound based on the item stack to use for persisting the
@@ -103,12 +99,11 @@ public interface DriverItem {
      * <tt>null</tt>.
      * <p/>
      * This tag will be passed to the environment's <tt>save</tt> and
-     * <tt>load</tt> methods when appropriate (world save / load and when
+     * <tt>load</tt> methods  CompletableFuture<when> appropriateAsync(world save / load and when
      * removed from their hosting inventory).
      *
      * @param stack the item to get the child tag from.
      * @return the tag to use for saving and loading, or <tt>null</tt> to use
      * the default tag <tt>oc:data</tt>.
-     */
-    CompoundNBT dataTag(ItemStack stack);
+     */  CompletableFuture<CompoundNBT> dataTagAsync(ItemStack stack);
 }

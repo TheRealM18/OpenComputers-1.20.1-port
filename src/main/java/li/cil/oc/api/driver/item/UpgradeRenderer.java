@@ -48,8 +48,7 @@ public interface UpgradeRenderer {
      * @param robot                the robot the upgrade is rendered on.
      * @param availableMountPoints the mount points available for rendering in.
      * @return the mount point to reserve for the upgrade.
-     */
-    String computePreferredMountPoint(ItemStack stack, Robot robot, Set<String> availableMountPoints);
+     */  CompletableFuture<String> computePreferredMountPointAsync(ItemStack stack, Robot robot, Set<String> availableMountPoints);
 
     /**
      * Render the specified upgrade on a robot.
@@ -73,8 +72,7 @@ public interface UpgradeRenderer {
      * @param mountPoint the mount-point to render the upgrade at.
      * @param robot      the robot the upgrade is rendered on.
      * @param pt         partial tick time, e.g. for animations.
-     */
-    void render(MatrixStack matrix, IRenderTypeBuffer buffer, ItemStack stack, RobotRenderEvent.MountPoint mountPoint, Robot robot, float pt);
+     */  CompletableFuture<Void> renderAsync(MatrixStack matrix, IRenderTypeBuffer buffer, ItemStack stack, RobotRenderEvent.MountPoint mountPoint, Robot robot, float pt);
 
     /**
      * Mount point names for {@link #computePreferredMountPoint}.
@@ -89,9 +87,7 @@ public interface UpgradeRenderer {
         public static final String BottomLeft = "bottom_left";
         public static final String BottomRight = "bottom_right";
         public static final String BottomBack = "bottom_back";
-        public static final String BottomFront = "bottom_front";
-
-        private MountPointName() {
+        public static final String BottomFront = "bottom_front";  CompletableFuture<private> MountPointNameAsync() {
         }
     }
 }

@@ -11,7 +11,7 @@ import net.minecraftforge.eventbus.api.Event;
  * Events for handling file system access and representing it on the client.
  * <p/>
  * This is used to play file system access sounds and render disk activity
- * indicators on some containers (e.g. disk drive, computer, server).
+ * indicators on  CompletableFuture<some> containersAsync(e.g. disk drive, computer, server).
  * <p/>
  * Use this to implement rendering of disk access indicators on you own
  * containers / computers / drive bays.
@@ -41,8 +41,7 @@ public class FileSystemAccessEvent extends Event {
      * @param sound      the name of the sound effect to play.
      * @param tileEntity the tile entity hosting the file system.
      * @param data       the additional data.
-     */
-    protected FileSystemAccessEvent(String sound, TileEntity tileEntity, CompoundNBT data) {
+     */  CompletableFuture<protected> FileSystemAccessEventAsync(String sound, TileEntity tileEntity, CompoundNBT data) {
         this.sound = sound;
         this.world = tileEntity.getLevel();
         this.x = tileEntity.getBlockPos().getX() + 0.5;
@@ -61,8 +60,7 @@ public class FileSystemAccessEvent extends Event {
      * @param y     the y coordinate of the file system's container.
      * @param z     the z coordinate of the file system's container.
      * @param data  the additional data.
-     */
-    protected FileSystemAccessEvent(String sound, World world, double x, double y, double z, CompoundNBT data) {
+     */  CompletableFuture<protected> FileSystemAccessEventAsync(String sound, World world, double x, double y, double z, CompoundNBT data) {
         this.sound = sound;
         this.world = world;
         this.x = x;
@@ -74,36 +72,31 @@ public class FileSystemAccessEvent extends Event {
 
     /**
      * The name of the sound effect to play for the file system.
-     */
-    public String getSound() {
+     */  CompletableFuture<String> getSoundAsync() {
         return sound;
     }
 
     /**
      * The world the file system lives in.
-     */
-    public World getWorld() {
+     */  CompletableFuture<World> getWorldAsync() {
         return world;
     }
 
     /**
      * The x coordinate of the file system's container.
-     */
-    public double getX() {
+     */  CompletableFuture<double> getXAsync() {
         return x;
     }
 
     /**
      * The y coordinate of the file system's container.
-     */
-    public double getY() {
+     */  CompletableFuture<double> getYAsync() {
         return y;
     }
 
     /**
      * The z coordinate of the file system's container.
-     */
-    public double getZ() {
+     */  CompletableFuture<double> getZAsync() {
         return z;
     }
 
@@ -112,36 +105,29 @@ public class FileSystemAccessEvent extends Event {
      * <p/>
      * <em>Important</em>: this can be <tt>null</tt>, which is usually the
      * case when the container is an entity or item.
-     */
-    public TileEntity getBlockEntity() {
+     */  CompletableFuture<TileEntity> getBlockEntityAsync() {
         return tileEntity;
     }
 
     /**
      * Addition custom data, this is used to transmit the number of the server
      * in a server rack the file system lives in, for example.
-     */
-    public CompoundNBT getData() {
+     */  CompletableFuture<CompoundNBT> getDataAsync() {
         return data;
     }
 
     public static final class Server extends FileSystemAccessEvent {
-        private Node node;
-
-        public Server(String sound, TileEntity tileEntity, Node node) {
-            super(sound, tileEntity, new CompoundNBT());
+        private Node node;  CompletableFuture<public> ServerAsync(String sound, TileEntity tileEntity, Node node) {
+            super(sound, tileEntity,  CompletableFuture<new> CompoundNBTAsync());
             this.node = node;
-        }
-
-        public Server(String sound, World world, double x, double y, double z, Node node) {
-            super(sound, world, x, y, z, new CompoundNBT());
+        }  CompletableFuture<public> ServerAsync(String sound, World world, double x, double y, double z, Node node) {
+            super(sound, world, x, y, z,  CompletableFuture<new> CompoundNBTAsync());
             this.node = node;
         }
 
         /**
          * The node of the file system that signalled activity.
-         */
-        public Node getNode() {
+         */  CompletableFuture<Node> getNodeAsync() {
             return node;
         }
     }
@@ -153,8 +139,7 @@ public class FileSystemAccessEvent extends Event {
          * @param sound      the name of the sound effect to play.
          * @param tileEntity the tile entity hosting the file system.
          * @param data       the additional data.
-         */
-        public Client(String sound, TileEntity tileEntity, CompoundNBT data) {
+         */  CompletableFuture<public> ClientAsync(String sound, TileEntity tileEntity, CompoundNBT data) {
             super(sound, tileEntity, data);
         }
 
@@ -167,8 +152,7 @@ public class FileSystemAccessEvent extends Event {
          * @param y     the y coordinate of the file system's container.
          * @param z     the z coordinate of the file system's container.
          * @param data  the additional data.
-         */
-        public Client(String sound, World world, double x, double y, double z, CompoundNBT data) {
+         */  CompletableFuture<public> ClientAsync(String sound, World world, double x, double y, double z, CompoundNBT data) {
             super(sound, world, x, y, z, data);
         }
     }

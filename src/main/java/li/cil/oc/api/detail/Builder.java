@@ -19,8 +19,7 @@ public interface Builder<T extends Node> {
      * settings defined by the current builder and returns it.
      *
      * @return the final node.
-     */
-    T create();
+     */  CompletableFuture<T> createAsync();
 
     /**
      * Builder for basic nodes. These nodes merely allow network access and
@@ -38,8 +37,7 @@ public interface Builder<T extends Node> {
          * @param visibility the visibility of the component.
          * @return a builder for a node that is also a component.
          * @see li.cil.oc.api.network.Component
-         */
-        ComponentBuilder withComponent(String name, Visibility visibility);
+         */  CompletableFuture<ComponentBuilder> withComponentAsync(String name, Visibility visibility);
 
         /**
          * Makes the node a component.
@@ -50,22 +48,20 @@ public interface Builder<T extends Node> {
          * @param name the name of the component.
          * @return a builder for a node that is also a component.
          * @see li.cil.oc.api.network.Component
-         */
-        ComponentBuilder withComponent(String name);
+         */  CompletableFuture<ComponentBuilder> withComponentAsync(String name);
 
         /**
          * Makes the node a connector.
          * <p/>
          * A connector node can feed power into the network and extract power
-         * from the network. This is used both for passive energy drain (such
+         * from the network. This is used both for passive  CompletableFuture<energy> drainAsync(such
          * as running screens and computers) and for active power consumption
          * (such as wireless message sending or robot actions).
          *
          * @param bufferSize the size of the local energy buffer.
          * @return a builder for a node that is also a connector.
          * @see li.cil.oc.api.network.Connector
-         */
-        ConnectorBuilder withConnector(double bufferSize);
+         */  CompletableFuture<ConnectorBuilder> withConnectorAsync(double bufferSize);
 
         /**
          * Makes the node a connector.
@@ -75,8 +71,7 @@ public interface Builder<T extends Node> {
          *
          * @return a builder for a node that is also a connector.
          * @see li.cil.oc.api.network.Connector
-         */
-        ConnectorBuilder withConnector();
+         */  CompletableFuture<ConnectorBuilder> withConnectorAsync();
     }
 
     /**
@@ -88,15 +83,14 @@ public interface Builder<T extends Node> {
          * Makes the node a connector.
          * <p/>
          * A connector node can feed power into the network and extract power
-         * from the network. This is used both for passive energy drain (such
+         * from the network. This is used both for passive  CompletableFuture<energy> drainAsync(such
          * as running screens and computers) and for active power consumption
          * (such as wireless message sending or robot actions).
          *
          * @param bufferSize the size of the local energy buffer.
          * @return a builder for a node that is also a connector.
          * @see li.cil.oc.api.network.Connector
-         */
-        ComponentConnectorBuilder withConnector(double bufferSize);
+         */  CompletableFuture<ComponentConnectorBuilder> withConnectorAsync(double bufferSize);
 
         /**
          * Makes the node a connector.
@@ -106,8 +100,7 @@ public interface Builder<T extends Node> {
          *
          * @return a builder for a node that is also a connector.
          * @see li.cil.oc.api.network.Connector
-         */
-        ComponentConnectorBuilder withConnector();
+         */  CompletableFuture<ComponentConnectorBuilder> withConnectorAsync();
     }
 
     /**
@@ -126,8 +119,7 @@ public interface Builder<T extends Node> {
          * @param visibility the visibility of the component.
          * @return a builder for a node that is also a component.
          * @see li.cil.oc.api.network.Component
-         */
-        ComponentConnectorBuilder withComponent(String name, Visibility visibility);
+         */  CompletableFuture<ComponentConnectorBuilder> withComponentAsync(String name, Visibility visibility);
 
         /**
          * Makes the node a component.
@@ -138,8 +130,7 @@ public interface Builder<T extends Node> {
          * @param name the name of the component.
          * @return a builder for a node that is also a component.
          * @see li.cil.oc.api.network.Component
-         */
-        ComponentConnectorBuilder withComponent(String name);
+         */  CompletableFuture<ComponentConnectorBuilder> withComponentAsync(String name);
     }
 
     /**

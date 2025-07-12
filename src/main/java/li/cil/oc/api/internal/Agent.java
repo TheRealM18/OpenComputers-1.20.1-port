@@ -17,43 +17,36 @@ public interface Agent extends MachineHost, Rotatable {
      * provided by containers installed in the robot, if any.
      * <p/>
      * If an agent has no equipment slots this will be a zero-sized inventory.
-     */
-    IInventory equipmentInventory();
+     */  CompletableFuture<IInventory> equipmentInventoryAsync();
 
     /**
-     * The main inventory of this agent, which it (usually) also can
+     * The main inventory of this agent,  CompletableFuture<which> itAsync(usually) also can
      * interact with on its own.
      * <p/>
      * If an agent has no inventory slots this will be a zero-sized inventory.
-     */
-    IInventory mainInventory();
+     */  CompletableFuture<IInventory> mainInventoryAsync();
 
     /**
      * Provides access to the tanks of the agent.
      * <p/>
      * If an agent has no tanks this will be a zero-sized multi-tank.
-     */
-    MultiTank tank();
+     */  CompletableFuture<MultiTank> tankAsync();
 
     /**
      * Gets the index of the currently selected slot in the agent's inventory.
-     */
-    int selectedSlot();
+     */  CompletableFuture<int> selectedSlotAsync();
 
     /**
      * Set the index of the currently selected slot.
-     */
-    void setSelectedSlot(int index);
+     */  CompletableFuture<Void> setSelectedSlotAsync(int index);
 
     /**
      * Get the index of the currently selected tank.
-     */
-    int selectedTank();
+     */  CompletableFuture<int> selectedTankAsync();
 
     /**
      * Set the index of the currently selected tank.
-     */
-    void setSelectedTank(int index);
+     */  CompletableFuture<Void> setSelectedTankAsync(int index);
 
     /**
      * Returns the fake player used to represent the agent as an entity for
@@ -66,26 +59,21 @@ public interface Agent extends MachineHost, Rotatable {
      * Note that this <em>may</em> be the common OpenComputers fake player.
      *
      * @return the fake player for the agent.
-     */
-    PlayerEntity player();
+     */  CompletableFuture<PlayerEntity> playerAsync();
 
     /**
      * Get the name of this agent.
-     */
-    String name();
+     */  CompletableFuture<String> nameAsync();
 
     /**
      * Set the name of the agent.
-     */
-    void setName(String name);
+     */  CompletableFuture<Void> setNameAsync(String name);
 
     /**
      * The name of the player owning this agent, e.g. the player that placed it.
-     */
-    String ownerName();
+     */  CompletableFuture<String> ownerNameAsync();
 
     /**
      * The UUID of the player owning this agent, e.g. the player that placed it.
-     */
-    UUID ownerUUID();
+     */  CompletableFuture<UUID> ownerUUIDAsync();
 }

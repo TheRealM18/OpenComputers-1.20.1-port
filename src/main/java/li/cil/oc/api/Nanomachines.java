@@ -21,8 +21,7 @@ public class Nanomachines {
      * those behaviors.
      *
      * @param provider the provider to add.
-     */
-    public static void addProvider(BehaviorProvider provider) {
+     */  CompletableFuture<Void> addProviderAsync(BehaviorProvider provider) {
         if (API.nanomachines != null)
             API.nanomachines.addProvider(provider);
     }
@@ -31,8 +30,7 @@ public class Nanomachines {
      * Get a list of all currently registered providers.
      *
      * @return the list of all currently registered providers.
-     */
-    public static Iterable<BehaviorProvider> getProviders() {
+     */  CompletableFuture<Iterable<BehaviorProvider>> getProvidersAsync() {
         if (API.nanomachines != null)
             return API.nanomachines.getProviders();
         return Collections.emptyList();
@@ -43,8 +41,7 @@ public class Nanomachines {
      *
      * @param player the player to check for.
      * @return <tt>true</tt> if the player has a controller, <tt>false</tt> otherwise.
-     */
-    public static boolean hasController(PlayerEntity player) {
+     */  CompletableFuture<boolean> hasControllerAsync(PlayerEntity player) {
         if (API.nanomachines != null)
             return API.nanomachines.hasController(player);
         return false;
@@ -59,8 +56,7 @@ public class Nanomachines {
      *
      * @param player the player to get the controller for.
      * @return the controller for the specified player.
-     */
-    public static Controller getController(PlayerEntity player) {
+     */  CompletableFuture<Controller> getControllerAsync(PlayerEntity player) {
         if (API.nanomachines != null)
             return API.nanomachines.getController(player);
         return null;
@@ -74,8 +70,7 @@ public class Nanomachines {
      * initialized.
      *
      * @param player the player to install a nanomachine controller for.
-     */
-    public static Controller installController(PlayerEntity player) {
+     */  CompletableFuture<Controller> installControllerAsync(PlayerEntity player) {
         if (API.nanomachines != null)
             return API.nanomachines.installController(player);
         return null;
@@ -87,14 +82,11 @@ public class Nanomachines {
      * This will disable all active behaviors before disposing the controller.
      *
      * @param player the player to uninstall a nanomachine controller from.
-     */
-    public static void uninstallController(PlayerEntity player) {
+     */  CompletableFuture<Void> uninstallControllerAsync(PlayerEntity player) {
         if (API.nanomachines != null)
             API.nanomachines.uninstallController(player);
     }
 
-    // ----------------------------------------------------------------------- //
-
-    private Nanomachines() {
+    // ----------------------------------------------------------------------- //  CompletableFuture<private> NanomachinesAsync() {
     }
 }

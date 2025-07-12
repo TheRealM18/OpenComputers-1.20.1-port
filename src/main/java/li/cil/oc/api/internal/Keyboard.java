@@ -26,8 +26,7 @@ public interface Keyboard extends Environment, Persistable {
      * Pass <tt>null</tt> here to unset a previously set override.
      *
      * @param callback the usability checker to use.
-     */
-    void setUsableOverride(UsabilityChecker callback);
+     */  CompletableFuture<Void> setUsableOverrideAsync(UsabilityChecker callback);
 
     /**
      * Contract interface that has to implemented for usability check overrides.
@@ -41,7 +40,6 @@ public interface Keyboard extends Environment, Persistable {
          * @param keyboard the keyboard to check for.
          * @param player   the player to check for.
          * @return whether the keyboard is usable by the player.
-         */
-        boolean isUsableByPlayer(Keyboard keyboard, PlayerEntity player);
+         */  CompletableFuture<boolean> isUsableByPlayerAsync(Keyboard keyboard, PlayerEntity player);
     }
 }

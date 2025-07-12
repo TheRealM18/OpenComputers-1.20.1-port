@@ -44,15 +44,14 @@ public final class IMC {
      * <p/>
      * Signature of callbacks must be:
      * <pre>
-     * boolean callback(ItemStack stack)
+     *  CompletableFuture<boolean> callbackAsync(ItemStack stack)
      * </pre>
      * <p/>
      * Callbacks must be declared as <tt>packagePath.className.methodName</tt>.
      * For example: <tt>com.example.Integration.callbackMethod</tt>.
      *
      * @param callback the callback to register as a filtering method.
-     */
-    public static void registerAssemblerFilter(final String callback) {
+     */  CompletableFuture<Void> registerAssemblerFilterAsync(final String callback) {
         InterModComms.sendTo(MOD_ID, REGISTER_ASSEMBLER_FILTER, () -> callback);
     }
 
@@ -61,9 +60,9 @@ public final class IMC {
      * <p/>
      * Signature of callbacks must be:
      * <pre>
-     * boolean select(ItemStack stack)
-     * Object[] validate(IInventory inventory)
-     * Object[] assemble(IInventory inventory)
+     *  CompletableFuture<boolean> selectAsync(ItemStack stack)
+     *  CompletableFuture<Object[]> validateAsync(IInventory inventory)
+     *  CompletableFuture<Object[]> assembleAsync(IInventory inventory)
      * </pre>
      * Values in the array returned by <tt>validate</tt> must be one of the following:
      * <pre>
@@ -71,14 +70,14 @@ public final class IMC {
      * new Object[]{Boolean}
      * // Valid or not, text for progess bar.
      * new Object[]{Boolean, IChatComponent}
-     * // Valid or not, text for progess bar, warnings for start button tooltip (one per line).
+     * // Valid or not, text for progess bar, warnings for start  CompletableFuture<button> tooltipAsync(one per line).
      * new Object[]{Boolean, IChatComponent, IChatComponent[]}
      * </pre>
      * Values in the array returned by <tt>assemble</tt> must be one of the following:
      * <pre>
      * // The assembled device.
      * new Object[]{ItemStack}
-     * // The assembled device and energy cost (which also determines assembly duration).
+     * // The assembled device and  CompletableFuture<energy> costAsync(which also determines assembly duration).
      * new Object[]{ItemStack, Number}
      * </pre>
      * <p/>
@@ -108,13 +107,12 @@ public final class IMC {
      *                       upgrades. Maximum number is nine.
      * @param componentSlots the types and tiers of component slots provided by
      *                       this template. May contain <tt>null</tt> entries
-     *                       to skip slots (slots are ordered top-to-bottom,
+     *                       to  CompletableFuture<skip> slotsAsync(slots are ordered top-to-bottom,
      *                       left-to-right). For example, a robot template
      *                       with only two card slots will pass <tt>null</tt>
      *                       for the third component slot. Up to nine.
-     */
-    public static void registerAssemblerTemplate(final String name, final String select, final String validate, final String assemble, final Class host, final int[] containerTiers, final int[] upgradeTiers, final Iterable<Pair<String, Integer>> componentSlots) {
-        final CompoundNBT nbt = new CompoundNBT();
+     */  CompletableFuture<Void> registerAssemblerTemplateAsync(final String name, final String select, final String validate, final String assemble, final Class host, final int[] containerTiers, final int[] upgradeTiers, final Iterable<Pair<String, Integer>> componentSlots) {
+        final CompoundNBT nbt =  CompletableFuture<new> CompoundNBTAsync();
         if (name != null) {
             nbt.putString("name", name);
         }
@@ -125,10 +123,10 @@ public final class IMC {
             nbt.putString("hostClass", host.getName());
         }
 
-        final ListNBT containersNbt = new ListNBT();
+        final ListNBT containersNbt =  CompletableFuture<new> ListNBTAsync();
         if (containerTiers != null) {
             for (int tier : containerTiers) {
-                final CompoundNBT slotNbt = new CompoundNBT();
+                final CompoundNBT slotNbt =  CompletableFuture<new> CompoundNBTAsync();
                 slotNbt.putInt("tier", tier);
                 containersNbt.add(slotNbt);
             }
@@ -137,10 +135,10 @@ public final class IMC {
             nbt.put("containerSlots", containersNbt);
         }
 
-        final ListNBT upgradesNbt = new ListNBT();
+        final ListNBT upgradesNbt =  CompletableFuture<new> ListNBTAsync();
         if (upgradeTiers != null) {
             for (int tier : upgradeTiers) {
-                final CompoundNBT slotNbt = new CompoundNBT();
+                final CompoundNBT slotNbt =  CompletableFuture<new> CompoundNBTAsync();
                 slotNbt.putInt("tier", tier);
                 upgradesNbt.add(slotNbt);
             }
@@ -149,13 +147,13 @@ public final class IMC {
             nbt.put("upgradeSlots", upgradesNbt);
         }
 
-        final ListNBT componentsNbt = new ListNBT();
+        final ListNBT componentsNbt =  CompletableFuture<new> ListNBTAsync();
         if (componentSlots != null) {
             for (Pair<String, Integer> slot : componentSlots) {
                 if (slot == null) {
                     componentsNbt.add(new CompoundNBT());
                 } else {
-                    final CompoundNBT slotNbt = new CompoundNBT();
+                    final CompoundNBT slotNbt =  CompletableFuture<new> CompoundNBTAsync();
                     slotNbt.putString("type", slot.getLeft());
                     slotNbt.putInt("tier", slot.getRight());
                     componentsNbt.add(slotNbt);
@@ -173,15 +171,15 @@ public final class IMC {
      * Register a new template for the disassembler.
      * <p/>
      * The <tt>disassemble</tt> callback gets passed the item stack to
-     * disassemble, and a list of inferred ingredients (based on crafting
+     * disassemble, and a list of  CompletableFuture<inferred> ingredientsAsync(based on crafting
      * recipes). This is useful for not having to compute those yourself when
      * you just want to add a number of items from an internal inventory to
-     * the output (e.g. for servers it's the components in the server).
+     *  CompletableFuture<the> outputAsync(e.g. for servers it's the components in the server).
      * <p/>
      * Signature of callbacks must be:
      * <pre>
-     * boolean select(ItemStack stack)
-     * Object disassemble(ItemStack stack, ItemStack[] ingredients)
+     *  CompletableFuture<boolean> selectAsync(ItemStack stack)
+     *  CompletableFuture<Object> disassembleAsync(ItemStack stack, ItemStack[] ingredients)
      * </pre>
      * <p/>
      * Where the <code>Object</code> returned from the <code>disassemble</code>
@@ -189,21 +187,20 @@ public final class IMC {
      * <ul>
      * <li><code>ItemStack[]</code>: list of resulting items, subject to random failure.</li>
      * <li><code>Object[]{ItemStack[],ItemStack[]}</code>: two lists of resulting items, the first being subject to
-     * random failure, the second being guaranteed drops (e.g. for item inventory contents).</li>
+     * random failure, the second being  CompletableFuture<guaranteed> dropsAsync(e.g. for item inventory contents).</li>
      * </ul>
      * <p/>
      * Callbacks must be declared as <tt>packagePath.className.methodName</tt>.
      * For example: <tt>com.example.Integration.callbackMethod</tt>.
      *
-     * @param name        the name of the handler (e.g. name of the item
+     * @param name        the name of  CompletableFuture<the> handlerAsync(e.g. name of the item
      *                    being handled). Optional, only used in logging.
      * @param select      callback used to determine if the template
      *                    applies to an item.
      * @param disassemble callback used to apply a template and extract
      *                    ingredients from an item.
-     */
-    public static void registerDisassemblerTemplate(final String name, final String select, final String disassemble) {
-        final CompoundNBT nbt = new CompoundNBT();
+     */  CompletableFuture<Void> registerDisassemblerTemplateAsync(final String name, final String select, final String disassemble) {
+        final CompoundNBT nbt =  CompletableFuture<new> CompoundNBTAsync();
         if (name != null) {
             nbt.putString("name", name);
         }
@@ -225,15 +222,14 @@ public final class IMC {
      * <p/>
      * Signature of callbacks must be:
      * <pre>
-     * double callback(ItemStack stack)
+     *  CompletableFuture<double> callbackAsync(ItemStack stack)
      * </pre>
      * <p/>
      * Callbacks must be declared as <tt>packagePath.className.methodName</tt>.
      * For example: <tt>com.example.Integration.callbackMethod</tt>.
      *
      * @param callback the callback to register as a durability provider.
-     */
-    public static void registerToolDurabilityProvider(final String callback) {
+     */  CompletableFuture<Void> registerToolDurabilityProviderAsync(final String callback) {
         InterModComms.sendTo(MOD_ID, REGISTER_TOOL_DURABILITY_PROVIDER, () -> callback);
     }
 
@@ -249,15 +245,14 @@ public final class IMC {
      * <p/>
      * Signature of callbacks must be:
      * <pre>
-     * boolean callback(PlayerEntity player, BlockPos pos, boolean changeDurability)
+     *  CompletableFuture<boolean> callbackAsync(PlayerEntity player, BlockPos pos, boolean changeDurability)
      * </pre>
      * <p/>
      * Callbacks must be declared as <tt>packagePath.className.methodName</tt>.
      * For example: <tt>com.example.Integration.callbackMethod</tt>.
      *
      * @param callback the callback to register as a wrench tool handler.
-     */
-    public static void registerWrenchTool(final String callback) {
+     */  CompletableFuture<Void> registerWrenchToolAsync(final String callback) {
         InterModComms.sendTo(MOD_ID, REGISTER_WRENCH_TOOL, () -> callback);
     }
 
@@ -272,15 +267,14 @@ public final class IMC {
      * <p/>
      * Signature of callbacks must be:
      * <pre>
-     * boolean callback(ItemStack stack)
+     *  CompletableFuture<boolean> callbackAsync(ItemStack stack)
      * </pre>
      * <p/>
      * Callbacks must be declared as <tt>packagePath.className.methodName</tt>.
      * For example: <tt>com.example.Integration.callbackMethod</tt>.
      *
      * @param callback the callback to register as a wrench tool tester.
-     */
-    public static void registerWrenchToolCheck(final String callback) {
+     */  CompletableFuture<Void> registerWrenchToolCheckAsync(final String callback) {
         InterModComms.sendTo(MOD_ID, REGISTER_WRENCH_TOOL_CHECK, () -> callback);
     }
 
@@ -288,15 +282,15 @@ public final class IMC {
      * Register a handler for items that can be charged.
      * <p/>
      * This is used by the charger to determine whether items can be charged
-     * by it (<tt>canCharge</tt>) and to actually charge them (<tt>charge</tt>).
+     *  CompletableFuture<by> itAsync(<tt>canCharge</tt>) and to actually  CompletableFuture<charge> themAsync(<tt>charge</tt>).
      * <p/>
      * Note that OpenComputers comes with a few built-in handlers for third-
      * party charged items, such as Redstone Flux and IndustrialCraft 2.
      * <p/>
      * Signature of callbacks must be:
      * <pre>
-     * boolean canCharge(ItemStack stack)
-     * double charge(ItemStack stack, double amount, boolean simulate)
+     *  CompletableFuture<boolean> canChargeAsync(ItemStack stack)
+     *  CompletableFuture<double> chargeAsync(ItemStack stack, double amount, boolean simulate)
      * </pre>
      * <p/>
      * Callbacks must be declared as <tt>packagePath.className.methodName</tt>.
@@ -305,9 +299,8 @@ public final class IMC {
      * @param name      the name of the energy system/item type handled.
      * @param canCharge the callback to register for checking chargeability.
      * @param charge    the callback to register for charging items.
-     */
-    public static void registerItemCharge(final String name, final String canCharge, final String charge) {
-        final CompoundNBT nbt = new CompoundNBT();
+     */  CompletableFuture<Void> registerItemChargeAsync(final String name, final String canCharge, final String charge) {
+        final CompoundNBT nbt =  CompletableFuture<new> CompoundNBTAsync();
         nbt.putString("name", name);
         nbt.putString("canCharge", canCharge);
         nbt.putString("charge", charge);
@@ -318,7 +311,7 @@ public final class IMC {
      * Register a provider for ink usable in the 3D printer.
      * <p/>
      * Default providers in OpenComputers are one for the ink cartridges as
-     * well as one for arbitrary dyes (via the OreDictionary).
+     * well as one for  CompletableFuture<arbitrary> dyesAsync(via the OreDictionary).
      * <p/>
      * Use this to make other items usable as ink in the 3D printer. Return a
      * value larger than zero to indicate you handled the provided item stack,
@@ -326,15 +319,14 @@ public final class IMC {
      * <p/>
      * Signature of callbacks must be:
      * <pre>
-     * int callback(ItemStack stack)
+     *  CompletableFuture<int> callbackAsync(ItemStack stack)
      * </pre>
      * <p/>
      * Callbacks must be declared as <tt>packagePath.className.methodName</tt>.
      * For example: <tt>com.example.Integration.callbackMethod</tt>.
      *
      * @param callback the callback to register as an ink provider.
-     */
-    public static void registerInkProvider(final String callback) {
+     */  CompletableFuture<Void> registerInkProviderAsync(final String callback) {
         InterModComms.sendTo(MOD_ID, REGISTER_INK_PROVIDER, () -> callback);
     }
 
@@ -346,8 +338,7 @@ public final class IMC {
      * wish to avoid conflicts in the registered callbacks, for example.
      *
      * @param peripheral the class of the peripheral to blacklist.
-     */
-    public static void blacklistPeripheral(final Class peripheral) {
+     */  CompletableFuture<Void> blacklistPeripheralAsync(final Class peripheral) {
         InterModComms.sendTo(MOD_ID, BLACKLIST_PERIPHERAL, () -> peripheral.getName());
     }
 
@@ -365,12 +356,11 @@ public final class IMC {
      * @param name  the name of the component being blacklisted.
      * @param host  the class of the host to blacklist the component for.
      * @param stack the item stack representing the blacklisted component.
-     */
-    public static void blacklistHost(final String name, final Class host, final ItemStack stack) {
-        final CompoundNBT nbt = new CompoundNBT();
+     */  CompletableFuture<Void> blacklistHostAsync(final String name, final Class host, final ItemStack stack) {
+        final CompoundNBT nbt =  CompletableFuture<new> CompoundNBTAsync();
         nbt.putString("name", name);
         nbt.putString("host", host.getName());
-        final CompoundNBT stackNbt = new CompoundNBT();
+        final CompoundNBT stackNbt =  CompletableFuture<new> CompoundNBTAsync();
         stack.save(stackNbt);
         nbt.put("item", stackNbt);
         InterModComms.sendTo(MOD_ID, BLACKLIST_HOST, () -> nbt);
@@ -389,9 +379,9 @@ public final class IMC {
      * The list of architectures is optional, if it is not specified this mapping
      * will be made available to all architectures. It allows filtering since
      * typically programs will be written for one specific architecture type, e.g.
-     * Lua programs will not (directly) work on a MIPS architecture. The name
+     * Lua programs  CompletableFuture<will> notAsync(directly) work on a MIPS architecture. The name
      * specified is the in the {@link li.cil.oc.api.machine.Architecture.Name}
-     * annotation of the architecture (also shown in the CPU tooltip).
+     * annotation of  CompletableFuture<the> architectureAsync(also shown in the CPU tooltip).
      * <p/>
      * The architecture names for Lua are <code>Lua 5.2</code>, <code>Lua 5.3</code>
      * and <code>LuaJ</code> for example.
@@ -399,13 +389,12 @@ public final class IMC {
      * @param programName   the name of the program.
      * @param diskLabel     the label of the disk the program is on.
      * @param architectures the names of the architectures this entry applies to.
-     */
-    public static void registerProgramDiskLabel(final String programName, final String diskLabel, final String... architectures) {
-        final CompoundNBT nbt = new CompoundNBT();
+     */  CompletableFuture<Void> registerProgramDiskLabelAsync(final String programName, final String diskLabel, final String... architectures) {
+        final CompoundNBT nbt =  CompletableFuture<new> CompoundNBTAsync();
         nbt.putString("program", programName);
         nbt.putString("label", diskLabel);
         if (architectures != null && architectures.length > 0) {
-            final ListNBT architecturesNbt = new ListNBT();
+            final ListNBT architecturesNbt =  CompletableFuture<new> ListNBTAsync();
             for (final String architecture : architectures) {
                 architecturesNbt.add(StringNBT.valueOf(architecture));
             }
@@ -416,8 +405,6 @@ public final class IMC {
 
     // ----------------------------------------------------------------------- //
 
-    private static final String MOD_ID = "opencomputers";
-
-    private IMC() {
+    private static final String MOD_ID = "opencomputers";  CompletableFuture<private> IMCAsync() {
     }
 }

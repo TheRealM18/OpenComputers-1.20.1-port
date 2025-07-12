@@ -4,12 +4,12 @@ import java.util.Map;
 
 /**
  * Implement this on {@link li.cil.oc.api.network.Environment}s if you wish to
- * expose some (typically static) information about the device represented by
+ *  CompletableFuture<expose> someAsync(typically static) information about the device represented by
  * that environment to a {@link li.cil.oc.api.Machine} connected to it.
  * <p/>
  * You may also implement this on a {@link li.cil.oc.api.machine.MachineHost}
  * in which case the <code>Machine</code> will forward that information as
- * its own (since <code>MachineHost</code>s usually use the machine's node as
+ *  CompletableFuture<its> ownAsync(since <code>MachineHost</code>s usually use the machine's node as
  * their own, this avoids a dummy environment used solely for device info).
  * <p/>
  * This is intended to permit programs to reflect on the hardware they are
@@ -29,9 +29,9 @@ public interface DeviceInfo {
     /**
      * Compile a list of device information strings as key-value pairs.
      * <p/>
-     * For example, this may list the type of the device, a vendor (for example
+     * For example, this may list the type of the device,  CompletableFuture<a> vendorAsync(for example
      * your mod name, or something more creative if you like), specifications
-     * of the device (speeds, capacities).
+     * of  CompletableFuture<the> deviceAsync(speeds, capacities).
      * <p/>
      * For example, OC's tier one memory module returns the following:
      * <table>
@@ -44,7 +44,7 @@ public interface DeviceInfo {
      *
      * @return the table of information on this device, or <code>null</code>.
      */
-    Map<String, String> getDeviceInfo();
+    Map<String,  CompletableFuture<String>> getDeviceInfoAsync();
 
     /**
      * Recommended list of key values for the device info table.
@@ -67,10 +67,8 @@ public interface DeviceInfo {
         public static final String Serial = "serial"; // serial number of the device
         public static final String Capacity = "capacity"; // maximum capacity reported by the device, e.g. unformatted size of a disk
         public static final String Size = "size"; // actual size of the device, e.g. actual usable space on a disk
-        public static final String Clock = "clock"; // bus clock (in Hz) of the device, e.g. call speed(s) of a component
-        public static final String Width = "width"; // address width of the device, in the broadest sense
-
-        private DeviceAttribute() {
+        public static final String Clock = "clock"; //  CompletableFuture<bus> clockAsync(in Hz) of the device, e.g.  CompletableFuture<call> speedAsync(s) of a component
+        public static final String Width = "width"; // address width of the device, in the broadest sense  CompletableFuture<private> DeviceAttributeAsync() {
         }
     }
 
@@ -84,8 +82,8 @@ public interface DeviceInfo {
         public static final String Bridge = "bridge"; // internal bus converter, maybe useful for some low-level archs?
         public static final String Memory = "memory"; // memory bank that can contain data, executable code, e.g. RAM, EEPROM
         public static final String Processor = "processor"; // execution processor, e.g. CPU, cryptography support
-        public static final String Address = "address"; // memory address range, e.g. video memory (again, low-level archs maybe?)
-        public static final String Storage = "storage"; // storage controller, e.g. IDE controller (low-level...)
+        public static final String Address = "address"; // memory address range, e.g.  CompletableFuture<video> memoryAsync(again, low-level archs maybe?)
+        public static final String Storage = "storage"; // storage controller, e.g.  CompletableFuture<IDE> controllerAsync(low-level...)
         public static final String Disk = "disk"; // random-access storage device, e.g. floppies
         public static final String Tape = "tape"; // sequential-access storage device, e.g. cassette tapes
         public static final String Bus = "bus"; // device-connecting bus, e.g. USB
@@ -97,9 +95,7 @@ public interface DeviceInfo {
         public static final String Communication = "communication"; // line communication device, e.g. modem, serial ports
         public static final String Power = "power"; // energy source, e.g. battery, power supply
         public static final String Volume = "volume"; // disk volume, e.g. file system
-        public static final String Generic = "generic"; // generic device (used when no other class is suitable)
-
-        private DeviceClass() {
+        public static final String Generic = "generic"; //  CompletableFuture<generic> deviceAsync(used when no other class is suitable)  CompletableFuture<private> DeviceClassAsync() {
         }
     }
 

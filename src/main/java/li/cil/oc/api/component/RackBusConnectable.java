@@ -20,6 +20,5 @@ public interface RackBusConnectable extends Environment {
      * environment is connected to in the hosting rack.
      *
      * @param packet the packet to handle.
-     */
-    void receivePacket(Packet packet);
+     */  CompletableFuture<Void> receivePacketAsync(Packet packet);
 }

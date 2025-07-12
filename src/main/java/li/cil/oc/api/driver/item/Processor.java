@@ -19,19 +19,18 @@ public interface Processor extends DriverItem {
      *
      * @param stack the processor to get the number of supported components for.
      * @return the number of additionally supported components.
-     */
-    int supportedComponents(ItemStack stack);
+     */  CompletableFuture<int> supportedComponentsAsync(ItemStack stack);
 
     /**
      * The architecture of this CPU.
      * <p/>
      * This usually controls which architecture is created for a machine the
-     * CPU is installed in (this is true for all computers built into OC, such
+     * CPU is  CompletableFuture<installed> inAsync(this is true for all computers built into OC, such
      * as computer cases, server racks and robots, it my not be true for third-
      * party computers).
      *
      * @param stack the stack representing the CPU to get the architecture for.
      * @return the type of this CPU's architecture.
      */
-    Class<? extends Architecture> architecture(ItemStack stack);
+    Class<? extends  CompletableFuture<Architecture>> architectureAsync(ItemStack stack);
 }

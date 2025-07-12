@@ -21,8 +21,7 @@ import java.util.Map;
 public interface Arguments extends Iterable<Object> {
     /**
      * The total number of arguments that were passed to the function.
-     */
-    int count();
+     */  CompletableFuture<int> countAsync();
 
     /**
      * Get whatever is at the specified index.
@@ -41,8 +40,7 @@ public interface Arguments extends Iterable<Object> {
      * @param index the index from which to get the argument.
      * @return the raw value at that index.
      * @throws IllegalArgumentException if there is no argument at that index.
-     */
-    Object checkAny(int index);
+     */  CompletableFuture<Object> checkAnyAsync(int index);
 
     /**
      * Try to get a boolean value at the specified index.
@@ -53,8 +51,7 @@ public interface Arguments extends Iterable<Object> {
      * @return the boolean value at the specified index.
      * @throws IllegalArgumentException if there is no argument at that index,
      *                                  or if the argument is not a boolean.
-     */
-    boolean checkBoolean(int index);
+     */  CompletableFuture<boolean> checkBooleanAsync(int index);
 
     /**
      * Try to get an integer value at the specified index.
@@ -65,8 +62,7 @@ public interface Arguments extends Iterable<Object> {
      * @return the integer value at the specified index.
      * @throws IllegalArgumentException if there is no argument at that index,
      *                                  or if the argument is not a number.
-     */
-    int checkInteger(int index);
+     */  CompletableFuture<int> checkIntegerAsync(int index);
 
     /**
      * Try to get a double value at the specified index.
@@ -77,8 +73,7 @@ public interface Arguments extends Iterable<Object> {
      * @return the double value at the specified index.
      * @throws IllegalArgumentException if there is no argument at that index,
      *                                  or if the argument is not a number.
-     */
-    double checkDouble(int index);
+     */  CompletableFuture<double> checkDoubleAsync(int index);
 
     /**
      * Try to get a string value at the specified index.
@@ -92,8 +87,7 @@ public interface Arguments extends Iterable<Object> {
      * @return the boolean value at the specified index.
      * @throws IllegalArgumentException if there is no argument at that index,
      *                                  or if the argument is not a string.
-     */
-    String checkString(int index);
+     */  CompletableFuture<String> checkStringAsync(int index);
 
     /**
      * Try to get a byte array at the specified index.
@@ -104,8 +98,7 @@ public interface Arguments extends Iterable<Object> {
      * @return the byte array at the specified index.
      * @throws IllegalArgumentException if there is no argument at that index,
      *                                  or if the argument is not a byte array.
-     */
-    byte[] checkByteArray(int index);
+     */  CompletableFuture<byte[]> checkByteArrayAsync(int index);
 
     /**
      * Try to get a table at the specified index.
@@ -116,8 +109,7 @@ public interface Arguments extends Iterable<Object> {
      * @return the table at the specified index.
      * @throws IllegalArgumentException if there is no argument at that index,
      *                                  or if the argument is not a table.
-     */
-    Map checkTable(int index);
+     */  CompletableFuture<Map> checkTableAsync(int index);
 
     /**
      * Try to get an item stack representation at the specified index.
@@ -141,8 +133,7 @@ public interface Arguments extends Iterable<Object> {
      *
      * @param index the index from which to get the argument.
      * @return the item stack at the specified index.
-     */
-    ItemStack checkItemStack(int index);
+     */  CompletableFuture<ItemStack> checkItemStackAsync(int index);
 
     /**
      * Get whatever is at the specified index.
@@ -161,8 +152,7 @@ public interface Arguments extends Iterable<Object> {
      *
      * @param index the index from which to get the argument.
      * @return the raw value at that index.
-     */
-    Object optAny(int index, Object def);
+     */  CompletableFuture<Object> optAnyAsync(int index, Object def);
 
     /**
      * Try to get a boolean value at the specified index.
@@ -173,8 +163,7 @@ public interface Arguments extends Iterable<Object> {
      * @param index the index from which to get the argument.
      * @return the boolean value at the specified index.
      * @throws IllegalArgumentException if the argument exists and is not a boolean.
-     */
-    boolean optBoolean(int index, boolean def);
+     */  CompletableFuture<boolean> optBooleanAsync(int index, boolean def);
 
     /**
      * Try to get an integer value at the specified index.
@@ -185,8 +174,7 @@ public interface Arguments extends Iterable<Object> {
      * @param index the index from which to get the argument.
      * @return the integer value at the specified index.
      * @throws IllegalArgumentException if the argument exists but is not a number.
-     */
-    int optInteger(int index, int def);
+     */  CompletableFuture<int> optIntegerAsync(int index, int def);
 
     /**
      * Try to get a double value at the specified index.
@@ -197,8 +185,7 @@ public interface Arguments extends Iterable<Object> {
      * @param index the index from which to get the argument.
      * @return the double value at the specified index.
      * @throws IllegalArgumentException if the argument exists and is not a number.
-     */
-    double optDouble(int index, double def);
+     */  CompletableFuture<double> optDoubleAsync(int index, double def);
 
     /**
      * Try to get a string value at the specified index.
@@ -212,8 +199,7 @@ public interface Arguments extends Iterable<Object> {
      * @param index the index from which to get the argument.
      * @return the boolean value at the specified index.
      * @throws IllegalArgumentException if the argument exists and is not a string.
-     */
-    String optString(int index, String def);
+     */  CompletableFuture<String> optStringAsync(int index, String def);
 
     /**
      * Try to get a byte array at the specified index.
@@ -224,8 +210,7 @@ public interface Arguments extends Iterable<Object> {
      * @param index the index from which to get the argument.
      * @return the byte array at the specified index.
      * @throws IllegalArgumentException if the argument exists and is not a byte array.
-     */
-    byte[] optByteArray(int index, byte[] def);
+     */  CompletableFuture<byte[]> optByteArrayAsync(int index, byte[] def);
 
     /**
      * Try to get a table at the specified index.
@@ -236,8 +221,7 @@ public interface Arguments extends Iterable<Object> {
      * @param index the index from which to get the argument.
      * @return the table at the specified index.
      * @throws IllegalArgumentException if the argument exists and is not a table.
-     */
-    Map optTable(int index, Map def);
+     */  CompletableFuture<Map> optTableAsync(int index, Map def);
 
     /**
      * Try to get an item stack at the specified index.
@@ -248,8 +232,7 @@ public interface Arguments extends Iterable<Object> {
      * @param index the index from which to get the argument.
      * @return the item stack at the specified index.
      * @throws IllegalArgumentException if the argument exists and is not an item stack.
-     */
-    ItemStack optItemStack(int index, ItemStack def);
+     */  CompletableFuture<ItemStack> optItemStackAsync(int index, ItemStack def);
 
     /**
      * Tests whether the argument at the specified index is a boolean value.
@@ -259,8 +242,7 @@ public interface Arguments extends Iterable<Object> {
      *
      * @param index the index to check.
      * @return true if the argument is a boolean; false otherwise.
-     */
-    boolean isBoolean(int index);
+     */  CompletableFuture<boolean> isBooleanAsync(int index);
 
     /**
      * Tests whether the argument at the specified index is an integer value.
@@ -270,8 +252,7 @@ public interface Arguments extends Iterable<Object> {
      *
      * @param index the index to check.
      * @return true if the argument is an integer; false otherwise.
-     */
-    boolean isInteger(int index);
+     */  CompletableFuture<boolean> isIntegerAsync(int index);
 
     /**
      * Tests whether the argument at the specified index is a double value.
@@ -281,8 +262,7 @@ public interface Arguments extends Iterable<Object> {
      *
      * @param index the index to check.
      * @return true if the argument is a double; false otherwise.
-     */
-    boolean isDouble(int index);
+     */  CompletableFuture<boolean> isDoubleAsync(int index);
 
     /**
      * Tests whether the argument at the specified index is a string value.
@@ -292,8 +272,7 @@ public interface Arguments extends Iterable<Object> {
      *
      * @param index the index to check.
      * @return true if the argument is a string; false otherwise.
-     */
-    boolean isString(int index);
+     */  CompletableFuture<boolean> isStringAsync(int index);
 
     /**
      * Tests whether the argument at the specified index is a byte array.
@@ -303,8 +282,7 @@ public interface Arguments extends Iterable<Object> {
      *
      * @param index the index to check.
      * @return true if the argument is a byte array; false otherwise.
-     */
-    boolean isByteArray(int index);
+     */  CompletableFuture<boolean> isByteArrayAsync(int index);
 
     /**
      * Tests whether the argument at the specified index is a table.
@@ -314,8 +292,7 @@ public interface Arguments extends Iterable<Object> {
      *
      * @param index the index to check.
      * @return true if the argument is a table; false otherwise.
-     */
-    boolean isTable(int index);
+     */  CompletableFuture<boolean> isTableAsync(int index);
 
     /**
      * Tests whether the argument at the specified index is an item stack.
@@ -325,8 +302,7 @@ public interface Arguments extends Iterable<Object> {
      *
      * @param index the index to check.
      * @return true if the argument is an item stack; false otherwise.
-     */
-    boolean isItemStack(int index);
+     */  CompletableFuture<boolean> isItemStackAsync(int index);
 
     /**
      * Converts the argument list to a standard Java array, converting byte
@@ -334,6 +310,5 @@ public interface Arguments extends Iterable<Object> {
      * want - if you need the actual raw byte arrays, don't use this method!
      *
      * @return an array containing all arguments.
-     */
-    Object[] toArray();
+     */  CompletableFuture<Object[]> toArrayAsync();
 }

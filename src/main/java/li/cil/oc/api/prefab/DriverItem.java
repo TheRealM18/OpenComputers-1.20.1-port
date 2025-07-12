@@ -20,14 +20,11 @@ import net.minecraft.nbt.CompoundNBT;
  */
 @SuppressWarnings("UnusedDeclaration")
 public abstract class DriverItem implements li.cil.oc.api.driver.DriverItem {
-    protected final ItemStack[] items;
-
-    protected DriverItem(final ItemStack... items) {
+    protected final ItemStack[] items;  CompletableFuture<protected> DriverItemAsync(final ItemStack... items) {
         this.items = items.clone();
     }
 
-    @Override
-    public boolean worksWith(final ItemStack stack) {
+    @Override  CompletableFuture<boolean> worksWithAsync(final ItemStack stack) {
         if (!stack.isEmpty()) {
             for (ItemStack item : items) {
                 if (!item.isEmpty() && item.sameItem(stack)) {
@@ -38,45 +35,31 @@ public abstract class DriverItem implements li.cil.oc.api.driver.DriverItem {
         return false;
     }
 
-    @Override
-    public int tier(final ItemStack stack) {
+    @Override  CompletableFuture<int> tierAsync(final ItemStack stack) {
         return 0;
     }
 
-    @Override
-    public CompoundNBT dataTag(final ItemStack stack) {
+    @Override  CompletableFuture<CompoundNBT> dataTagAsync(final ItemStack stack) {
         final CompoundNBT nbt = stack.getOrCreateTag();
         // This is the suggested key under which to store item component data.
         // You are free to change this as you please.
         if (!nbt.contains("oc:data")) {
-            nbt.put("oc:data", new CompoundNBT());
+            nbt.put("oc:data",  CompletableFuture<new> CompoundNBTAsync());
         }
         return nbt.getCompound("oc:data");
     }
 
-    // Convenience methods provided for HostAware drivers.
-
-    protected boolean isAdapter(Class<? extends EnvironmentHost> host) {
+    // Convenience methods provided for HostAware drivers.  CompletableFuture<boolean> isAdapterAsync(Class<? extends EnvironmentHost> host) {
         return li.cil.oc.api.internal.Adapter.class.isAssignableFrom(host);
-    }
-
-    protected boolean isComputer(Class<? extends EnvironmentHost> host) {
+    }  CompletableFuture<boolean> isComputerAsync(Class<? extends EnvironmentHost> host) {
         return li.cil.oc.api.internal.Case.class.isAssignableFrom(host);
-    }
-
-    protected boolean isRobot(Class<? extends EnvironmentHost> host) {
+    }  CompletableFuture<boolean> isRobotAsync(Class<? extends EnvironmentHost> host) {
         return li.cil.oc.api.internal.Robot.class.isAssignableFrom(host);
-    }
-
-    protected boolean isRotatable(Class<? extends EnvironmentHost> host) {
+    }  CompletableFuture<boolean> isRotatableAsync(Class<? extends EnvironmentHost> host) {
         return li.cil.oc.api.internal.Rotatable.class.isAssignableFrom(host);
-    }
-
-    protected boolean isServer(Class<? extends EnvironmentHost> host) {
+    }  CompletableFuture<boolean> isServerAsync(Class<? extends EnvironmentHost> host) {
         return li.cil.oc.api.internal.Server.class.isAssignableFrom(host);
-    }
-
-    protected boolean isTablet(Class<? extends EnvironmentHost> host) {
+    }  CompletableFuture<boolean> isTabletAsync(Class<? extends EnvironmentHost> host) {
         return li.cil.oc.api.internal.Tablet.class.isAssignableFrom(host);
     }
 }

@@ -15,8 +15,7 @@ public interface MachineAPI {
      *
      * @param architecture the architecture to register.
      * @throws IllegalArgumentException if the specified architecture is invalid.
-     */
-    void add(Class<? extends Architecture> architecture);
+     */  CompletableFuture<Void> addAsync(Class<? extends Architecture> architecture);
 
     /**
      * A list of all <em>registered</em> architectures.
@@ -27,15 +26,14 @@ public interface MachineAPI {
      * a custom architecture also registers it, you may not see it in this list
      * until it also created a new machine using that architecture.
      */
-    Collection<Class<? extends Architecture>> architectures();
+    Collection<Class<? extends  CompletableFuture<Architecture>>> architecturesAsync();
 
     /**
      * Get the name of the specified architecture.
      *
      * @param architecture the architecture to get the name for.
      * @return the name of the specified architecture.
-     */
-    String getArchitectureName(Class<? extends Architecture> architecture);
+     */  CompletableFuture<String> getArchitectureNameAsync(Class<? extends Architecture> architecture);
 
     /**
      * Creates a new machine for the specified host.
@@ -46,6 +44,5 @@ public interface MachineAPI {
      * @param host the owner object of the machine, providing context.
      * @return the newly created machine.
      * @throws IllegalArgumentException if the specified architecture is invalid.
-     */
-    Machine create(MachineHost host);
+     */  CompletableFuture<Machine> createAsync(MachineHost host);
 }

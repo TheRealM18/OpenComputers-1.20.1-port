@@ -4,7 +4,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '6.0.+', changing: true
     }
 }
 
@@ -13,11 +13,10 @@ plugins {
     id 'com.modrinth.minotaur' version '2.2.0'
 }
 
-apply plugin: 'scala'
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'maven-publish'
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(8)
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 file "build.properties" withReader {
     def prop = new Properties()
@@ -52,7 +51,7 @@ ext.simpleVersion = version
 version = "MC${config.minecraft.version}-${project.version}"
 
 minecraft {
-    mappings channel: "official", version: config.minecraft.version
+    mappings channel: 'official', version: config.minecraft.version
 
     accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg")
 
@@ -149,8 +148,7 @@ dependencies {
     minecraft "net.minecraftforge:forge:${config.minecraft.version}-${config.forge.version}"
     runtimeOnly files(devJar.archiveFile)
 
-    compileOnly "org.scala-lang:scala-library:2.13.4"
-    implementation "net.minecraftforge:Scorge:${config.scorge.version}"
+    // Scala dependency removed for Java conversion
     embedded "com.typesafe:config:1.2.1"
 
     compileOnly fg.deobf("li.cil.tis3d:tis3d-1.16.5-forge:${config.tis3d.version}")

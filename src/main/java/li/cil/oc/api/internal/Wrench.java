@@ -24,6 +24,5 @@ public interface Wrench {
      * @param pos      the position of the block.
      * @param simulate whether to simulate the usage.
      * @return whether the wrench can be used on the block.
-     */
-    boolean useWrenchOnBlock(PlayerEntity player, World world, BlockPos pos, boolean simulate);
+     */  CompletableFuture<boolean> useWrenchOnBlockAsync(PlayerEntity player, World world, BlockPos pos, boolean simulate);
 }

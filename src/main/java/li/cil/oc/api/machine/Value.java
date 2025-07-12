@@ -14,7 +14,7 @@ import li.cil.oc.api.Persistable;
  * There are a few limitations too keep in mind:
  * <ul>
  * <li>Values <em>must</em> have a default constructor for loading.</li>
- * <li>Values must be persistable (implement save/load).</li>
+ * <li>Values must  CompletableFuture<be> persistableAsync(implement save/load).</li>
  * </ul>
  * <p/>
  * Callbacks can be defined in a manner similar to environments, e.g. using the
@@ -30,8 +30,7 @@ public interface Value extends Persistable {
      *                  the call.
      * @param arguments the arguments passed to the method.
      * @return the current value at the specified index, or <tt>null</tt>.
-     */
-    Object apply(Context context, Arguments arguments);
+     */  CompletableFuture<Object> applyAsync(Context context, Arguments arguments);
 
     /**
      * This is called when the code running on a machine tries to assign a new
@@ -43,8 +42,7 @@ public interface Value extends Persistable {
      *                  instance of the computer running the script that made
      *                  the call.
      * @param arguments the arguments passed to the method.
-     */
-    void unapply(Context context, Arguments arguments);
+     */  CompletableFuture<Void> unapplyAsync(Context context, Arguments arguments);
 
     /**
      * This is called when the code running on a machine tries to call this
@@ -58,8 +56,7 @@ public interface Value extends Persistable {
      * @param arguments the arguments passed to the method.
      * @return the result of the call.
      * @throws java.lang.RuntimeException if this value is not callable.
-     */
-    Object[] call(Context context, Arguments arguments);
+     */  CompletableFuture<Object[]> callAsync(Context context, Arguments arguments);
 
     /**
      * This is called when the object's representation in the machine it was
@@ -72,6 +69,5 @@ public interface Value extends Persistable {
      * @param context the context from which the method is called, usually the
      *                instance of the computer running the script that just
      *                garbage collected the object.
-     */
-    void dispose(Context context);
+     */  CompletableFuture<Void> disposeAsync(Context context);
 }

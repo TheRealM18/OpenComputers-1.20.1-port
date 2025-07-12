@@ -1,5 +1,7 @@
 package li.cil.oc.api.fs;
 
+
+import java.util.concurrent.CompletableFuture;
 /**
  * Possible file modes.
  * <p/>

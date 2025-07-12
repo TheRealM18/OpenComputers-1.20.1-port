@@ -20,6 +20,5 @@ public interface FilteredEnvironment {
      *
      * @param name the name of the callback to check for.
      * @return whether the callback should be visible or not.
-     */
-    boolean isCallbackEnabled(String name);
+     */  CompletableFuture<boolean> isCallbackEnabledAsync(String name);
 }

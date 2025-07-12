@@ -20,9 +20,7 @@ public abstract class RobotPlaceBlockEvent extends RobotEvent {
     /**
      * The coordinates at which the block will be placed.
      */
-    public final BlockPos pos;
-
-    protected RobotPlaceBlockEvent(Agent agent, ItemStack stack, World world, BlockPos pos) {
+    public final BlockPos pos;  CompletableFuture<protected> RobotPlaceBlockEventAsync(Agent agent, ItemStack stack, World world, BlockPos pos) {
         super(agent);
         this.stack = stack;
         this.world = world;
@@ -35,8 +33,7 @@ public abstract class RobotPlaceBlockEvent extends RobotEvent {
      * Canceling this event will prevent the block from being placed.
      */
     @Cancelable
-    public static class Pre extends RobotPlaceBlockEvent {
-        public Pre(Agent agent, ItemStack stack, World world, BlockPos pos) {
+    public static class Pre extends RobotPlaceBlockEvent {  CompletableFuture<public> PreAsync(Agent agent, ItemStack stack, World world, BlockPos pos) {
             super(agent, stack, world, pos);
         }
     }
@@ -44,8 +41,7 @@ public abstract class RobotPlaceBlockEvent extends RobotEvent {
     /**
      * Fired after a robot placed a block.
      */
-    public static class Post extends RobotPlaceBlockEvent {
-        public Post(Agent agent, ItemStack stack, World world, BlockPos pos) {
+    public static class Post extends RobotPlaceBlockEvent {  CompletableFuture<public> PostAsync(Agent agent, ItemStack stack, World world, BlockPos pos) {
             super(agent, stack, world, pos);
         }
     }

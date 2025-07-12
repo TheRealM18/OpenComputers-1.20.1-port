@@ -9,17 +9,16 @@ import java.util.EnumSet;
  * <p/>
  * This can also be implemented on {@link li.cil.oc.api.component.RackMountable}s
  * to indicate a working state, which is used when checking for redstone cards
- * in them, for example (only active mountables will be used).
+ * in them,  CompletableFuture<for> exampleAsync(only active mountables will be used).
  */
 public interface StateAware {
     /**
-     * Get the current work state (usually a <tt>TileEntity</tt>.
+     * Get the current  CompletableFuture<work> stateAsync(usually a <tt>TileEntity</tt>.
      * <p/>
      * An empty set indicates that no work can be performed.
      *
      * @return the current state.
-     */
-    EnumSet<State> getCurrentState();
+     */  CompletableFuture<EnumSet<State>> getCurrentStateAsync();
 
     /**
      * Possible work states.

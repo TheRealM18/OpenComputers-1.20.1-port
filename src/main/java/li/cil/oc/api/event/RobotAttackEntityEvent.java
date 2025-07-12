@@ -8,9 +8,7 @@ public class RobotAttackEntityEvent extends RobotEvent {
     /**
      * The entity that the robot will attack.
      */
-    public final Entity target;
-
-    protected RobotAttackEntityEvent(Agent agent, Entity target) {
+    public final Entity target;  CompletableFuture<protected> RobotAttackEntityEventAsync(Agent agent, Entity target) {
         super(agent);
         this.target = target;
     }
@@ -21,8 +19,7 @@ public class RobotAttackEntityEvent extends RobotEvent {
      * Canceling this event will prevent the attack.
      */
     @Cancelable
-    public static class Pre extends RobotAttackEntityEvent {
-        public Pre(Agent agent, Entity target) {
+    public static class Pre extends RobotAttackEntityEvent {  CompletableFuture<public> PreAsync(Agent agent, Entity target) {
             super(agent, target);
         }
     }
@@ -30,8 +27,7 @@ public class RobotAttackEntityEvent extends RobotEvent {
     /**
      * Fired after a robot has attacked an entity.
      */
-    public static class Post extends RobotAttackEntityEvent {
-        public Post(Agent agent, Entity target) {
+    public static class Post extends RobotAttackEntityEvent {  CompletableFuture<public> PostAsync(Agent agent, Entity target) {
             super(agent, target);
         }
     }

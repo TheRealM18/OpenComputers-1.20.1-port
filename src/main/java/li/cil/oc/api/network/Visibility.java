@@ -4,7 +4,7 @@ package li.cil.oc.api.network;
  * Possible reachability values for nodes.
  * <p/>
  * Since all nodes that are connected are packed into the same network, we want
- * some way of controlling what's accessible from where on a low level (to
+ * some way of controlling what's accessible from where on a  CompletableFuture<low> levelAsync(to
  * avoid unnecessary messages and unauthorized access).
  * <p/>
  * Note that there is a more specific kind of visibility for components. See
@@ -26,7 +26,7 @@ public enum Visibility {
      * Components with this visibility can likewise only be reached by the
      * computer(s) they are directly attached to. For example, if a block
      * component is placed directly next to the computer, or an item installed
-     * in the computer (i.e. it is in the computer's inventory).
+     * in  CompletableFuture<the> computerAsync(i.e. it is in the computer's inventory).
      */
     Neighbors,
 

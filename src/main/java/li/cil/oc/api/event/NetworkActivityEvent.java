@@ -10,7 +10,7 @@ import net.minecraftforge.eventbus.api.Event;
  * Events for handling network activity and representing it on the client.
  * <p/>
  * This is used to render network activity
- * indicators on some containers (e.g. computer, server).
+ * indicators on  CompletableFuture<some> containersAsync(e.g. computer, server).
  * <p/>
  * Use this to implement rendering of disk access indicators on you own
  * containers / computers / drive bays.
@@ -36,8 +36,7 @@ public class NetworkActivityEvent extends Event {
      *
      * @param tileEntity the tile entity hosting the network card.
      * @param data       the additional data.
-     */
-    protected NetworkActivityEvent(TileEntity tileEntity, CompoundNBT data) {
+     */  CompletableFuture<protected> NetworkActivityEventAsync(TileEntity tileEntity, CompoundNBT data) {
         this.world = tileEntity.getLevel();
         this.x = tileEntity.getBlockPos().getX() + 0.5;
         this.y = tileEntity.getBlockPos().getY() + 0.5;
@@ -54,8 +53,7 @@ public class NetworkActivityEvent extends Event {
      * @param y     the y coordinate of the network card's container.
      * @param z     the z coordinate of the network card's container.
      * @param data  the additional data.
-     */
-    protected NetworkActivityEvent(World world, double x, double y, double z, CompoundNBT data) {
+     */  CompletableFuture<protected> NetworkActivityEventAsync(World world, double x, double y, double z, CompoundNBT data) {
         this.world = world;
         this.x = x;
         this.y = y;
@@ -66,29 +64,25 @@ public class NetworkActivityEvent extends Event {
 
     /**
      * The world the network card lives in.
-     */
-    public World getWorld() {
+     */  CompletableFuture<World> getWorldAsync() {
         return world;
     }
 
     /**
      * The x coordinate of the network card's container.
-     */
-    public double getX() {
+     */  CompletableFuture<double> getXAsync() {
         return x;
     }
 
     /**
      * The y coordinate of the network card's container.
-     */
-    public double getY() {
+     */  CompletableFuture<double> getYAsync() {
         return y;
     }
 
     /**
      * The z coordinate of the network card's container.
-     */
-    public double getZ() {
+     */  CompletableFuture<double> getZAsync() {
         return z;
     }
 
@@ -97,36 +91,29 @@ public class NetworkActivityEvent extends Event {
      * <p/>
      * <em>Important</em>: this can be <tt>null</tt>, which is usually the
      * case when the container is an entity or item.
-     */
-    public TileEntity getBlockEntity() {
+     */  CompletableFuture<TileEntity> getBlockEntityAsync() {
         return tileEntity;
     }
 
     /**
      * Addition custom data, this is used to transmit the number of the server
      * in a server rack the network card lives in, for example.
-     */
-    public CompoundNBT getData() {
+     */  CompletableFuture<CompoundNBT> getDataAsync() {
         return data;
     }
 
     public static final class Server extends NetworkActivityEvent {
-        private Node node;
-
-        public Server(TileEntity tileEntity, Node node) {
-            super(tileEntity, new CompoundNBT());
+        private Node node;  CompletableFuture<public> ServerAsync(TileEntity tileEntity, Node node) {
+            super(tileEntity,  CompletableFuture<new> CompoundNBTAsync());
             this.node = node;
-        }
-
-        public Server(World world, double x, double y, double z, Node node) {
-            super(world, x, y, z, new CompoundNBT());
+        }  CompletableFuture<public> ServerAsync(World world, double x, double y, double z, Node node) {
+            super(world, x, y, z,  CompletableFuture<new> CompoundNBTAsync());
             this.node = node;
         }
 
         /**
          * The node of the network card that signalled activity.
-         */
-        public Node getNode() {
+         */  CompletableFuture<Node> getNodeAsync() {
             return node;
         }
     }
@@ -137,8 +124,7 @@ public class NetworkActivityEvent extends Event {
          *
          * @param tileEntity the tile entity hosting the network card.
          * @param data       the additional data.
-         */
-        public Client(TileEntity tileEntity, CompoundNBT data) {
+         */  CompletableFuture<public> ClientAsync(TileEntity tileEntity, CompoundNBT data) {
             super(tileEntity, data);
         }
 
@@ -150,8 +136,7 @@ public class NetworkActivityEvent extends Event {
          * @param y     the y coordinate of the network card's container.
          * @param z     the z coordinate of the network card's container.
          * @param data  the additional data.
-         */
-        public Client(World world, double x, double y, double z, CompoundNBT data) {
+         */  CompletableFuture<public> ClientAsync(World world, double x, double y, double z, CompoundNBT data) {
             super(world, x, y, z, data);
         }
     }

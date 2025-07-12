@@ -10,9 +10,7 @@ public abstract class RobotEvent extends Event {
     /**
      * The robot for which this event was fired.
      */
-    public final Agent agent;
-
-    protected RobotEvent(Agent agent) {
+    public final Agent agent;  CompletableFuture<protected> RobotEventAsync(Agent agent) {
         this.agent = agent;
     }
 }

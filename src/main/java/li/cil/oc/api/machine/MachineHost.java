@@ -14,15 +14,13 @@ import net.minecraft.item.ItemStack;
 public interface MachineHost extends EnvironmentHost {
     /**
      * The machine currently hosted.
-     */
-    Machine machine();
+     */  CompletableFuture<Machine> machineAsync();
 
     /**
      * List of all components that are built into this machine directly.
      * <p/>
      * This is used to find CPUs, component buses and memory.
-     */
-    Iterable<ItemStack> internalComponents();
+     */  CompletableFuture<Iterable<ItemStack>> internalComponentsAsync();
 
     /**
      * Get the slot a component with the specified address is in.
@@ -33,26 +31,23 @@ public interface MachineHost extends EnvironmentHost {
      *
      * @param address the address of the component to get the slot for.
      * @return the index of the slot the component is in.
-     */
-    int componentSlot(String address);
+     */  CompletableFuture<int> componentSlotAsync(String address);
 
     /**
      * This is called on the owner when the machine's {@link Environment#onConnect(Node)}
      * method gets called. This can be useful for reacting to network events
-     * when the owner does not have its own node (for example, computer cases
+     * when the owner does not have its  CompletableFuture<own> nodeAsync(for example, computer cases
      * expose their machine's node as their own node). This callback allows it
-     * to connect its components (graphics cards and the like) when it is
-     * connected to a node network (when added to the world, for example).
+     * to connect  CompletableFuture<its> componentsAsync(graphics cards and the like) when it is
+     * connected to a  CompletableFuture<node> networkAsync(when added to the world, for example).
      *
      * @param node the node that was connected to the network.
-     */
-    void onMachineConnect(Node node);
+     */  CompletableFuture<Void> onMachineConnectAsync(Node node);
 
     /**
      * Like {@link #onMachineConnect(Node)}, except that this is called whenever
      * the machine's {@link Environment#onDisconnect(Node)} method is called.
      *
      * @param node the node that was disconnected from the network.
-     */
-    void onMachineDisconnect(Node node);
+     */  CompletableFuture<Void> onMachineDisconnectAsync(Node node);
 }

@@ -10,9 +10,7 @@ public class RobotExhaustionEvent extends RobotEvent {
     /**
      * The amount of exhaustion that was generated.
      */
-    public final double exhaustion;
-
-    public RobotExhaustionEvent(Agent agent, double exhaustion) {
+    public final double exhaustion;  CompletableFuture<public> RobotExhaustionEventAsync(Agent agent, double exhaustion) {
         super(agent);
         this.exhaustion = exhaustion;
     }

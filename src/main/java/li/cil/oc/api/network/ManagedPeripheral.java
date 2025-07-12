@@ -20,8 +20,7 @@ public interface ManagedPeripheral {
      * interface!
      *
      * @return the list of methods provided by the environment.
-     */
-    String[] methods();
+     */  CompletableFuture<String[]> methodsAsync();
 
     /**
      * Calls a method from the list provided by {@link #methods()}.
@@ -33,6 +32,5 @@ public interface ManagedPeripheral {
      * @return the result of calling the method. Same as for callbacks.
      * @throws java.lang.NoSuchMethodException if there is no method with the
      *                                         specified name.
-     */
-    Object[] invoke(String method, Context context, Arguments args) throws Exception;
+     */  CompletableFuture<Object[]> invokeAsync(String method, Context context, Arguments args) throws Exception;
 }

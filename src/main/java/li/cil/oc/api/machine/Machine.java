@@ -14,14 +14,12 @@ public interface Machine extends ManagedEnvironment, Context {
      * The owner of the machine, usually a tile entity hosting the machine.
      *
      * @return the owner of the machine.
-     */
-    MachineHost host();
+     */  CompletableFuture<MachineHost> hostAsync();
 
     /**
      * This must be called from the host when something relevant to the
      * machine changes, such as a change in the amount of available memory.
-     */
-    void onHostChanged();
+     */  CompletableFuture<Void> onHostChangedAsync();
 
     /**
      * The underlying architecture of the machine.
@@ -33,8 +31,7 @@ public interface Machine extends ManagedEnvironment, Context {
      * no CPU installed.
      *
      * @return the architecture of this machine.
-     */
-    Architecture architecture();
+     */  CompletableFuture<Architecture> architectureAsync();
 
     /**
      * The list of components attached to this machine.
@@ -42,13 +39,13 @@ public interface Machine extends ManagedEnvironment, Context {
      * This maps address to component type/name. Note that the list may not
      * immediately reflect changes after components were added to the network,
      * since such changes are cached in an internal list of 'added components'
-     * that are processed in the machine's update logic (i.e. server tick).
+     * that are processed in the machine's  CompletableFuture<update> logicAsync(i.e. server tick).
      * <p/>
      * This list is kept up-to-date automatically, do <em>not</em> mess with it.
      *
      * @return the list of attached components.
      */
-    Map<String, String> components();
+    Map<String,  CompletableFuture<String>> componentsAsync();
 
     /**
      * The number of connected components.
@@ -60,8 +57,7 @@ public interface Machine extends ManagedEnvironment, Context {
      * {@link #components()}).
      *
      * @return the number of connected components.
-     */
-    int componentCount();
+     */  CompletableFuture<int> componentCountAsync();
 
     /**
      * The maximum number of components this machine can currently support.
@@ -70,24 +66,21 @@ public interface Machine extends ManagedEnvironment, Context {
      * whenever the host calls {@link li.cil.oc.api.machine.Machine#onHostChanged()}.
      *
      * @return the maximum number of components supported.
-     */
-    int maxComponents();
+     */  CompletableFuture<int> maxComponentsAsync();
 
     /**
      * Gets the amount of energy this machine consumes per tick when it is
      * running.
      *
      * @return the energy consumed per tick by the machine.
-     */
-    double getCostPerTick();
+     */  CompletableFuture<double> getCostPerTickAsync();
 
     /**
      * Sets the amount of energy this machine consumes per tick when it is
      * running.
      *
      * @param value the energy consumed per tick by the machine.
-     */
-    void setCostPerTick(double value);
+     */  CompletableFuture<Void> setCostPerTickAsync(double value);
 
     /**
      * The address of the file system that holds the machine's temporary files
@@ -99,21 +92,19 @@ public interface Machine extends ManagedEnvironment, Context {
      * tmpfs from other file systems, for example.
      *
      * @return the address of the tmpfs component, or <tt>null</tt>.
-     */
-    String tmpAddress();
+     */  CompletableFuture<String> tmpAddressAsync();
 
     /**
      * A string with the last error message.
      * <p/>
-     * The error string is set either when the machine crashes (see the
-     * {@link #crash(String)} method), or when it fails to start (which,
+     * The error string is set either when the  CompletableFuture<machine> crashesAsync(see the
+     * {@link #crash(String)} method), or when it fails  CompletableFuture<to> startAsync(which,
      * technically, is also a crash).
      * <p/>
      * When the machine started, this is reset to <tt>null</tt>.
      *
      * @return the last error message, or <tt>null</tt>.
-     */
-    String lastError();
+     */  CompletableFuture<String> lastErrorAsync();
 
     /**
      * The current world time. This is updated each tick and provides a thread
@@ -122,8 +113,7 @@ public interface Machine extends ManagedEnvironment, Context {
      * This is equivalent to <tt>owner().world().getWorldTime()</tt>.
      *
      * @return the current world time.
-     */
-    long worldTime();
+     */  CompletableFuture<long> worldTimeAsync();
 
     /**
      * The time that has passed since the machine was started, in seconds.
@@ -131,15 +121,13 @@ public interface Machine extends ManagedEnvironment, Context {
      * Note that this is actually measured in world time, so the resolution is
      * pretty limited. This is done to avoid 'time skips' when leaving the game
      * and coming back later, resuming a persisted machine.
-     */
-    double upTime();
+     */  CompletableFuture<double> upTimeAsync();
 
     /**
      * The time spent running the underlying architecture in execution threads,
      * i.e. the time spent in {@link Architecture#runThreaded(boolean)} since
      * the machine was last started, in seconds.
-     */
-    double cpuTime();
+     */  CompletableFuture<double> cpuTimeAsync();
 
     // ----------------------------------------------------------------------- //
 
@@ -154,15 +142,14 @@ public interface Machine extends ManagedEnvironment, Context {
      * a packet to be sent to all nearby clients, and will cause the receiving
      * clients to generate the required sound sample on-the-fly. It is
      * therefore recommended to not call this too frequently, and to limit the
-     * length of the sound to something relatively short (not longer than a few
+     * length of the sound to something  CompletableFuture<relatively> shortAsync(not longer than a few
      * seconds at most).
      * <p/>
      * The audio will be played at the machine's host's location.
      *
      * @param frequency the frequency of the tone to generate.
      * @param duration  the duration of the tone to generate, in milliseconds.
-     */
-    void beep(short frequency, short duration);
+     */  CompletableFuture<Void> beepAsync(short frequency, short duration);
 
     /**
      * Utility method for playing beep codes.
@@ -177,14 +164,13 @@ public interface Machine extends ManagedEnvironment, Context {
      * the same considerations should be made as for {@link #beep(short, short)},
      * i.e. prefer not to use overly long patterns.
      * <p/>
-     * The passed pattern must consist of dots (<tt>.</tt>) and dashes (<tt>-</tt>),
+     * The passed pattern must consist  CompletableFuture<of> dotsAsync(<tt>.</tt>)  CompletableFuture<and> dashesAsync(<tt>-</tt>),
      * where a dot is short tone, and a dash is a long tone.
      * <p/>
      * The audio will be played at the machine's host's location.
      *
      * @param pattern the beep pattern to play.
-     */
-    void beep(String pattern);
+     */  CompletableFuture<Void> beepAsync(String pattern);
 
     /**
      * Crashes the computer.
@@ -195,8 +181,7 @@ public interface Machine extends ManagedEnvironment, Context {
      *
      * @param message the message to set.
      * @return <tt>true</tt> if the computer switched to the stopping state.
-     */
-    boolean crash(String message);
+     */  CompletableFuture<boolean> crashAsync(String message);
 
     /**
      * Tries to pop a signal from the queue and returns it.
@@ -205,8 +190,7 @@ public interface Machine extends ManagedEnvironment, Context {
      * be called by architectures regularly to process the queue.
      *
      * @return a signal or <tt>null</tt> if the queue was empty.
-     */
-    Signal popSignal();
+     */  CompletableFuture<Signal> popSignalAsync();
 
     /**
      * Get a list of all methods and their annotations of the specified object.
@@ -219,7 +203,7 @@ public interface Machine extends ManagedEnvironment, Context {
      * @param value the value to get the method listing for.
      * @return the methods that can be called on the object.
      */
-    Map<String, Callback> methods(Object value);
+    Map<String,  CompletableFuture<Callback>> methodsAsync(Object value);
 
     /**
      * Makes the machine call a component callback.
@@ -241,8 +225,7 @@ public interface Machine extends ManagedEnvironment, Context {
      *                                  tick has exceeded the allowed limit.
      * @throws IllegalArgumentException if there is no such component.
      * @throws Exception                if the callback throws an exception.
-     */
-    Object[] invoke(String address, String method, Object[] args) throws Exception;
+     */  CompletableFuture<Object[]> invokeAsync(String address, String method, Object[] args) throws Exception;
 
     /**
      * Makes the machine call a value callback.
@@ -263,8 +246,7 @@ public interface Machine extends ManagedEnvironment, Context {
      *                                  tick has exceeded the allowed limit.
      * @throws IllegalArgumentException if there is no such component.
      * @throws Exception                if the callback throws an exception.
-     */
-    Object[] invoke(Value value, String method, Object[] args) throws Exception;
+     */  CompletableFuture<Object[]> invokeAsync(Value value, String method, Object[] args) throws Exception;
 
     // ----------------------------------------------------------------------- //
 
@@ -277,8 +259,7 @@ public interface Machine extends ManagedEnvironment, Context {
      * user list. Changing it has no influence on the actual list.
      *
      * @return the list of registered users.
-     */
-    String[] users();
+     */  CompletableFuture<String[]> usersAsync();
 
     /**
      * Add a player to the machine's list of users, by username.
@@ -293,8 +274,7 @@ public interface Machine extends ManagedEnvironment, Context {
      *                   <li>The provided name is too long.</li>
      *                   <li>The player is not online.</li>
      *                   </ul>
-     */
-    void addUser(String name) throws Exception;
+     */  CompletableFuture<Void> addUserAsync(String name) throws Exception;
 
     /**
      * Removes a player as a user from this machine, by username.
@@ -304,6 +284,5 @@ public interface Machine extends ManagedEnvironment, Context {
      *
      * @param name the name of the player to remove.
      * @return whether the player was removed from the user list.
-     */
-    boolean removeUser(String name);
+     */  CompletableFuture<boolean> removeUserAsync(String name);
 }

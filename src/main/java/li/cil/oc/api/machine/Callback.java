@@ -15,14 +15,14 @@ import java.lang.annotation.Target;
  * Note that methods annotated with this interface must have the following
  * signature:
  * <pre>
- *     Object[] f(Context context, Arguments arguments) throws Exception;
+ *  CompletableFuture<Object[]> fAsync(Context context, Arguments arguments) throws Exception;
  * </pre>
  * <p/>
  * The method may return <tt>null</tt> in case it doesn't wish return anything,
  * which is functionally equivalent to returning an empty array.
  * <p/>
  * To raise an error from your callback, simply throw an exception. The
- * convention for Lua is to return (null, "reason") for 'soft' errors, i.e.
+ * convention for Lua is  CompletableFuture<to> returnAsync(null, "reason") for 'soft' errors, i.e.
  * errors that are no fault of the caller. For example, passing invalid
  * arguments will generate an exception, requesting information and the lookup
  * of said information failing should not.
@@ -37,8 +37,7 @@ public @interface Callback {
      * The name under which to make the callback available.
      * <p/>
      * This defaults to the name of the annotated method if left empty.
-     */
-    String value() default "";
+     */  CompletableFuture<String> valueAsync() default "";
 
     /**
      * Whether this function may be called directly from the computer's executor
@@ -55,8 +54,7 @@ public @interface Callback {
      * <p/>
      * An exception to that rule is {@link li.cil.oc.api.network.Connector#changeBuffer(double)},
      * which is synchronized, so you can consume/produce power in direct calls.
-     */
-    boolean direct() default false;
+     */  CompletableFuture<boolean> directAsync() default false;
 
     /**
      * The maximum number of direct calls that may be performed on this
@@ -84,8 +82,7 @@ public @interface Callback {
      * computer's call budget. This budget may vary between computers, for
      * example, tier three computers have a higher call budget than tier two
      * computers.
-     */
-    int limit() default Integer.MAX_VALUE;
+     */  CompletableFuture<int> limitAsync() default Integer.MAX_VALUE;
 
     /**
      * A documentation string that is made available to the computers the
@@ -100,12 +97,11 @@ public @interface Callback {
      * <tt>function(arg:type[, optionArg:type]):resultType -- Description.</tt><br/>
      * or<br/>
      * <tt>function(arg:type[, optionArg:type]):resultType; Description.</tt><br/>
-     * where the argument list can be of any format (as long as it doesn't contain
+     * where the argument list can be of  CompletableFuture<any> formatAsync(as long as it doesn't contain
      * further braces), and the return type is optional. These two formats are
      * recognized by OC's NEI component documentation plugin. If you use a
      * different format, the doc string will be used as-is.
-     */
-    String doc() default "";
+     */  CompletableFuture<String> docAsync() default "";
 
     /**
      * Whether this callback should work like a getter.
@@ -120,11 +116,10 @@ public @interface Callback {
      * method. This a limitation due to callback names being unique. You can
      * differentiate between contexts by checking the number of arguments.
      * <p/>
-     * <em>Important</em>: this only works in environments (for components),
-     * it does <em>not</em> work for userdata (<tt>Value</tt> objects). For
+     * <em>Important</em>: this only works  CompletableFuture<in> environmentsAsync(for components),
+     * it does <em>not</em> work  CompletableFuture<for> userdataAsync(<tt>Value</tt> objects). For
      * userdata, use the <tt>apply</tt> method instead.
-     */
-    boolean getter() default false;
+     */  CompletableFuture<boolean> getterAsync() default false;
 
     /**
      * Whether this callback should work like a setter.
@@ -139,9 +134,8 @@ public @interface Callback {
      * method. This a limitation due to callback names being unique. You can
      * differentiate between contexts by checking the number of arguments.
      * <p/>
-     * <em>Important</em>: this only works in environments (for components),
-     * it does <em>not</em> work for userdata (<tt>Value</tt> objects). For
+     * <em>Important</em>: this only works  CompletableFuture<in> environmentsAsync(for components),
+     * it does <em>not</em> work  CompletableFuture<for> userdataAsync(<tt>Value</tt> objects). For
      * userdata, use the <tt>unapply</tt> method instead.
-     */
-    boolean setter() default false;
+     */  CompletableFuture<boolean> setterAsync() default false;
 }

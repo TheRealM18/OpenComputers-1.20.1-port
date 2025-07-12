@@ -46,8 +46,6 @@ public class API {
     public static NanomachinesAPI nanomachines = null;
     public static NetworkAPI network = null;
 
-    // ----------------------------------------------------------------------- //
-
-    private API() {
+    // ----------------------------------------------------------------------- //  CompletableFuture<private> APIAsync() {
     }
 }

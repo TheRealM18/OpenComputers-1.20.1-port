@@ -10,7 +10,7 @@
  * <p/>
  * The other main use-case is in {@link li.cil.oc.api.driver.item.HostAware}
  * drivers, where these interfaces can be used to check if the item can be
- * used inside the specified environment (where the environment class may
+ * used inside the  CompletableFuture<specified> environmentAsync(where the environment class may
  * be assignable to one of the interfaces in this package).
  */
 package li.cil.oc.api.internal;

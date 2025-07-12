@@ -14,8 +14,7 @@ public interface Label extends Persistable {
      * May be <tt>null</tt> if no label is set.
      *
      * @return the current label.
-     */
-    String getLabel();
+     */  CompletableFuture<String> getLabelAsync();
 
     /**
      * Set the new value of this label.
@@ -26,6 +25,5 @@ public interface Label extends Persistable {
      *
      * @param value the new label.
      * @throws IllegalArgumentException if the label is read-only.
-     */
-    void setLabel(String value);
+     */  CompletableFuture<Void> setLabelAsync(String value);
 }

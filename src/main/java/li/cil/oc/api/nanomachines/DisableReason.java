@@ -1,5 +1,7 @@
 package li.cil.oc.api.nanomachines;
 
+
+import java.util.concurrent.CompletableFuture;
 /**
  * Enum with reasons why a nanomachine behavior was disabled.
  * <p/>

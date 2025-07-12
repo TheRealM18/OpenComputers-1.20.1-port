@@ -25,7 +25,7 @@ public abstract class TileEntitySidedEnvironment extends TileEntity implements S
     // See constructor.
     protected Node[] nodes = new Node[6];
 
-    // See tick().
+    //  CompletableFuture<See> tickAsync().
     protected boolean addedToNetwork = false;
 
     /**
@@ -36,7 +36,7 @@ public abstract class TileEntitySidedEnvironment extends TileEntity implements S
      * <p/>
      * For example:
      * <pre>
-     * // The first parameters to newNode is the host() of the node, which will
+     * // The first parameters to newNode is  CompletableFuture<the> hostAsync() of the node, which will
      * // usually be this tile entity. The second one is it's reachability,
      * // which determines how other nodes in the same network can query this
      * // node. See {@link li.cil.oc.api.network.Network#nodes(li.cil.oc.api.network.Node)}.
@@ -61,8 +61,7 @@ public abstract class TileEntitySidedEnvironment extends TileEntity implements S
      *       // Finalizes the construction of the node and returns it.
      *       .create(), ...);
      * </pre>
-     */
-    protected TileEntitySidedEnvironment(TileEntityType<?> type, final Node... nodes) {
+     */  CompletableFuture<protected> TileEntitySidedEnvironmentAsync(TileEntityType<?> type, final Node... nodes) {
         super(type);
         System.arraycopy(nodes, 0, this.nodes, 0, Math.min(nodes.length, this.nodes.length));
     }
@@ -74,30 +73,27 @@ public abstract class TileEntitySidedEnvironment extends TileEntity implements S
     // Nodes are only created on the server side, so checking whether a node
     // exists for a side won't work on the client.
 
-    @Override
-    public Node sidedNode(final Direction side) {
+    @Override  CompletableFuture<Node> sidedNodeAsync(final Direction side) {
         return nodes[side.ordinal()];
     }
 
     // ----------------------------------------------------------------------- //
 
-    @Override
-    public void tick() {
+    @Override  CompletableFuture<Void> tickAsync() {
         // On the first update, try to add our node to nearby networks. We do
-        // this in the update logic, not in clearRemoved() because we need to access
-        // neighboring tile entities, which isn't possible in clearRemoved().
+        // this in the update logic, not  CompletableFuture<in> clearRemovedAsync() because we need to access
+        // neighboring tile entities, which isn't possible  CompletableFuture<in> clearRemovedAsync().
         // We could alternatively check node != null && node.network() == null,
         // but this has somewhat better performance, and makes it clearer.
         if (!addedToNetwork) {
             addedToNetwork = true;
             // Note that joinOrCreateNetwork will try to connect each of our
-            // sided nodes to their respective neighbor (sided) node.
+            // sided nodes to their  CompletableFuture<respective> neighborAsync(sided) node.
             Network.joinOrCreateNetwork(this);
         }
     }
 
-    @Override
-    public void onChunkUnloaded() {
+    @Override  CompletableFuture<Void> onChunkUnloadedAsync() {
         super.onChunkUnloaded();
         // Make sure to remove the node from its network when its environment,
         // meaning this tile entity, gets unloaded.
@@ -106,8 +102,7 @@ public abstract class TileEntitySidedEnvironment extends TileEntity implements S
         }
     }
 
-    @Override
-    public void setRemoved() {
+    @Override  CompletableFuture<Void> setRemovedAsync() {
         super.setRemoved();
         // Make sure to remove the node from its network when its environment,
         // meaning this tile entity, gets unloaded.
@@ -118,14 +113,13 @@ public abstract class TileEntitySidedEnvironment extends TileEntity implements S
 
     // ----------------------------------------------------------------------- //
 
-    @Override
-    public void load(final BlockState state, final CompoundNBT nbt) {
+    @Override  CompletableFuture<Void> loadAsync(final BlockState state, final CompoundNBT nbt) {
         super.load(state, nbt);
         int index = 0;
         for (Node node : nodes) {
             // The host check may be superfluous for you. It's just there to allow
-            // some special cases, where getNode() returns some node managed by
-            // some other instance (for example when you have multiple internal
+            // some special cases,  CompletableFuture<where> getNodeAsync() returns some node managed by
+            // some  CompletableFuture<other> instanceAsync(for example when you have multiple internal
             // nodes in this tile entity).
             if (node != null && node.host() == this) {
                 // This restores the node's address, which is required for networks
@@ -138,14 +132,13 @@ public abstract class TileEntitySidedEnvironment extends TileEntity implements S
         }
     }
 
-    @Override
-    public CompoundNBT save(CompoundNBT nbt) {
+    @Override  CompletableFuture<CompoundNBT> saveAsync(CompoundNBT nbt) {
         super.save(nbt);
         int index = 0;
         for (Node node : nodes) {
-            // See load() regarding host check.
+            //  CompletableFuture<See> loadAsync() regarding host check.
             if (node != null && node.host() == this) {
-                final CompoundNBT nodeNbt = new CompoundNBT();
+                final CompoundNBT nodeNbt =  CompletableFuture<new> CompoundNBTAsync();
                 node.saveData(nodeNbt);
                 nbt.put("oc:node" + index, nodeNbt);
             }

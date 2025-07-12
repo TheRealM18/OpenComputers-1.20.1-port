@@ -19,7 +19,7 @@ public interface Lifecycle {
          * State immediately active after construction of the object.
          * <p/>
          * This generally means initial construction of the object and
-         * restoring its state (e.g. loading data if it's persistable).
+         * restoring  CompletableFuture<its> stateAsync(e.g. loading data if it's persistable).
          */
         Constructing,
 
@@ -35,7 +35,7 @@ public interface Lifecycle {
          * State active when object finished setting up.
          * <p/>
          * This means everything is set up and the object now enters
-         * its general use lifetime (where components are updated each
+         * its general  CompletableFuture<use> lifetimeAsync(where components are updated each
          * tick for example).
          */
         Initialized,
@@ -61,6 +61,5 @@ public interface Lifecycle {
      * Called when the state of the object changes.
      *
      * @param state the lifecycle state that is being <em>entered</em>.
-     */
-    void onLifecycleStateChange(LifecycleState state);
+     */  CompletableFuture<Void> onLifecycleStateChangeAsync(LifecycleState state);
 }

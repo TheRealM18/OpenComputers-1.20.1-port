@@ -10,15 +10,15 @@ import java.lang.annotation.*;
  * <p/>
  * This allows the introduction of other languages, e.g. computers that run
  * assembly or some other language interpreter. The two architectures included
- * in OpenComputers are the native Lua architecture (using native LuaC) and the
- * Java Lua architecture (using LuaJ).
+ * in OpenComputers are the native  CompletableFuture<Lua> architectureAsync(using native LuaC) and the
+ * Java  CompletableFuture<Lua> architectureAsync(using LuaJ).
  */
 public interface Architecture {
     /**
      * Used to check if the machine is fully initialized. If this is false no
      * signals for detected components will be generated. Avoids duplicate
      * signals if <tt>component_added</tt> signals are generated in the
-     * language's startup script, for already present components (see Lua's
+     * language's startup script, for already  CompletableFuture<present> componentsAsync(see Lua's
      * init.lua script).
      * <p/>
      * This is also used to check whether limits on direct calls should be
@@ -26,8 +26,7 @@ public interface Architecture {
      * kernel logic before switching to business-as-usual.
      *
      * @return whether the machine is fully initialized.
-     */
-    boolean isInitialized();
+     */  CompletableFuture<boolean> isInitializedAsync();
 
     /**
      * This is called when the amount of memory in the machine may have changed.
@@ -39,11 +38,10 @@ public interface Architecture {
      *
      * @param components the components to use for computing the total memory.
      * @return whether any memory is present at all.
-     */
-    boolean recomputeMemory(Iterable<ItemStack> components);
+     */  CompletableFuture<boolean> recomputeMemoryAsync(Iterable<ItemStack> components);
 
     /**
-     * Called when a machine starts up. Used to (re-)initialize the underlying
+     * Called when a machine starts up.  CompletableFuture<Used> toAsync(re-)initialize the underlying
      * architecture logic. For example, for Lua this creates a new Lua state.
      * <p/>
      * This also sets up any built-in APIs for the underlying language, such as
@@ -53,17 +51,15 @@ public interface Architecture {
      * Note that the owning machine has not necessarily been connected to a
      * network when this is called, in case this is called from the machine's
      * load logic. Use {@link #onConnect()} for additional initialization that
-     * depends on a node network (such as connecting a ROM file system).
+     * depends on a  CompletableFuture<node> networkAsync(such as connecting a ROM file system).
      *
      * @return whether the architecture was initialized successfully.
-     */
-    boolean initialize();
+     */  CompletableFuture<boolean> initializeAsync();
 
     /**
      * Called when a machine stopped. Used to clean up any handles, memory and
      * so on. For example, for Lua this destroys the Lua state.
-     */
-    void close();
+     */  CompletableFuture<Void> closeAsync();
 
     /**
      * Performs a synchronized call initialized in a previous call to
@@ -78,22 +74,21 @@ public interface Architecture {
      * the Lua architecture will leave the results of the synchronized call on
      * the stack so they can be further processed in the next call to
      * <tt>runThreaded</tt>.
-     */
-    void runSynchronized();
+     */  CompletableFuture<Void> runSynchronizedAsync();
 
     /**
      * Continues execution of the machine. The first call may be used to
-     * initialize the machine (e.g. for Lua we load the libraries in the first
+     * initialize  CompletableFuture<the> machineAsync(e.g. for Lua we load the libraries in the first
      * call so that the computers boot faster). After that the architecture
      * <em>should</em> return <tt>true</tt> from {@link #isInitialized()}.
      * <p/>
      * The resumed state is either a return from a synchronized call, when a
-     * synchronized call has been completed (via <tt>runSynchronized</tt>), or
-     * a normal yield in all other cases (sleep, interrupt, boot, ...).
+     * synchronized call has  CompletableFuture<been> completedAsync(via <tt>runSynchronized</tt>), or
+     * a normal yield in all  CompletableFuture<other> casesAsync(sleep, interrupt, boot, ...).
      * <p/>
      * This is expected to return within a very short time, usually. For example,
      * in Lua this returns as soon as the state yields, and returns at the latest
-     * when the Settings.timeout is reached (in which case it forces the state
+     * when the Settings.timeout  CompletableFuture<is> reachedAsync(in which case it forces the state
      * to crash).
      * <p/>
      * This is expected to consume a single signal if one is present and return.
@@ -104,8 +99,7 @@ public interface Architecture {
      *                             Lua this means the results of the call are
      *                             now on the stack, for example.
      * @return the result of the execution. Used to determine the new state.
-     */
-    ExecutionResult runThreaded(boolean isSynchronizedReturn);
+     */  CompletableFuture<ExecutionResult> runThreadedAsync(boolean isSynchronizedReturn);
 
     /**
      * Called when a new signal is queued in the hosting {@link Machine}.
@@ -120,17 +114,15 @@ public interface Architecture {
      * Keep in mind that this may be called from any random thread, since
      * {@link Context#signal} does not require being called from a specific
      * thread.
-     */
-    void onSignal();
+     */  CompletableFuture<Void> onSignalAsync();
 
     /**
      * Called when the owning machine was connected to the component network.
      * <p/>
-     * This can be useful for connecting custom file systems (read only memory)
+     * This can be useful for connecting custom  CompletableFuture<file> systemsAsync(read only memory)
      * in case {@link #initialize()} was called from the machine's load logic
      * (where it was not yet connected to the network).
-     */
-    void onConnect();
+     */  CompletableFuture<Void> onConnectAsync();
 
     /**
      * Restores the state of this architecture as previously saved in
@@ -139,8 +131,7 @@ public interface Architecture {
      * whatever state the owning machine was in when it was saved.
      *
      * @param nbt the tag compound to save to.
-     */
-    void loadData(CompoundNBT nbt);
+     */  CompletableFuture<Void> loadDataAsync(CompoundNBT nbt);
 
     /**
      * Saves the architecture for later restoration, e.g. across games or chunk
@@ -150,8 +141,7 @@ public interface Architecture {
      * Note that the tag compound is shared with the Machine.
      *
      * @param nbt the tag compound to save to.
-     */
-    void saveData(CompoundNBT nbt);
+     */  CompletableFuture<Void> saveDataAsync(CompoundNBT nbt);
 
     /**
      * Architectures can be annotated with this to provide a nice display name.
@@ -161,8 +151,7 @@ public interface Architecture {
      */
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.TYPE)
-    @interface Name {
-        String value();
+    @interface Name {  CompletableFuture<String> valueAsync();
     }
 
     /**

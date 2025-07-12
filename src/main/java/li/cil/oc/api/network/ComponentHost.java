@@ -9,6 +9,5 @@ public interface ComponentHost extends EnvironmentHost {
      * The list of components active in the component host.
      *
      * @return the list of components.
-     */
-    Iterable<Environment> getComponents();
+     */  CompletableFuture<Iterable<Environment>> getComponentsAsync();
 }

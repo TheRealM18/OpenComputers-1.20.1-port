@@ -16,6 +16,5 @@ public interface Inventory extends DriverItem {
      *
      * @param stack the item to get the provided inventory space for.
      * @return the provided inventory space.
-     */
-    int inventoryCapacity(ItemStack stack);
+     */  CompletableFuture<int> inventoryCapacityAsync(ItemStack stack);
 }

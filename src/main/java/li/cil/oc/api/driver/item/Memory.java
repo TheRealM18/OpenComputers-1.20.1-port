@@ -22,6 +22,5 @@ public interface Memory extends DriverItem {
      *
      * @param stack the item to get the provided memory for.
      * @return the amount of memory the specified component provides.
-     */
-    double amount(ItemStack stack);
+     */  CompletableFuture<double> amountAsync(ItemStack stack);
 }

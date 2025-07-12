@@ -28,7 +28,7 @@ public interface TextBuffer extends ManagedEnvironment, Persistable {
      * This is <em>not</em> necessarily the actual amount consumed per tick,
      * instead it is a base value that cost is based on, incorporating a few
      * other factors. This is the cost a tier one screen will consume if every
-     * character is lit (non-black). Larger buffers (i.e. buffers with a higher
+     * character  CompletableFuture<is> litAsync(non-black).  CompletableFuture<Larger> buffersAsync(i.e. buffers with a higher
      * maximum resolution) cost proportionally more.
      * <p/>
      * Note that this amount of energy is not necessarily subtracted each tick,
@@ -39,16 +39,14 @@ public interface TextBuffer extends ManagedEnvironment, Persistable {
      *
      * @param value the base energy cost per tick.
      * @see #getEnergyCostPerTick()
-     */
-    void setEnergyCostPerTick(double value);
+     */  CompletableFuture<Void> setEnergyCostPerTickAsync(double value);
 
     /**
      * Get the energy cost per tick.
      *
      * @return the base energy cost per tick.
      * @see #setEnergyCostPerTick(double)
-     */
-    double getEnergyCostPerTick();
+     */  CompletableFuture<double> getEnergyCostPerTickAsync();
 
     /**
      * Set whether the buffer is powered on.
@@ -58,34 +56,29 @@ public interface TextBuffer extends ManagedEnvironment, Persistable {
      *
      * @param value whether the buffer should be on or not.
      * @see #getPowerState()
-     */
-    void setPowerState(boolean value);
+     */  CompletableFuture<Void> setPowerStateAsync(boolean value);
 
     /**
      * Get the current power state.
      *
      * @return whether the buffer is powered on.
      * @see #setPowerState(boolean)
-     */
-    boolean getPowerState();
+     */  CompletableFuture<boolean> getPowerStateAsync();
 
     /**
      * Sets the maximum resolution supported by this buffer.
      *
      * @param width  the maximum horizontal resolution, in characters.
      * @param height the maximum vertical resolution, in characters.
-     */
-    void setMaximumResolution(int width, int height);
+     */  CompletableFuture<Void> setMaximumResolutionAsync(int width, int height);
 
     /**
      * Get the maximum horizontal size of the buffer.
-     */
-    int getMaximumWidth();
+     */  CompletableFuture<int> getMaximumWidthAsync();
 
     /**
      * Get the maximum vertical size of the buffer.
-     */
-    int getMaximumHeight();
+     */  CompletableFuture<int> getMaximumHeightAsync();
 
     /**
      * Set the 'aspect ratio' of the buffer.
@@ -97,8 +90,7 @@ public interface TextBuffer extends ManagedEnvironment, Persistable {
      *
      * @param width  the horizontal size of the physical representation.
      * @param height the vertical size of the physical representation.
-     */
-    void setAspectRatio(double width, double height);
+     */  CompletableFuture<Void> setAspectRatioAsync(double width, double height);
 
     /**
      * Get the aspect ratio of the buffer.
@@ -106,8 +98,7 @@ public interface TextBuffer extends ManagedEnvironment, Persistable {
      * Note that this is in fact <tt>width / height</tt>.
      *
      * @see #setAspectRatio(double, double)
-     */
-    double getAspectRatio();
+     */  CompletableFuture<double> getAspectRatioAsync();
 
     /**
      * Set the buffer's active resolution.
@@ -115,22 +106,19 @@ public interface TextBuffer extends ManagedEnvironment, Persistable {
      * @param width  the horizontal resolution.
      * @param height the vertical resolution.
      * @return <tt>true</tt> if the resolution changed.
-     */
-    boolean setResolution(int width, int height);
+     */  CompletableFuture<boolean> setResolutionAsync(int width, int height);
 
     /**
      * Get the current horizontal resolution.
      *
      * @see #setResolution(int, int)
-     */
-    int getWidth();
+     */  CompletableFuture<int> getWidthAsync();
 
     /**
      * Get the current vertical resolution.
      *
      * @see #setResolution(int, int)
-     */
-    int getHeight();
+     */  CompletableFuture<int> getHeightAsync();
 
     /**
      * Set the buffer's active viewport resolution.
@@ -141,22 +129,19 @@ public interface TextBuffer extends ManagedEnvironment, Persistable {
      * @param height the vertical resolution.
      * @return <tt>true</tt> if the resolution changed.
      * @see #setResolution(int, int)
-     */
-    boolean setViewport(int width, int height);
+     */  CompletableFuture<boolean> setViewportAsync(int width, int height);
 
     /**
      * Get the current horizontal viewport resolution.
      *
      * @see #setViewport(int, int)
-     */
-    int getViewportWidth();
+     */  CompletableFuture<int> getViewportWidthAsync();
 
     /**
      * Get the current vertical viewport resolution.
      *
      * @see #setViewport(int, int)
-     */
-    int getViewportHeight();
+     */  CompletableFuture<int> getViewportHeightAsync();
 
     /**
      * Sets the maximum color depth supported by this buffer.
@@ -167,54 +152,47 @@ public interface TextBuffer extends ManagedEnvironment, Persistable {
      * will be supported, also.
      *
      * @param depth the maximum color depth of the buffer.
-     */
-    void setMaximumColorDepth(ColorDepth depth);
+     */  CompletableFuture<Void> setMaximumColorDepthAsync(ColorDepth depth);
 
     /**
      * Get the maximum color depth supported.
-     */
-    ColorDepth getMaximumColorDepth();
+     */  CompletableFuture<ColorDepth> getMaximumColorDepthAsync();
 
     /**
      * Set the active color depth for this buffer.
      *
      * @param depth the new color depth.
      * @return <tt>true</tt> if the color depth changed.
-     */
-    boolean setColorDepth(ColorDepth depth);
+     */  CompletableFuture<boolean> setColorDepthAsync(ColorDepth depth);
 
     /**
      * Get the active color depth of this buffer.
-     */
-    ColorDepth getColorDepth();
+     */  CompletableFuture<ColorDepth> getColorDepthAsync();
 
     /**
      * Set the color of the active color palette at the specified index.
      * <p/>
-     * This will error if the current depth does not have a palette (one bit).
+     * This will error if the current depth does not have  CompletableFuture<a> paletteAsync(one bit).
      *
      * @param index the index at which to set the color.
      * @param color the color to set for the specified index.
-     */
-    void setPaletteColor(int index, int color);
+     */  CompletableFuture<Void> setPaletteColorAsync(int index, int color);
 
     /**
      * Get the color in the active color palette at the specified index.
      * <p/>
-     * This will error if the current depth does not have a palette (one bit).
+     * This will error if the current depth does not have  CompletableFuture<a> paletteAsync(one bit).
      *
      * @param index the index at which to get the color.
      * @return the color in the active palette at the specified index.
-     */
-    int getPaletteColor(int index);
+     */  CompletableFuture<int> getPaletteColorAsync(int index);
 
     /**
      * Set the active foreground color, not using a palette.
      *
      * @param color the new foreground color.
      * @see #setForegroundColor(int, boolean)
-     */
-    void setForegroundColor(int color);
+     */  CompletableFuture<Void> setForegroundColorAsync(int color);
 
     /**
      * Set the active foreground color.
@@ -223,33 +201,29 @@ public interface TextBuffer extends ManagedEnvironment, Persistable {
      * differ from the specified one, as it is converted to the buffer's
      * current color depth.
      * <p/>
-     * For palette-only color formats (four bit) the best fit from the palette
+     * For palette-only  CompletableFuture<color> formatsAsync(four bit) the best fit from the palette
      * is chosen, if the value is not from the palette.
      *
      * @param color         the color or palette index.
      * @param isFromPalette <tt>true</tt>if <tt>color</tt> specifies a palette index.
-     */
-    void setForegroundColor(int color, boolean isFromPalette);
+     */  CompletableFuture<Void> setForegroundColorAsync(int color, boolean isFromPalette);
 
     /**
      * The active foreground color.
-     */
-    int getForegroundColor();
+     */  CompletableFuture<int> getForegroundColorAsync();
 
     /**
      * <tt>true</tt> if the foreground color is from the color palette, meaning
      * the value returned from {@link #getForegroundColor()} is the color
      * palette index.
-     */
-    boolean isForegroundFromPalette();
+     */  CompletableFuture<boolean> isForegroundFromPaletteAsync();
 
     /**
      * Set the active background color, not using a palette.
      *
      * @param color the new background color.
      * @see #setBackgroundColor(int, boolean)
-     */
-    void setBackgroundColor(int color);
+     */  CompletableFuture<Void> setBackgroundColorAsync(int color);
 
     /**
      * Set the active background color.
@@ -258,25 +232,22 @@ public interface TextBuffer extends ManagedEnvironment, Persistable {
      * differ from the specified one, as it is converted to the buffer's
      * current color depth.
      * <p/>
-     * For palette-only color formats (four bit) the best fit from the palette
+     * For palette-only  CompletableFuture<color> formatsAsync(four bit) the best fit from the palette
      * is chosen, if the value is not from the palette.
      *
      * @param color         the color or palette index.
      * @param isFromPalette <tt>true</tt>if <tt>color</tt> specifies a palette index.
-     */
-    void setBackgroundColor(int color, boolean isFromPalette);
+     */  CompletableFuture<Void> setBackgroundColorAsync(int color, boolean isFromPalette);
 
     /**
      * The active background color.
-     */
-    int getBackgroundColor();
+     */  CompletableFuture<int> getBackgroundColorAsync();
 
     /**
      * <tt>true</tt> if the background color is from the color palette, meaning
      * the value returned from {@link #getBackgroundColor()} is the color
      * palette index.
-     */
-    boolean isBackgroundFromPalette();
+     */  CompletableFuture<boolean> isBackgroundFromPaletteAsync();
 
     /**
      * Copy a portion of the text buffer.
@@ -289,8 +260,7 @@ public interface TextBuffer extends ManagedEnvironment, Persistable {
      * @param height                the height of the area to copy.
      * @param horizontalTranslation the horizontal offset, relative to the starting column to copy the are to.
      * @param verticalTranslation   the vertical offset, relative to the starting row to copy the are to.
-     */
-    void copy(int column, int row, int width, int height, int horizontalTranslation, int verticalTranslation);
+     */  CompletableFuture<Void> copyAsync(int column, int row, int width, int height, int horizontalTranslation, int verticalTranslation);
 
     /**
      * Fill a portion of the text buffer.
@@ -302,8 +272,7 @@ public interface TextBuffer extends ManagedEnvironment, Persistable {
      * @param width  the width of the area to fill.
      * @param height the height of the area to fill.
      * @param value  the character to fill the area with.
-     */
-    void fill(int column, int row, int width, int height, char value);
+     */  CompletableFuture<Void> fillAsync(int column, int row, int width, int height, char value);
 
     /**
      * Write a string into the text buffer.
@@ -314,8 +283,7 @@ public interface TextBuffer extends ManagedEnvironment, Persistable {
      * @param row      the starting vertical index to write at.
      * @param value    the string to write.
      * @param vertical <tt>true</tt> if the string should be written vertically instead of horizontally.
-     */
-    void set(int column, int row, String value, boolean vertical);
+     */  CompletableFuture<Void> setAsync(int column, int row, String value, boolean vertical);
 
     /**
      * Get the character in the text buffer at the specified location.
@@ -323,8 +291,7 @@ public interface TextBuffer extends ManagedEnvironment, Persistable {
      * @param column the horizontal index.
      * @param row    the vertical index.
      * @return the character at that index.
-     */
-    char get(int column, int row);
+     */  CompletableFuture<char> getAsync(int column, int row);
 
     /**
      * Get the foreground color of the text buffer at the specified location.
@@ -334,8 +301,7 @@ public interface TextBuffer extends ManagedEnvironment, Persistable {
      * @param column the horizontal index.
      * @param row    the vertical index.
      * @return the foreground color at that index.
-     */
-    int getForegroundColor(int column, int row);
+     */  CompletableFuture<int> getForegroundColorAsync(int column, int row);
 
     /**
      * Whether the foreground color of the text buffer at the specified
@@ -344,8 +310,7 @@ public interface TextBuffer extends ManagedEnvironment, Persistable {
      * @param column the horizontal index.
      * @param row    the vertical index.
      * @return whether the foreground at that index is from the palette.
-     */
-    boolean isForegroundFromPalette(int column, int row);
+     */  CompletableFuture<boolean> isForegroundFromPaletteAsync(int column, int row);
 
     /**
      * Get the background color of the text buffer at the specified location.
@@ -355,8 +320,7 @@ public interface TextBuffer extends ManagedEnvironment, Persistable {
      * @param column the horizontal index.
      * @param row    the vertical index.
      * @return the background color at that index.
-     */
-    int getBackgroundColor(int column, int row);
+     */  CompletableFuture<int> getBackgroundColorAsync(int column, int row);
 
     /**
      * Whether the background color of the text buffer at the specified
@@ -365,8 +329,7 @@ public interface TextBuffer extends ManagedEnvironment, Persistable {
      * @param column the horizontal index.
      * @param row    the vertical index.
      * @return whether the background at that index is from the palette.
-     */
-    boolean isBackgroundFromPalette(int column, int row);
+     */  CompletableFuture<boolean> isBackgroundFromPaletteAsync(int column, int row);
 
     /**
      * Overwrites a portion of the text in raw mode.
@@ -386,13 +349,12 @@ public interface TextBuffer extends ManagedEnvironment, Persistable {
      * @param column the horizontal index.
      * @param row    the vertical index.
      * @param text   the text to write.
-     */
-    void rawSetText(int column, int row, char[][] text);
+     */  CompletableFuture<Void> rawSetTextAsync(int column, int row, char[][] text);
 
     /**
      * Overwrites a portion of the foreground color information in raw mode.
      * <p/>
-     * This will convert the specified RGB data (in <tt>0xRRGGBB</tt> format)
+     * This will convert the specified  CompletableFuture<RGB> dataAsync(in <tt>0xRRGGBB</tt> format)
      * to the internal, packed representation and copy it into the buffer,
      * starting at the specified column and row. The array is expected to be
      * indexed row-first, i.e. the first dimension is the vertical axis, the
@@ -408,13 +370,12 @@ public interface TextBuffer extends ManagedEnvironment, Persistable {
      * @param column the horizontal index.
      * @param row    the vertical index.
      * @param color  the foreground color data to write.
-     */
-    void rawSetForeground(int column, int row, int[][] color);
+     */  CompletableFuture<Void> rawSetForegroundAsync(int column, int row, int[][] color);
 
     /**
      * Overwrites a portion of the background color information in raw mode.
      * <p/>
-     * This will convert the specified RGB data (in <tt>0xRRGGBB</tt> format)
+     * This will convert the specified  CompletableFuture<RGB> dataAsync(in <tt>0xRRGGBB</tt> format)
      * to the internal, packed representation and copy it into the buffer,
      * starting at the specified column and row. The array is expected to be
      * indexed row-first, i.e. the first dimension is the vertical axis, the
@@ -430,8 +391,7 @@ public interface TextBuffer extends ManagedEnvironment, Persistable {
      * @param column the horizontal index.
      * @param row    the vertical index.
      * @param color  the background color data to write.
-     */
-    void rawSetBackground(int column, int row, int[][] color);
+     */  CompletableFuture<Void> rawSetBackgroundAsync(int column, int row, int[][] color);
 
     // ----------------------------------------------------------------------- //
 
@@ -447,8 +407,7 @@ public interface TextBuffer extends ManagedEnvironment, Persistable {
      * @return <tt>true</tt> if the displayed content changed since the last
      * call to this method.
      */
-    @OnlyIn(Dist.CLIENT)
-    boolean renderText(MatrixStack stack);
+    @OnlyIn(Dist.CLIENT)  CompletableFuture<boolean> renderTextAsync(MatrixStack stack);
 
     /**
      * The natural width of the rendered text.
@@ -459,8 +418,7 @@ public interface TextBuffer extends ManagedEnvironment, Persistable {
      *
      * @return the total width of the rendered buffer, in pixels.
      */
-    @OnlyIn(Dist.CLIENT)
-    int renderWidth();
+    @OnlyIn(Dist.CLIENT)  CompletableFuture<int> renderWidthAsync();
 
     /**
      * The natural height of the rendered text.
@@ -471,8 +429,7 @@ public interface TextBuffer extends ManagedEnvironment, Persistable {
      *
      * @return the total height of the rendered buffer, in pixels.
      */
-    @OnlyIn(Dist.CLIENT)
-    int renderHeight();
+    @OnlyIn(Dist.CLIENT)  CompletableFuture<int> renderHeightAsync();
 
     /**
      * Set whether the contents of the buffer should currently be rendered.
@@ -482,16 +439,14 @@ public interface TextBuffer extends ManagedEnvironment, Persistable {
      *
      * @param enabled whether the text buffer should be rendered.
      */
-    @OnlyIn(Dist.CLIENT)
-    void setRenderingEnabled(boolean enabled);
+    @OnlyIn(Dist.CLIENT)  CompletableFuture<Void> setRenderingEnabledAsync(boolean enabled);
 
     /**
      * Gets whether the contents of the buffer should currently be rendered.
      *
      * @see #setRenderingEnabled(boolean)
      */
-    @OnlyIn(Dist.CLIENT)
-    boolean isRenderingEnabled();
+    @OnlyIn(Dist.CLIENT)  CompletableFuture<boolean> isRenderingEnabledAsync();
 
     // ----------------------------------------------------------------------- //
 
@@ -505,8 +460,7 @@ public interface TextBuffer extends ManagedEnvironment, Persistable {
      * @param character the character of the pressed key.
      * @param code      the key code of the pressed key.
      * @param player    the player that pressed the key. Pass <tt>null</tt> on the client side.
-     */
-    void keyDown(char character, int code, PlayerEntity player);
+     */  CompletableFuture<Void> keyDownAsync(char character, int code, PlayerEntity player);
 
     /**
      * Signals a key up event for the buffer.
@@ -518,8 +472,7 @@ public interface TextBuffer extends ManagedEnvironment, Persistable {
      * @param character the character of the released key.
      * @param code      the key code of the released key.
      * @param player    the player that released the key. Pass <tt>null</tt> on the client side.
-     */
-    void keyUp(char character, int code, PlayerEntity player);
+     */  CompletableFuture<Void> keyUpAsync(char character, int code, PlayerEntity player);
 
     /**
      * Signals a code-point (text) event for the buffer.
@@ -531,8 +484,7 @@ public interface TextBuffer extends ManagedEnvironment, Persistable {
      * @param character the character of the released key.
      * @param codePoint     the code point being typed.
      * @param player        the player that typed the code point. Pass <tt>null</tt> on the client side.
-     */
-    void textInput(int codePoint, PlayerEntity player);
+     */  CompletableFuture<Void> textInputAsync(int codePoint, PlayerEntity player);
 
     /**
      * Signals a clipboard paste event for the buffer.
@@ -543,8 +495,7 @@ public interface TextBuffer extends ManagedEnvironment, Persistable {
      *
      * @param value  the text that was pasted.
      * @param player the player that pasted the text. Pass <tt>null</tt> on the client side.
-     */
-    void clipboard(String value, PlayerEntity player);
+     */  CompletableFuture<Void> clipboardAsync(String value, PlayerEntity player);
 
     /**
      * Signals a mouse button down event for the buffer.
@@ -556,8 +507,7 @@ public interface TextBuffer extends ManagedEnvironment, Persistable {
      * @param y      the vertical coordinate of the mouse, in characters.
      * @param button the button of the mouse that was pressed.
      * @param player the player that pressed the mouse button. Pass <tt>null</tt> on the client side.
-     */
-    void mouseDown(double x, double y, int button, PlayerEntity player);
+     */  CompletableFuture<Void> mouseDownAsync(double x, double y, int button, PlayerEntity player);
 
     /**
      * Signals a mouse drag event for the buffer.
@@ -569,8 +519,7 @@ public interface TextBuffer extends ManagedEnvironment, Persistable {
      * @param y      the vertical coordinate of the mouse, in characters.
      * @param button the button of the mouse that is pressed.
      * @param player the player that moved the mouse. Pass <tt>null</tt> on the client side.
-     */
-    void mouseDrag(double x, double y, int button, PlayerEntity player);
+     */  CompletableFuture<Void> mouseDragAsync(double x, double y, int button, PlayerEntity player);
 
     /**
      * Signals a mouse button release event for the buffer.
@@ -582,8 +531,7 @@ public interface TextBuffer extends ManagedEnvironment, Persistable {
      * @param y      the vertical coordinate of the mouse, in characters.
      * @param button the button of the mouse that was released.
      * @param player the player that released the mouse button. Pass <tt>null</tt> on the client side.
-     */
-    void mouseUp(double x, double y, int button, PlayerEntity player);
+     */  CompletableFuture<Void> mouseUpAsync(double x, double y, int button, PlayerEntity player);
 
     /**
      * Signals a mouse wheel scroll event for the buffer.
@@ -595,8 +543,7 @@ public interface TextBuffer extends ManagedEnvironment, Persistable {
      * @param y      the vertical coordinate of the mouse, in characters.
      * @param delta  indicates the direction of the mouse scroll.
      * @param player the player that scrolled the mouse wheel. Pass <tt>null</tt> on the client side.
-     */
-    void mouseScroll(double x, double y, int delta, PlayerEntity player);
+     */  CompletableFuture<Void> mouseScrollAsync(double x, double y, int delta, PlayerEntity player);
 
     // ----------------------------------------------------------------------- //
 

@@ -16,23 +16,19 @@ import net.minecraft.world.World;
 public interface WirelessEndpoint {
     /**
      * The X coordinate of the endpoint in the world, in block coordinates.
-     */
-    int x();
+     */  CompletableFuture<int> xAsync();
 
     /**
      * The Y coordinate of the endpoint in the world, in block coordinates.
-     */
-    int y();
+     */  CompletableFuture<int> yAsync();
 
     /**
      * The Z coordinate of the endpoint in the world, in block coordinates.
-     */
-    int z();
+     */  CompletableFuture<int> zAsync();
 
     /**
      * The world this endpoint lives in.
-     */
-    World world();
+     */  CompletableFuture<World> worldAsync();
 
     /**
      * Makes the endpoint receive a single packet.
@@ -42,6 +38,5 @@ public interface WirelessEndpoint {
      *               necessarily the original sender of the packet, just
      *               the last point it went through, such as an access
      *               point, for example.
-     */
-    void receivePacket(Packet packet, WirelessEndpoint sender);
+     */  CompletableFuture<Void> receivePacketAsync(Packet packet, WirelessEndpoint sender);
 }

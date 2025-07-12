@@ -23,6 +23,5 @@ public interface HostAware extends DriverItem {
      * @param stack the item to check.
      * @param host  the type of host the environment would live in.
      * @return <tt>true</tt> if the item is supported; <tt>false</tt> otherwise.
-     */
-    boolean worksWith(ItemStack stack, Class<? extends EnvironmentHost> host);
+     */  CompletableFuture<boolean> worksWithAsync(ItemStack stack, Class<? extends EnvironmentHost> host);
 }

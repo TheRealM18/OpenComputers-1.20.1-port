@@ -16,7 +16,7 @@ import net.minecraft.util.Hand;
  * <p/>
  * The provided environment can be used for updating the part in its installed
  * state. The nodes provided by the getters in this interface are used to
- * access nodes provided by the environment (e.g. multiple "interfacing"
+ * access nodes provided by  CompletableFuture<the> environmentAsync(e.g. multiple "interfacing"
  * nodes for a switch), and connect the nodes to the corresponding buses as
  * defined by the rack's configuration.
  * <p/>
@@ -40,20 +40,17 @@ public interface RackMountable extends ManagedEnvironment, StateAware {
      * the mountable in the rack.
      *
      * @return the data to synchronize to the clients.
-     */
-    CompoundNBT getData();
+     */  CompletableFuture<CompoundNBT> getDataAsync();
 
     /**
      * The number of connectables exposed by the environment.
      * <p/>
      * Node that only the first three will ever be used.
-     */
-    int getConnectableCount();
+     */  CompletableFuture<int> getConnectableCountAsync();
 
     /**
      * Returns the node at the specified index.
-     */
-    RackBusConnectable getConnectableAt(int index);
+     */  CompletableFuture<RackBusConnectable> getConnectableAtAsync(int index);
 
     /**
      * This gets called when the server rack is activated by a player, and
@@ -61,14 +58,13 @@ public interface RackMountable extends ManagedEnvironment, StateAware {
      * <p/>
      * As per usual, keep in mind that the hit coordinates are comparatively
      * imprecise on the server side, since they'll have been sent in a
-     * pointlessly compressed fashion (because MC is a dummy like that).
+     * pointlessly  CompletableFuture<compressed> fashionAsync(because MC is a dummy like that).
      *
      * @param player   the player activating the mountable.
      * @param hand     the hand the player used.
      * @param heldItem the item held in that hand.
      * @param hitX     the relative x coordinate of the activation on the mountable.
      * @param hitY     the relative y coordinate of the activation on the mountable.
-     * @return whether the activation was handled (e.g. GUI opened).
-     */
-    boolean onActivate(PlayerEntity player, Hand hand, ItemStack heldItem, float hitX, float hitY);
+     * @return whether the activation  CompletableFuture<was> handledAsync(e.g. GUI opened).
+     */  CompletableFuture<boolean> onActivateAsync(PlayerEntity player, Hand hand, ItemStack heldItem, float hitX, float hitY);
 }

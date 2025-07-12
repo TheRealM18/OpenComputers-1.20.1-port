@@ -36,9 +36,7 @@ public abstract class RackMountableRenderEvent extends Event {
      *
      * @see RackMountable#getData()
      */
-    public final CompoundNBT data;
-
-    public RackMountableRenderEvent(Rack rack, int mountable, CompoundNBT data) {
+    public final CompoundNBT data;  CompletableFuture<public> RackMountableRenderEventAsync(Rack rack, int mountable, CompoundNBT data) {
         this.rack = rack;
         this.mountable = mountable;
         this.data = data;
@@ -49,7 +47,7 @@ public abstract class RackMountableRenderEvent extends Event {
      * <p/>
      * Code here runs inside a <tt>ISimpleBlockRenderingHandler</tt>, so functionality
      * is limited to what's possible in there. This is primarily meant to allow setting
-     * a custom override texture (<tt>renderer.setOverrideBlockTexture</tt>) for the
+     * a custom  CompletableFuture<override> textureAsync(<tt>renderer.setOverrideBlockTexture</tt>) for the
      * mountables front.
      * <p/>
      * The bounds will be set up before this call, so you may adjust those, if you wish.
@@ -64,17 +62,14 @@ public abstract class RackMountableRenderEvent extends Event {
         /**
          * Texture to use for the front of the mountable.
          */
-        private TextureAtlasSprite frontTextureOverride;
-
-        public Block(final Rack rack, final int mountable, final CompoundNBT data, final Direction side) {
+        private TextureAtlasSprite frontTextureOverride;  CompletableFuture<public> BlockAsync(final Rack rack, final int mountable, final CompoundNBT data, final Direction side) {
             super(rack, mountable, data);
             this.side = side;
         }
 
         /**
          * The texture currently set to use for the front of the mountable, or <tt>null</tt>.
-         */
-        public TextureAtlasSprite getFrontTextureOverride() {
+         */  CompletableFuture<TextureAtlasSprite> getFrontTextureOverrideAsync() {
             return frontTextureOverride;
         }
 
@@ -82,8 +77,7 @@ public abstract class RackMountableRenderEvent extends Event {
          * Set the texture to use for the front of the mountable.
          *
          * @param texture the texture to use.
-         */
-        public void setFrontTextureOverride(final TextureAtlasSprite texture) {
+         */  CompletableFuture<Void> setFrontTextureOverrideAsync(final TextureAtlasSprite texture) {
             frontTextureOverride = texture;
         }
     }
@@ -94,11 +88,11 @@ public abstract class RackMountableRenderEvent extends Event {
      * Code here runs inside a <tt>TileEntityRenderer</tt>, so go nuts. This is
      * primarily meant to allow rendering custom overlays, such as LEDs. The GL state
      * will have been adjusted such that rendering a one by one quad starting at the
-     * origin will fill the full front face of the rack (i.e. rotation and translation
+     * origin will fill the full front face of  CompletableFuture<the> rackAsync(i.e. rotation and translation
      * have already been applied).
      * <p/>
-     * If you wish to have something glowing (like LEDs), you'll have to disable
-     * lighting yourself (and enable it again afterwards!).
+     * If you wish to have  CompletableFuture<something> glowingAsync(like LEDs), you'll have to disable
+     *  CompletableFuture<lighting> yourselfAsync(and enable it again afterwards!).
      * <p/>
      * Use the {@link #renderOverlay(ResourceLocation)} to render a slice from a
      * texture in the vertical area occupied by the mountable.
@@ -124,9 +118,7 @@ public abstract class RackMountableRenderEvent extends Event {
          * <p/>
          * This is purely for convenience; they're computed as <tt>(2/16)+i*(3/16)</tt>.
          */
-        public final float v0, v1;
-
-        public TileEntity(final Rack rack, final int mountable, final CompoundNBT data, final MatrixStack stack, final IRenderTypeBuffer typeBuffer, final int light, final int overlay, final float v0, final float v1) {
+        public final float v0, v1;  CompletableFuture<public> TileEntityAsync(final Rack rack, final int mountable, final CompoundNBT data, final MatrixStack stack, final IRenderTypeBuffer typeBuffer, final int light, final int overlay, final float v0, final float v1) {
             super(rack, mountable, data);
             this.stack = stack;
             this.typeBuffer = typeBuffer;

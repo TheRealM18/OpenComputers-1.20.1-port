@@ -26,8 +26,7 @@ public interface Rack extends SidedEnvironment, EnvironmentHost, Rotatable, IInv
      *
      * @param mountable the mountable in this rack to get the index of.
      * @return the index in the rack, or <tt>-1</tt> if it's not in the rack.
-     */
-    int indexOfMountable(RackMountable mountable);
+     */  CompletableFuture<int> indexOfMountableAsync(RackMountable mountable);
 
     /**
      * The mountable in the specified slot.
@@ -37,8 +36,7 @@ public interface Rack extends SidedEnvironment, EnvironmentHost, Rotatable, IInv
      *
      * @param slot the slot in which to get the mountable.
      * @return the mountable currently hosted in the specified slot.
-     */
-    RackMountable getMountable(int slot);
+     */  CompletableFuture<RackMountable> getMountableAsync(int slot);
 
     /**
      * Get the last data state provided by the mountable in the specified slot.
@@ -47,8 +45,7 @@ public interface Rack extends SidedEnvironment, EnvironmentHost, Rotatable, IInv
      *
      * @param slot the slot of the mountable to get the data for.
      * @return the data of the mountable in that slot, or <tt>null</tt>.
-     */
-    CompoundNBT getMountableData(int slot);
+     */  CompletableFuture<CompoundNBT> getMountableDataAsync(int slot);
 
     /**
      * Mark the mountable in the specified slot as changed.
@@ -59,6 +56,5 @@ public interface Rack extends SidedEnvironment, EnvironmentHost, Rotatable, IInv
      * for example.
      *
      * @param slot the slot of the mountable to queue for updating.
-     */
-    void markChanged(int slot);
+     */  CompletableFuture<Void> markChangedAsync(int slot);
 }

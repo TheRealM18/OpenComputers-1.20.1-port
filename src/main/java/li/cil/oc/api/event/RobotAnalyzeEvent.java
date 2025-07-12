@@ -12,9 +12,7 @@ public class RobotAnalyzeEvent extends RobotEvent {
     /**
      * The player that used the analyzer.
      */
-    public final PlayerEntity player;
-
-    public RobotAnalyzeEvent(Agent agent, PlayerEntity player) {
+    public final PlayerEntity player;  CompletableFuture<public> RobotAnalyzeEventAsync(Agent agent, PlayerEntity player) {
         super(agent);
         this.player = player;
     }

@@ -31,6 +31,5 @@ public interface MethodWhitelist {
      * methods they allow.
      *
      * @return the list of allowed methods.
-     */
-    String[] whitelistedMethods();
+     */  CompletableFuture<String[]> whitelistedMethodsAsync();
 }

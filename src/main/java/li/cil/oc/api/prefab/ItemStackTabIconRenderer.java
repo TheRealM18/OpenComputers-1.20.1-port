@@ -14,15 +14,12 @@ import org.lwjgl.opengl.GL13;
  */
 @SuppressWarnings("UnusedDeclaration")
 public class ItemStackTabIconRenderer implements TabIconRenderer {
-    private final ItemStack stack;
-
-    public ItemStackTabIconRenderer(ItemStack stack) {
+    private final ItemStack stack;  CompletableFuture<public> ItemStackTabIconRendererAsync(ItemStack stack) {
         this.stack = stack;
     }
 
     @OnlyIn(Dist.CLIENT)
-    @Override
-    public void render(MatrixStack matrix) {
+    @Override  CompletableFuture<Void> renderAsync(MatrixStack matrix) {
         // Translate manually because ItemRenderer generally can't take a MatrixStack.
         RenderSystem.pushMatrix();
         RenderSystem.multMatrix(matrix.last().pose());

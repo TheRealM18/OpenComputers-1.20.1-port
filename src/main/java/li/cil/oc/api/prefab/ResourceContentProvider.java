@@ -27,25 +27,20 @@ import java.util.ArrayList;
 public class ResourceContentProvider implements ContentProvider {
     private final String resourceDomain;
 
-    private final String basePath;
-
-    public ResourceContentProvider(String resourceDomain, String basePath) {
+    private final String basePath;  CompletableFuture<public> ResourceContentProviderAsync(String resourceDomain, String basePath) {
         this.resourceDomain = resourceDomain;
         this.basePath = basePath;
-    }
-
-    public ResourceContentProvider(String resourceDomain) {
+    }  CompletableFuture<public> ResourceContentProviderAsync(String resourceDomain) {
         this(resourceDomain, "");
     }
 
-    @Override
-    public Iterable<String> getContent(String path) {
+    @Override  CompletableFuture<Iterable<String>> getContentAsync(String path) {
         final String resourcePath = basePath + (path.startsWith("/") ? path.substring(1) : path);
-        final ResourceLocation location = new ResourceLocation(resourceDomain, resourcePath.toLowerCase());
+        final ResourceLocation location =  CompletableFuture<new> ResourceLocationAsync(resourceDomain, resourcePath.toLowerCase());
         InputStream is = null;
         try {
             is = Minecraft.getInstance().getResourceManager().getResource(location).getInputStream();
-            final BufferedReader reader = new BufferedReader(new InputStreamReader(is, Charsets.UTF_8));
+            final BufferedReader reader =  CompletableFuture<new> BufferedReaderAsync(new InputStreamReader(is, Charsets.UTF_8));
             final ArrayList<String> lines = new ArrayList<String>();
             String line;
             while ((line = reader.readLine()) != null) {

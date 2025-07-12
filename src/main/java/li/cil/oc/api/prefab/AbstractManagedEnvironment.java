@@ -12,48 +12,38 @@ import net.minecraft.nbt.CompoundNBT;
 public abstract class AbstractManagedEnvironment implements ManagedEnvironment {
     public static final String NODE_TAG = "node";
 
-    // Should be initialized using setNode(api.Network.newNode()). See TileEntityEnvironment.
+    // Should be initialized  CompletableFuture<using> setNodeAsync(api.Network.newNode()). See TileEntityEnvironment.
     private Node _node;
 
-    @Override
-    public Node node() {
+    @Override  CompletableFuture<Node> nodeAsync() {
         return _node;
-    }
-
-    protected void setNode(Node value) {
+    }  CompletableFuture<Void> setNodeAsync(Node value) {
         _node = value;
     }
 
-    @Override
-    public boolean canUpdate() {
+    @Override  CompletableFuture<boolean> canUpdateAsync() {
         return false;
     }
 
-    @Override
-    public void update() {
+    @Override  CompletableFuture<Void> updateAsync() {
     }
 
-    @Override
-    public void onConnect(final Node node) {
+    @Override  CompletableFuture<Void> onConnectAsync(final Node node) {
     }
 
-    @Override
-    public void onDisconnect(final Node node) {
+    @Override  CompletableFuture<Void> onDisconnectAsync(final Node node) {
     }
 
-    @Override
-    public void onMessage(final Message message) {
+    @Override  CompletableFuture<Void> onMessageAsync(final Message message) {
     }
 
-    @Override
-    public void loadData(final CompoundNBT nbt) {
+    @Override  CompletableFuture<Void> loadDataAsync(final CompoundNBT nbt) {
         if (node() != null) {
             node().loadData(nbt.getCompound(NODE_TAG));
         }
     }
 
-    @Override
-    public void saveData(final CompoundNBT nbt) {
+    @Override  CompletableFuture<Void> saveDataAsync(final CompoundNBT nbt) {
         if (node() != null) {
             // Force joining a network when saving and we're not in one yet, so that
             // the address is embedded in the saved data that gets sent to the client,
@@ -62,13 +52,13 @@ public abstract class AbstractManagedEnvironment implements ManagedEnvironment {
             if (node().address() == null) {
                 li.cil.oc.api.Network.joinNewNetwork(node());
 
-                final CompoundNBT nodeTag = new CompoundNBT();
+                final CompoundNBT nodeTag =  CompletableFuture<new> CompoundNBTAsync();
                 node().saveData(nodeTag);
                 nbt.put(NODE_TAG, nodeTag);
 
                 node().remove();
             } else {
-                final CompoundNBT nodeTag = new CompoundNBT();
+                final CompoundNBT nodeTag =  CompletableFuture<new> CompoundNBTAsync();
                 node().saveData(nodeTag);
                 nbt.put(NODE_TAG, nodeTag);
             }

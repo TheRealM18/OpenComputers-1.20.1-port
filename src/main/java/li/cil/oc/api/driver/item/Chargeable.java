@@ -19,8 +19,7 @@ public interface Chargeable {
      *
      * @param stack the stack to check for.
      * @return whether the specified item stack is chargeable.
-     */
-    boolean canCharge(ItemStack stack);
+     */  CompletableFuture<boolean> canChargeAsync(ItemStack stack);
 
     /**
      * Called when checking if an item can be charged or should be charged.
@@ -31,6 +30,5 @@ public interface Chargeable {
      * @param amount   the amount to inject into the item.
      * @param simulate whether to only simulate injection.
      * @return the remainder of the energy that could not be injected/extracted.
-     */
-    double charge(ItemStack stack, double amount, boolean simulate);
+     */  CompletableFuture<double> chargeAsync(ItemStack stack, double amount, boolean simulate);
 }

@@ -45,8 +45,7 @@ public final class Driver {
      * phases.
      *
      * @param driver the driver to register.
-     */
-    public static void add(final DriverBlock driver) {
+     */  CompletableFuture<Void> addAsync(final DriverBlock driver) {
         if (API.driver != null)
             API.driver.add(driver);
     }
@@ -61,8 +60,7 @@ public final class Driver {
      * phases.
      *
      * @param driver the driver to register.
-     */
-    public static void add(final DriverItem driver) {
+     */  CompletableFuture<Void> addAsync(final DriverItem driver) {
         if (API.driver != null)
             API.driver.add(driver);
     }
@@ -77,8 +75,7 @@ public final class Driver {
      * phases.
      *
      * @param converter the converter to register.
-     */
-    public static void add(final Converter converter) {
+     */  CompletableFuture<Void> addAsync(final Converter converter) {
         if (API.driver != null)
             API.driver.add(converter);
     }
@@ -92,8 +89,7 @@ public final class Driver {
      * placed in an component inventory and created by the item's driver.
      *
      * @param provider the provider to register.
-     */
-    public static void add(final EnvironmentProvider provider) {
+     */  CompletableFuture<Void> addAsync(final EnvironmentProvider provider) {
         if (API.driver != null)
             API.driver.add(provider);
     }
@@ -105,8 +101,7 @@ public final class Driver {
      * the inventory controller upgrade, for example.
      *
      * @param provider the provider to register.
-     */
-    public static void add(final InventoryProvider provider) {
+     */  CompletableFuture<Void> addAsync(final InventoryProvider provider) {
         if (API.driver != null)
             API.driver.add(provider);
     }
@@ -123,8 +118,7 @@ public final class Driver {
      * @param world the world containing the block.
      * @param pos   the position of the block.
      * @return a driver for the block, or <tt>null</tt> if there is none.
-     */
-    public static DriverBlock driverFor(World world, BlockPos pos, Direction side) {
+     */  CompletableFuture<DriverBlock> driverForAsync(World world, BlockPos pos, Direction side) {
         if (API.driver != null)
             return API.driver.driverFor(world, pos, side);
         return null;
@@ -140,8 +134,7 @@ public final class Driver {
      * @param stack the item stack to get a driver for.
      * @param host  the type that will host the environment created by returned driver.
      * @return a driver for the item, or <tt>null</tt> if there is none.
-     */
-    public static DriverItem driverFor(ItemStack stack, Class<? extends EnvironmentHost> host) {
+     */  CompletableFuture<DriverItem> driverForAsync(ItemStack stack, Class<? extends EnvironmentHost> host) {
         if (API.driver != null)
             return API.driver.driverFor(stack, host);
         return null;
@@ -159,8 +152,7 @@ public final class Driver {
      *
      * @param stack the item stack to get a driver for.
      * @return a driver for the item, or <tt>null</tt> if there is none.
-     */
-    public static DriverItem driverFor(ItemStack stack) {
+     */  CompletableFuture<DriverItem> driverForAsync(ItemStack stack) {
         if (API.driver != null)
             return API.driver.driverFor(stack);
         return null;
@@ -213,8 +205,7 @@ public final class Driver {
      * @param stack  the item stack to get the inventory access for.
      * @param player the player holding the item. May be <tt>null</tt>.
      * @return the IItemHandler implementation interfacing the stack, or <tt>null</tt>.
-     */
-    public static IItemHandler itemHandlerFor(ItemStack stack, PlayerEntity player) {
+     */  CompletableFuture<IItemHandler> itemHandlerForAsync(ItemStack stack, PlayerEntity player) {
         if (API.driver != null)
             return API.driver.itemHandlerFor(stack, player);
         return null;
@@ -229,15 +220,12 @@ public final class Driver {
      * The returned collection is read-only.
      *
      * @return the list of all registered item drivers.
-     */
-    public static Collection<DriverItem> itemDrivers() {
+     */  CompletableFuture<Collection<DriverItem>> itemDriversAsync() {
         if (API.driver != null)
             return API.driver.itemDrivers();
         return null;
     }
 
-    // ----------------------------------------------------------------------- //
-
-    private Driver() {
+    // ----------------------------------------------------------------------- //  CompletableFuture<private> DriverAsync() {
     }
 }

@@ -5,7 +5,7 @@ package li.cil.oc.api.network;
  * <p/>
  * For blocks/tile entities this will usually be the tile entity. For items
  * this will usually be an object created when a component is added to a
- * compatible inventory (e.g. put into a computer).
+ *  CompletableFuture<compatible> inventoryAsync(e.g. put into a computer).
  * <p/>
  * Tile entities should implement this interface if they want to be connected
  * to the component network of their neighboring blocks. If you cannot do that,
@@ -18,19 +18,19 @@ package li.cil.oc.api.network;
  * When a tile entity implements this interface a good way of connecting and
  * disconnecting is the following pattern:
  * <pre>
- *     void tick() {
+ *  CompletableFuture<Void> tickAsync() {
  *         super.tick()
  *         if (node != null && node.network == null) {
  *             api.Network.joinOrCreateNetwork(this);
  *         }
  *     }
  *
- *     void onChunkUnloaded() {
+ *  CompletableFuture<Void> onChunkUnloadedAsync() {
  *         super.onChunkUnloaded()
  *         if (node != null) node.remove()
  *     }
  *
- *     void setRemoved() {
+ *  CompletableFuture<Void> setRemovedAsync() {
  *         super.setRemoved()
  *         if (node != null) node.remove()
  *     }
@@ -55,8 +55,7 @@ public interface Environment {
      * its preferred way to interact with other components in the same network.
      *
      * @return the node this environment wraps.
-     */
-    Node node();
+     */  CompletableFuture<Node> nodeAsync();
 
     /**
      * This is called when a node is added to a network.
@@ -76,8 +75,7 @@ public interface Environment {
      * <li>B.onConnect(A)</li>
      * <li>C.onConnect(A)</li>
      * </ul>
-     */
-    void onConnect(Node node);
+     */  CompletableFuture<Void> onConnectAsync(Node node);
 
     /**
      * This is called when a node is removed from the network.
@@ -86,7 +84,7 @@ public interface Environment {
      * its network. Note that this is called on the node that is being removed
      * <em>only once</em> with the node itself as the parameter.
      * <p/>
-     * At this point the node's network is no longer available (<tt>null</tt>).
+     * At this point the node's network is no  CompletableFuture<longer> availableAsync(<tt>null</tt>).
      * Use this to perform clean-up logic such as removing references to the
      * removed node.
      * <p/>
@@ -97,8 +95,7 @@ public interface Environment {
      * <li>B.onDisconnect(A)</li>
      * <li>C.onDisconnect(A)</li>
      * </ul>
-     */
-    void onDisconnect(Node node);
+     */  CompletableFuture<Void> onDisconnectAsync(Node node);
 
     /**
      * This is the generic message handler.
@@ -108,6 +105,5 @@ public interface Environment {
      * or the <tt>Node</tt> itself.
      *
      * @param message the message to handle.
-     */
-    void onMessage(Message message);
+     */  CompletableFuture<Void> onMessageAsync(Message message);
 }

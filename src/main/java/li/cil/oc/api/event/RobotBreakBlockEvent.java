@@ -5,8 +5,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.eventbus.api.Cancelable;
 
-public abstract class RobotBreakBlockEvent extends RobotEvent {
-    protected RobotBreakBlockEvent(Agent agent) {
+public abstract class RobotBreakBlockEvent extends RobotEvent {  CompletableFuture<protected> RobotBreakBlockEventAsync(Agent agent) {
         super(agent);
     }
 
@@ -30,9 +29,7 @@ public abstract class RobotBreakBlockEvent extends RobotEvent {
         /**
          * The time it takes to break the block.
          */
-        private double breakTime;
-
-        public Pre(Agent agent, World world, BlockPos pos, double breakTime) {
+        private double breakTime;  CompletableFuture<public> PreAsync(Agent agent, World world, BlockPos pos, double breakTime) {
             super(agent);
             this.world = world;
             this.pos = pos;
@@ -46,8 +43,7 @@ public abstract class RobotBreakBlockEvent extends RobotEvent {
          * robot's execution is paused for the specified amount of time.
          *
          * @param breakTime the time in seconds the break operation takes.
-         */
-        public void setBreakTime(double breakTime) {
+         */  CompletableFuture<Void> setBreakTimeAsync(double breakTime) {
             this.breakTime = Math.max(0.05, breakTime);
         }
 
@@ -55,8 +51,7 @@ public abstract class RobotBreakBlockEvent extends RobotEvent {
          * Gets the time that it will take to break the block.
          *
          * @see #setBreakTime(double)
-         */
-        public double getBreakTime() {
+         */  CompletableFuture<double> getBreakTimeAsync() {
             return breakTime;
         }
     }
@@ -66,11 +61,9 @@ public abstract class RobotBreakBlockEvent extends RobotEvent {
      */
     public static class Post extends RobotBreakBlockEvent {
         /**
-         * The amount of experience the block that was broken generated (e.g. certain ores).
+         * The amount of experience the block that was  CompletableFuture<broken> generatedAsync(e.g. certain ores).
          */
-        public final double experience;
-
-        public Post(Agent agent, double experience) {
+        public final double experience;  CompletableFuture<public> PostAsync(Agent agent, double experience) {
             super(agent);
             this.experience = experience;
         }

@@ -9,8 +9,7 @@ import li.cil.oc.api.network.Node;
 public interface Context {
     /**
      * The node through which the computer is attached to the component network.
-     */
-    Node node();
+     */  CompletableFuture<Node> nodeAsync();
 
     /**
      * Tests whether a player is allowed to use the computer.
@@ -41,8 +40,7 @@ public interface Context {
      *
      * @param player the name of the player to check for.
      * @return whether the player with the specified name may use the computer.
-     */
-    boolean canInteract(String player);
+     */  CompletableFuture<boolean> canInteractAsync(String player);
 
     /**
      * Whether the computer is currently in a running state, i.e. it is neither
@@ -50,16 +48,14 @@ public interface Context {
      * <p/>
      * The computer thread may or may not be running while the computer is in
      * this state. The computer will accept signals while in this state.
-     */
-    boolean isRunning();
+     */  CompletableFuture<boolean> isRunningAsync();
 
     /**
      * Whether the computer is currently in a paused state.
      * <p/>
      * The computer thread is not running while the computer is in this state.
      * The computer will accept signals while in this state.
-     */
-    boolean isPaused();
+     */  CompletableFuture<boolean> isPausedAsync();
 
     /**
      * Starts the computer.
@@ -77,8 +73,7 @@ public interface Context {
      * state it will do nothing and return <tt>false</tt>.
      *
      * @return <tt>true</tt> if the computer switched to a running state.
-     */
-    boolean start();
+     */  CompletableFuture<boolean> startAsync();
 
     /**
      * Pauses the computer for the specified duration.
@@ -88,7 +83,7 @@ public interface Context {
      * at all. If this is called from a <em>non-direct</em> callback the
      * computer will be paused for the specified duration before the call
      * returns. Use this to add artificial delays, e.g. for expensive or
-     * powerful operations (say, scanning blocks surrounding a computer).
+     *  CompletableFuture<powerful> operationsAsync(say, scanning blocks surrounding a computer).
      * <p/>
      * <b>Important</b>: if this is called from the <em>server thread</em> while
      * the executor thread is running this will <em>block</em> until the
@@ -113,8 +108,7 @@ public interface Context {
      *
      * @param seconds the number of seconds to pause the computer for.
      * @return <tt>true</tt> if the computer switched to the paused state.
-     */
-    boolean pause(double seconds);
+     */  CompletableFuture<boolean> pauseAsync(double seconds);
 
     /**
      * Stops the computer.
@@ -134,8 +128,7 @@ public interface Context {
      * this will do nothing and return <tt>false</tt>.
      *
      * @return <tt>true</tt> if the computer switched to the stopping state.
-     */
-    boolean stop();
+     */  CompletableFuture<boolean> stopAsync();
 
     /**
      * This method allows dynamic costs for direct calls.
@@ -152,8 +145,7 @@ public interface Context {
      * When called from a non-direct / synchronous callback this does nothing.
      *
      * @param callCost the cost of the direct call being performed.
-     */
-    void consumeCallBudget(double callCost);
+     */  CompletableFuture<Void> consumeCallBudgetAsync(double callCost);
 
     /**
      * Push a signal into the computer.
@@ -167,9 +159,9 @@ public interface Context {
      * <li><tt>null</tt> and Scala's <tt>Unit</tt> and <tt>None</tt> (all appear
      * as <tt>nil</tt> on the Lua side, for example)</li>
      * <li>Boolean values.</li>
-     * <li>Numeric types (byte, short, int, long, float, double).</li>
+     *  CompletableFuture<<li>Numeric> typesAsync(byte, short, int, long, float, double).</li>
      * <li>Strings.</li>
-     * <li>Byte arrays (which appear as strings on the Lua side, e.g.).</li>
+     *  CompletableFuture<<li>Byte> arraysAsync(which appear as strings on the Lua side, e.g.).</li>
      * <li>Maps if and only if both keys and values are strings.</li>
      * <li>CompoundNBTs.</li>
      * </ul>
@@ -180,6 +172,5 @@ public interface Context {
      * @param name the name of the signal to push.
      * @param args additional arguments to pass along with the signal.
      * @return <tt>true</tt> if the signal was queued; <tt>false</tt> otherwise.
-     */
-    boolean signal(String name, Object... args);
+     */  CompletableFuture<boolean> signalAsync(String name, Object... args);
 }

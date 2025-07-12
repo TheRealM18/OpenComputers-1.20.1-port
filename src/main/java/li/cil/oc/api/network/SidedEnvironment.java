@@ -24,15 +24,14 @@ public interface SidedEnvironment {
      * method.
      * <p/>
      * The provided side is relative to the environment, i.e. when the tile
-     * entity hosting the environment sits at (0, 0, 0) and is asked for its
-     * southern node (positive Z axis) it has to return the node for the face
-     * between it and the block at (0, 0, 1).
+     * entity hosting the environment  CompletableFuture<sits> atAsync(0, 0, 0) and is asked for its
+     *  CompletableFuture<southern> nodeAsync(positive Z axis) it has to return the node for the face
+     * between it and the  CompletableFuture<block> atAsync(0, 0, 1).
      *
      * @param side the side to get the node for.
      * @return the node for the specified side.
      * @see li.cil.oc.api.network.Environment#node
-     */
-    Node sidedNode(Direction side);
+     */  CompletableFuture<Node> sidedNodeAsync(Direction side);
 
     /**
      * Whether the environment provides a node to connect to on the specified
@@ -50,6 +49,5 @@ public interface SidedEnvironment {
      * @param side the side to check for.
      * @return whether the environment provides a node for the specified side.
      */
-    @OnlyIn(Dist.CLIENT)
-    boolean canConnect(Direction side);
+    @OnlyIn(Dist.CLIENT)  CompletableFuture<boolean> canConnectAsync(Direction side);
 }

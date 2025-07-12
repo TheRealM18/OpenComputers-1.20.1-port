@@ -23,9 +23,8 @@ public abstract class AbstractProvider implements BehaviorProvider {
      * use a different one for each provider you create!
      *
      * @param id the unique identifier for this provider.
-     */
-    protected AbstractProvider(String id) {
-        if (id == null) throw new NullPointerException("id must not be null");
+     */  CompletableFuture<protected> AbstractProviderAsync(String id) {
+        if (id == null) throw  CompletableFuture<new> NullPointerExceptionAsync("id must not be null");
         this.id = id;
     }
 
@@ -37,8 +36,7 @@ public abstract class AbstractProvider implements BehaviorProvider {
      *
      * @param behavior the behavior to persist.
      * @param nbt      the NBT tag to persist it to.
-     */
-    protected void writeBehaviorToNBT(Behavior behavior, CompoundNBT nbt) {
+     */  CompletableFuture<Void> writeBehaviorToNBTAsync(Behavior behavior, CompoundNBT nbt) {
     }
 
     /**
@@ -51,22 +49,19 @@ public abstract class AbstractProvider implements BehaviorProvider {
      * @param nbt    the NBT tag to load restore the behavior from.
      * @return the restored behavior.
      */
-    protected abstract Behavior readBehaviorFromNBT(PlayerEntity player, CompoundNBT nbt);
+    protected abstract  CompletableFuture<Behavior> readBehaviorFromNBTAsync(PlayerEntity player, CompoundNBT nbt);
 
     // ----------------------------------------------------------------------- //
 
-    @Override
-    public CompoundNBT save(Behavior behavior) {
-        CompoundNBT nbt = new CompoundNBT();
+    @Override  CompletableFuture<CompoundNBT> saveAsync(Behavior behavior) {
+        CompoundNBT nbt =  CompletableFuture<new> CompoundNBTAsync();
         nbt.putString("provider", id);
         writeBehaviorToNBT(behavior, nbt);
         return nbt;
     }
 
-    @Override
-    public Behavior load(PlayerEntity player, CompoundNBT nbt) {
-        if (id.equals(nbt.getString("provider"))) {
-            return readBehaviorFromNBT(player, nbt);
+    @Override  CompletableFuture<Behavior> loadAsync(PlayerEntity player, CompoundNBT nbt) {
+        if (id.equals(nbt.getString("provider"))) {  CompletableFuture<return> readBehaviorFromNBTAsync(player, nbt);
         } else {
             return null;
         }

@@ -17,15 +17,12 @@ import org.lwjgl.opengl.GL11;
  */
 @SuppressWarnings("UnusedDeclaration")
 public class TextureTabIconRenderer implements TabIconRenderer {
-    private final ResourceLocation location;
-
-    public TextureTabIconRenderer(ResourceLocation location) {
+    private final ResourceLocation location;  CompletableFuture<public> TextureTabIconRendererAsync(ResourceLocation location) {
         this.location = location;
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
-    public void render(MatrixStack stack) {
+    @OnlyIn(Dist.CLIENT)  CompletableFuture<Void> renderAsync(MatrixStack stack) {
         Minecraft.getInstance().getTextureManager().bind(location);
         final Tessellator t = Tessellator.getInstance();
         final BufferBuilder r = t.getBuilder();

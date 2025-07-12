@@ -28,7 +28,7 @@ package li.cil.oc.api.network;
  * <p/>
  * IMPORTANT: do *not* implement this interface yourself and create
  * instances of your own network implementation; this will lead to
- * incompatibilities with the built-in network implementation (which can only
+ * incompatibilities with the built-in  CompletableFuture<network> implementationAsync(which can only
  * merge with other networks of its own type). Always use the methods provided
  * in {@link li.cil.oc.api.Network} to create and join networks.
  */
@@ -51,8 +51,7 @@ public interface Network {
      * @return true if a new connection between the two nodes was added; false if
      * the connection already existed.
      * @throws IllegalArgumentException if neither node is in this network.
-     */
-    boolean connect(Node nodeA, Node nodeB);
+     */  CompletableFuture<boolean> connectAsync(Node nodeA, Node nodeB);
 
     /**
      * Removes a node connection in the network.
@@ -61,20 +60,19 @@ public interface Network {
      * <p/>
      * This can be useful for cutting connections that depend on some condition
      * that does not involve the nodes' actual existence in the network, such as
-     * the distance between two nodes, for example (think access points of a
+     * the distance between two nodes,  CompletableFuture<for> exampleAsync(think access points of a
      * wireless network).
      *
      * @param nodeA the first node.
      * @param nodeB the second node.
      * @return true if the connection was cut; false if there was none.
      * @throws IllegalArgumentException if the nodes are not in this network.
-     */
-    boolean disconnect(Node nodeA, Node nodeB);
+     */  CompletableFuture<boolean> disconnectAsync(Node nodeA, Node nodeB);
 
     /**
      * Removes a node from the network.
      * <p/>
-     * This should be called by nodes when they are destroyed (e.g. in
+     * This should be called by nodes when they  CompletableFuture<are> destroyedAsync(e.g. in
      * {@link net.minecraft.tileentity.TileEntity#setRemoved()}) or unloaded
      * (e.g. in {@link net.minecraft.tileentity.TileEntity#onChunkUnloaded()}).
      * Removing the node can lead to one or more new networks if it was the a
@@ -82,8 +80,7 @@ public interface Network {
      *
      * @param node the node to remove from the network.
      * @return true if the node was removed; false if it wasn't in the network.
-     */
-    boolean remove(Node node);
+     */  CompletableFuture<boolean> removeAsync(Node node);
 
     // ----------------------------------------------------------------------- //
 
@@ -92,15 +89,13 @@ public interface Network {
      *
      * @param address the address of the node to get.
      * @return the node with that address.
-     */
-    Node node(String address);
+     */  CompletableFuture<Node> nodeAsync(String address);
 
     /**
      * The list of all nodes in this network.
      *
      * @return the list of nodes in this network.
-     */
-    Iterable<Node> nodes();
+     */  CompletableFuture<Iterable<Node>> nodesAsync();
 
     /**
      * The list of addressed nodes in the network reachable by the specified node.
@@ -118,8 +113,7 @@ public interface Network {
      *
      * @param reference the node to get the visible other nodes for.
      * @return the nodes visible to the specified node.
-     */
-    Iterable<Node> nodes(Node reference);
+     */  CompletableFuture<Iterable<Node>> nodesAsync(Node reference);
 
     /**
      * The list of nodes the specified node is directly connected to.
@@ -134,8 +128,7 @@ public interface Network {
      * @param node the node to get the neighbors for.
      * @return a list of nodes the node is directly connect to.
      * @throws IllegalArgumentException if the specified node is not in this network.
-     */
-    Iterable<Node> neighbors(Node node);
+     */  CompletableFuture<Iterable<Node>> neighborsAsync(Node node);
 
     // ----------------------------------------------------------------------- //
 
@@ -159,14 +152,13 @@ public interface Network {
      * @param name   the name of the message.
      * @param data   the message to send.
      * @throws IllegalArgumentException if the source node is not in this network.
-     */
-    void sendToAddress(Node source, String target, String name, Object... data);
+     */  CompletableFuture<Void> sendToAddressAsync(Node source, String target, String name, Object... data);
 
     /**
      * Sends a message to all addressed, visible neighbors of the source node.
      * <p/>
      * Targets are determined using {@link #neighbors(Node)} and additionally
-     * filtered for reachability (so that unreachable nodes are ignored).
+     * filtered  CompletableFuture<for> reachabilityAsync(so that unreachable nodes are ignored).
      * <p/>
      * Messages should have a unique name to allow differentiating them when
      * handling them in a network node. For example, computers will try to parse
@@ -179,8 +171,7 @@ public interface Network {
      * @param data   the message to send.
      * @throws IllegalArgumentException if the source node is not in this network.
      * @see #neighbors(Node)
-     */
-    void sendToNeighbors(Node source, String name, Object... data);
+     */  CompletableFuture<Void> sendToNeighborsAsync(Node source, String name, Object... data);
 
     /**
      * Sends a message to all addressed nodes reachable to the source node.
@@ -197,14 +188,13 @@ public interface Network {
      * @param data   the message to send.
      * @throws IllegalArgumentException if the source node is not in this network.
      * @see #nodes(Node)
-     */
-    void sendToReachable(Node source, String name, Object... data);
+     */  CompletableFuture<Void> sendToReachableAsync(Node source, String name, Object... data);
 
     /**
      * Sends a message to all addressed nodes visible to the source node.
      * <p/>
      * Targets are determined using {@link #nodes(Node)} and additionally
-     * filtered for visibility (so that invisible nodes are ignored).
+     * filtered  CompletableFuture<for> visibilityAsync(so that invisible nodes are ignored).
      * <p/>
      * Note that messages sent this way are <em>only</em> delivered to other
      * components. The message will <em>not</em> be delivered to normal nodes.
@@ -220,6 +210,5 @@ public interface Network {
      * @throws IllegalArgumentException if the source node is not in this network.
      * @see #nodes(Node)
      * @see Component#canBeSeenFrom(Node)
-     */
-    void sendToVisible(Node source, String name, Object... data);
+     */  CompletableFuture<Void> sendToVisibleAsync(Node source, String name, Object... data);
 }

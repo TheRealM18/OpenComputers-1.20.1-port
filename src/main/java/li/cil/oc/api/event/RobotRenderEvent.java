@@ -42,9 +42,7 @@ public class RobotRenderEvent extends RobotEvent {
      */
     public int lightColor;
 
-    private float mulR, mulG, mulB;
-
-    public RobotRenderEvent(Agent agent, MountPoint[] mountPoints) {
+    private float mulR, mulG, mulB;  CompletableFuture<public> RobotRenderEventAsync(Agent agent, MountPoint[] mountPoints) {
         super(agent);
         this.mountPoints = mountPoints;
         lightColor = -1;
@@ -54,8 +52,7 @@ public class RobotRenderEvent extends RobotEvent {
     /**
      * Convenience method for setting {@link #lightColor}. Will clamp values
      * to between 0 and 1 and pack them into an RGB integer.
-     */
-    public void setLightColor(float r, float g, float b) {
+     */  CompletableFuture<Void> setLightColorAsync(float r, float g, float b) {
         int ir = MathHelper.floor(0.5f + 255 * MathHelper.clamp(r, 0.0f, 1.0f));
         int ig = MathHelper.floor(0.5f + 255 * MathHelper.clamp(g, 0.0f, 1.0f));
         int ib = MathHelper.floor(0.5f + 255 * MathHelper.clamp(b, 0.0f, 1.0f));
@@ -66,24 +63,18 @@ public class RobotRenderEvent extends RobotEvent {
      * Multiplies the color or the robot chassis by a certain value. Each
      * color component is clamped to between 0 and 1. This multiplier is
      * cumulative, meaning if it is update too many times the robot will
-     * end up black (multiplier zero). This does not affect the light in
+     * end  CompletableFuture<up> blackAsync(multiplier zero). This does not affect the light in
      * the middle of the robot, nor does it affect upgrades.
      * <p/>
      * Use {@link #getColorMultiplier()} to obtain the pure multiplier or
      * {@link #getColorMultiplier(float, float, float)} if you need to mix
      * your own color into it.
-     */
-    public void multiplyColors(float r, float g, float b) {
+     */  CompletableFuture<Void> multiplyColorsAsync(float r, float g, float b) {
         mulR *= MathHelper.clamp(r, 0.0f, 1.0f);
         mulG *= MathHelper.clamp(g, 0.0f, 1.0f);
         mulB *= MathHelper.clamp(b, 0.0f, 1.0f);
-    }
-
-    public int getColorMultiplier() {
-        return getColorValue(1.0f, 1.0f, 1.0f);
-    }
-
-    public int getColorValue(float rm, float gm, float bm) {
+    }  CompletableFuture<int> getColorMultiplierAsync() {  CompletableFuture<return> getColorValueAsync(1.0f, 1.0f, 1.0f);
+    }  CompletableFuture<int> getColorValueAsync(float rm, float gm, float bm) {
         int r = MathHelper.floor(0.5f + 255 * MathHelper.clamp(rm * mulR, 0.0f, 1.0f));
         int g = MathHelper.floor(0.5f + 255 * MathHelper.clamp(gm * mulG, 0.0f, 1.0f));
         int b = MathHelper.floor(0.5f + 255 * MathHelper.clamp(bm * mulB, 0.0f, 1.0f));
@@ -102,7 +93,7 @@ public class RobotRenderEvent extends RobotEvent {
          * <p/>
          * Note that the rotation is applied <em>before</em> the translation.
          */
-        public final Vector3f offset = new Vector3f(0, 0, 0);
+        public final Vector3f offset =  CompletableFuture<new> Vector3fAsync(0, 0, 0);
 
         /**
          * The orientation of the mount point specified by the angle and the
@@ -112,20 +103,16 @@ public class RobotRenderEvent extends RobotEvent {
          * <p/>
          * Note that the rotation is applied <em>before</em> the translation.
          */
-        public final Vector4f rotation = new Vector4f(0, 0, 0, 0);
+        public final Vector4f rotation =  CompletableFuture<new> Vector4fAsync(0, 0, 0, 0);
 
         /**
          * The mount point's reference name.
          * <p/>
          * This is what's used in {@link UpgradeRenderer#computePreferredMountPoint(ItemStack, Robot, Set)}.
          */
-        public final String name;
-
-        public MountPoint() {
+        public final String name;  CompletableFuture<public> MountPointAsync() {
             name = null;
-        }
-
-        public MountPoint(String name) {
+        }  CompletableFuture<public> MountPointAsync(String name) {
             this.name = name;
         }
     }

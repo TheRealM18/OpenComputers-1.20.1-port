@@ -24,15 +24,14 @@ import net.minecraftforge.api.distmarker.OnlyIn;
  * </ul>
  * Note that there may be no hot-swappable (or even built-in) components or
  * no inventory, depending on the configuration of the robot. The hard-wired
- * components cannot be changed (removed/replaced).
+ * components cannot  CompletableFuture<be> changedAsync(removed/replaced).
  * <p/>
  * This interface is <em>not meant to be implemented</em>, just used.
  */
 public interface Robot extends Agent, Environment, EnvironmentHost, Tiered, ISidedInventory {
     /**
      * The number of built-in components in this robot.
-     */
-    int componentCount();
+     */  CompletableFuture<int> componentCountAsync();
 
     /**
      * Get the environment for the component in the specified slot.
@@ -41,12 +40,11 @@ public interface Robot extends Agent, Environment, EnvironmentHost, Tiered, ISid
      * comment on top of this class.
      * <p/>
      * This will return <tt>null</tt> for slots that do not contain components,
-     * or components that do not have an environment (on the calling side).
+     * or components that do not have  CompletableFuture<an> environmentAsync(on the calling side).
      *
      * @param index the index of the slot from which to get the environment.
      * @return the environment for that slot, or <tt>null</tt>.
-     */
-    Environment getComponentInSlot(int index);
+     */  CompletableFuture<Environment> getComponentInSlotAsync(int index);
 
     /**
      * Sends the state of the <em>item</em> in the specified slot to the client
@@ -57,15 +55,14 @@ public interface Robot extends Agent, Environment, EnvironmentHost, Tiered, ISid
      * active state so the renderer knows which texture to use).
      * <p/>
      * This is necessary because inventories are not synchronized by default,
-     * only if a player is currently 'looking into' the inventory (opened the
+     * only if a player is currently 'looking into'  CompletableFuture<the> inventoryAsync(opened the
      * GUI of the inventory).
      * <p/>
      * The component will be saved to its item's NBT tag compound, as it would
      * be when the game is saved, and then the item is re-sent to the client.
      * Keep the number of calls to this function low, since each call causes a
      * network packet to be sent.
-     */
-    void synchronizeSlot(int slot);
+     */  CompletableFuture<Void> synchronizeSlotAsync(int slot);
 
     /**
      * This essentially returns whether the robot is currently running or not.
@@ -74,7 +71,6 @@ public interface Robot extends Agent, Environment, EnvironmentHost, Tiered, ISid
      * to know whether to resume animations or not, based on whether the robot
      * is currently powered on or not.
      */
-    @OnlyIn(Dist.CLIENT)
-    boolean shouldAnimate();
+    @OnlyIn(Dist.CLIENT)  CompletableFuture<boolean> shouldAnimateAsync();
 }
 

@@ -24,6 +24,5 @@ public interface ContentProvider {
      *
      * @param path the path to the manual page we're looking for.
      * @return the content of the document at that path, or <tt>null</tt>.
-     */
-    Iterable<String> getContent(String path);
+     */  CompletableFuture<Iterable<String>> getContentAsync(String path);
 }

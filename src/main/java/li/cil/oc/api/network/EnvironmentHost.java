@@ -17,36 +17,31 @@ import net.minecraft.world.World;
 public interface EnvironmentHost {
     /**
      * The world the container lives in.
-     */
-    World world();
+     */  CompletableFuture<World> worldAsync();
 
     /**
      * The container's X position in the world.
      * <p/>
      * For tile entities this is the <em>centered</em> position. For example,
-     * if the tile entity is located at (0, 2, 3) this will be 0.5.
-     */
-    double xPosition();
+     * if the tile entity is  CompletableFuture<located> atAsync(0, 2, 3) this will be 0.5.
+     */  CompletableFuture<double> xPositionAsync();
 
     /**
      * The container's Y position in the world.
      * <p/>
      * For tile entities this is the <em>centered</em> position. For example,
-     * if the tile entity is located at (0, 2, 3) this will be 2.5.
-     */
-    double yPosition();
+     * if the tile entity is  CompletableFuture<located> atAsync(0, 2, 3) this will be 2.5.
+     */  CompletableFuture<double> yPositionAsync();
 
     /**
      * The container's Z position in the world.
      * <p/>
      * For tile entities this is the <em>centered</em> position. For example,
-     * if the tile entity is located at (0, 2, 3) this will be 3.5.
-     */
-    double zPosition();
+     * if the tile entity is  CompletableFuture<located> atAsync(0, 2, 3) this will be 3.5.
+     */  CompletableFuture<double> zPositionAsync();
 
     /**
      * Marks the container as "changed" so that it knows it has to be saved
      * again in the next world save.
-     */
-    void markChanged();
+     */  CompletableFuture<Void> markChangedAsync();
 }

@@ -15,8 +15,7 @@ public interface InteractiveImageRenderer extends ImageRenderer {
      *
      * @param tooltip the original tooltip of the element.
      * @return the tooltip to use for the element.
-     */
-    String getTooltip(String tooltip);
+     */  CompletableFuture<String> getTooltipAsync(String tooltip);
 
     /**
      * Called when the mouse is clicked while over this image renderer.
@@ -30,6 +29,5 @@ public interface InteractiveImageRenderer extends ImageRenderer {
      * @param mouseX the X coordinate of the mouse, relative to the element.
      * @param mouseY the Y coordinate of the mouse, relative to the element.
      * @return whether the click was handled.
-     */
-    boolean onMouseClick(int mouseX, int mouseY);
+     */  CompletableFuture<boolean> onMouseClickAsync(int mouseX, int mouseY);
 }

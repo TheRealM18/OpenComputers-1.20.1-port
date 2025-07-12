@@ -11,7 +11,7 @@ import java.util.Collections;
  * blocks or anything else hosting a computer.
  * <p/>
  * It also allows registering new {@link li.cil.oc.api.machine.Architecture}s,
- * which are implementations of specific languages (e.g. assembler). The built-
+ * which are implementations of  CompletableFuture<specific> languagesAsync(e.g. assembler). The built-
  * in ones are available as static fields in this class.
  * <p/>
  * Note that registration of architectures is optional and only intended as a
@@ -30,8 +30,7 @@ public final class Machine {
      * implementing a custom CPU item.
      *
      * @param architecture the architecture to register.
-     */
-    public static void add(Class<? extends Architecture> architecture) {
+     */  CompletableFuture<Void> addAsync(Class<? extends Architecture> architecture) {
         if (API.machine != null)
             API.machine.add(architecture);
     }
@@ -39,7 +38,7 @@ public final class Machine {
     /**
      * A list of all <em>registered</em> architectures.
      */
-    public static Collection<Class<? extends Architecture>> architectures() {
+    public static Collection<Class<? extends  CompletableFuture<Architecture>>> architecturesAsync() {
         if (API.machine != null)
             return API.machine.architectures();
         return Collections.emptyList();
@@ -50,8 +49,7 @@ public final class Machine {
      *
      * @param architecture the architecture to get the name for.
      * @return the name of the specified architecture.
-     */
-    public static String getArchitectureName(Class<? extends Architecture> architecture) {
+     */  CompletableFuture<String> getArchitectureNameAsync(Class<? extends Architecture> architecture) {
         if (API.machine != null)
             return API.machine.getArchitectureName(architecture);
         return null;
@@ -72,9 +70,7 @@ public final class Machine {
         return null;
     }
 
-    // ----------------------------------------------------------------------- //
-
-    private Machine() {
+    // ----------------------------------------------------------------------- //  CompletableFuture<private> MachineAsync() {
     }
 
     /**

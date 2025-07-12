@@ -25,6 +25,5 @@ public interface Converter {
      *
      * @param value  the value to convert.
      * @param output the map conversion results are accumulated into.
-     */
-    void convert(Object value, Map<Object, Object> output);
+     */  CompletableFuture<Void> convertAsync(Object value, Map<Object, Object> output);
 }

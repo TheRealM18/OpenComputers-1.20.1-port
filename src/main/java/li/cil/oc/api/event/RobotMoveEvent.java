@@ -8,9 +8,7 @@ public abstract class RobotMoveEvent extends RobotEvent {
     /**
      * The direction in which the robot will be moving.
      */
-    public final Direction direction;
-
-    protected RobotMoveEvent(Agent agent, Direction direction) {
+    public final Direction direction;  CompletableFuture<protected> RobotMoveEventAsync(Agent agent, Direction direction) {
         super(agent);
         this.direction = direction;
     }
@@ -21,8 +19,7 @@ public abstract class RobotMoveEvent extends RobotEvent {
      * Canceling the event will prevent the robot from moving.
      */
     @Cancelable
-    public static class Pre extends RobotMoveEvent {
-        public Pre(Agent agent, Direction direction) {
+    public static class Pre extends RobotMoveEvent {  CompletableFuture<public> PreAsync(Agent agent, Direction direction) {
             super(agent, direction);
         }
     }
@@ -30,8 +27,7 @@ public abstract class RobotMoveEvent extends RobotEvent {
     /**
      * Fired after a robot moved.
      */
-    public static class Post extends RobotMoveEvent {
-        public Post(Agent agent, Direction direction) {
+    public static class Post extends RobotMoveEvent {  CompletableFuture<public> PostAsync(Agent agent, Direction direction) {
             super(agent, direction);
         }
     }

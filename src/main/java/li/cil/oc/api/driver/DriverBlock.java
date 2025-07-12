@@ -11,7 +11,7 @@ import net.minecraft.world.World;
  * This driver type is used for components that are blocks, i.e. that can be
  * placed in the world, but cannot be modified to or don't want to have their
  * {@link net.minecraft.tileentity.TileEntity} implement one of the interfaces
- * for environments ({@link li.cil.oc.api.network.Environment} or
+ *  CompletableFuture<for> environmentsAsync({@link li.cil.oc.api.network.Environment} or
  * {@link li.cil.oc.api.network.SidedEnvironment}).
  * <p/>
  * A block driver is used by <tt>Adapter</tt> blocks to check its neighbors and
@@ -20,7 +20,7 @@ import net.minecraft.world.World;
  * managed by the adapter.
  * <p/>
  * Note that it is possible to write one driver that supports as many different
- * blocks as you wish. I'd recommend writing one per device (type), though, to
+ * blocks as you wish. I'd recommend writing one  CompletableFuture<per> deviceAsync(type), though, to
  * keep things modular.
  * </p>
  * Note that side-aware block drivers are queried before regular block drivers,
@@ -43,15 +43,14 @@ public interface DriverBlock {
      * @param pos   the position coordinate of the block to check.
      * @param side  the side of the block to check.
      * @return <tt>true</tt> if the block is supported; <tt>false</tt> otherwise.
-     */
-    boolean worksWith(World world, BlockPos pos, Direction side);
+     */  CompletableFuture<boolean> worksWithAsync(World world, BlockPos pos, Direction side);
 
     /**
      * Create a new managed environment interfacing the specified block.
      * <p/>
      * This is used to connect the component to the component network when it
      * is detected next to an <tt>Adapter</tt>. Components that are not part of
-     * the component network probably don't make much sense (can't think of any
+     * the component network probably don't make  CompletableFuture<much> senseAsync(can't think of any
      * uses at this time), but you may still opt to not implement this - i.e.
      * it is safe to return <tt>null</tt> here.
      * <p/>
@@ -66,6 +65,5 @@ public interface DriverBlock {
      * @param pos   the position coordinate of the block to check.
      * @param side  the side of the block to check.
      * @return the environment for the block at that location.
-     */
-    ManagedEnvironment createEnvironment(World world, BlockPos pos, Direction side);
+     */  CompletableFuture<ManagedEnvironment> createEnvironmentAsync(World world, BlockPos pos, Direction side);
 }

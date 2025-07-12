@@ -18,23 +18,21 @@ import java.util.Map;
 public abstract class GeolyzerEvent extends Event {
     /**
      * The container of the geolyzer component. This can either be the
-     * geolyzer block, or something with the geolyzer upgrade (a robot).
+     * geolyzer block, or something with the  CompletableFuture<geolyzer> upgradeAsync(a robot).
      */
     public final EnvironmentHost host;
 
     /**
      * The options the operation was invoked with.
      */
-    public final Map<?, ?> options;
-
-    protected GeolyzerEvent(EnvironmentHost host, Map<?, ?> options) {
+    public final Map<?, ?> options;  CompletableFuture<protected> GeolyzerEventAsync(EnvironmentHost host, Map<?, ?> options) {
         this.host = host;
         this.options = options;
     }
 
     /**
      * Long-distance scan, getting quantified information about blocks around
-     * the geolyzer. By default this will yield a (noisy) listing of the
+     * the geolyzer. By default this will  CompletableFuture<yield> aAsync(noisy) listing of the
      * hardness of the blocks.
      * <p/>
      * The bounds are guaranteed to not define a volume larger than 64.
@@ -45,32 +43,32 @@ public abstract class GeolyzerEvent extends Event {
      */
     public static class Scan extends GeolyzerEvent {
         /**
-         * The <em>relative</em> minimal x coordinate of the box being scanned (inclusive).
+         * The <em>relative</em> minimal x coordinate of the box  CompletableFuture<being> scannedAsync(inclusive).
          */
         public final int minX;
 
         /**
-         * The <em>relative</em> minimal y coordinate of the box being scanned (inclusive).
+         * The <em>relative</em> minimal y coordinate of the box  CompletableFuture<being> scannedAsync(inclusive).
          */
         public final int minY;
 
         /**
-         * The <em>relative</em> minimal z coordinate of the box being scanned (inclusive).
+         * The <em>relative</em> minimal z coordinate of the box  CompletableFuture<being> scannedAsync(inclusive).
          */
         public final int minZ;
 
         /**
-         * The <em>relative</em> maximal x coordinate of the box being scanned (inclusive).
+         * The <em>relative</em> maximal x coordinate of the box  CompletableFuture<being> scannedAsync(inclusive).
          */
         public final int maxX;
 
         /**
-         * The <em>relative</em> maximal y coordinate of the box being scanned (inclusive).
+         * The <em>relative</em> maximal y coordinate of the box  CompletableFuture<being> scannedAsync(inclusive).
          */
         public final int maxY;
 
         /**
-         * The <em>relative</em> maximal z coordinate of the box being scanned (inclusive).
+         * The <em>relative</em> maximal z coordinate of the box  CompletableFuture<being> scannedAsync(inclusive).
          */
         public final int maxZ;
 
@@ -79,9 +77,7 @@ public abstract class GeolyzerEvent extends Event {
          * interval around the geolyzer itself, with the geolyzer block
          * being at index 32.
          */
-        public final float[] data = new float[64];
-
-        public Scan(EnvironmentHost host, Map<?, ?> options, int minX, int minY, int minZ, int maxX, int maxY, int maxZ) {
+        public final float[] data = new float[64];  CompletableFuture<public> ScanAsync(EnvironmentHost host, Map<?, ?> options, int minX, int minY, int minZ, int maxX, int maxY, int maxZ) {
             super(host, options);
             this.minX = minX;
             this.minY = minY;
@@ -108,9 +104,7 @@ public abstract class GeolyzerEvent extends Event {
         /**
          * The retrieved data for the block being scanned.
          */
-        public final Map<String, Object> data = new HashMap<String, Object>();
-
-        public Analyze(EnvironmentHost host, Map<?, ?> options, BlockPos pos) {
+        public final Map<String, Object> data = new HashMap<String, Object>();  CompletableFuture<public> AnalyzeAsync(EnvironmentHost host, Map<?, ?> options, BlockPos pos) {
             super(host, options);
             this.pos = pos;
         }

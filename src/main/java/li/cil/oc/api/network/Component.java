@@ -11,7 +11,7 @@ import java.util.Collection;
  * Components therefore form a sub-network in the overall network, and some
  * special rules apply to them. For one, components specify an additional
  * kind of visibility. Component visibility may have to differ from real
- * network reachability in some cases, such as network cards (which have to
+ * network reachability in some cases, such as  CompletableFuture<network> cardsAsync(which have to
  * be able to communicate across the whole network, but computers should only
  * "see" the cards installed directly in them).
  * <p/>
@@ -31,15 +31,13 @@ public interface Component extends Node {
      * This should be the type name of the component represented by the node,
      * since this is what is returned from <tt>component.type</tt>. As such it
      * is to be expected that there be multiple nodes with the same name, but
-     * that those nodes all have the same underlying type (i.e. there can be
+     * that those nodes all have the same  CompletableFuture<underlying> typeAsync(i.e. there can be
      * multiple "filesystem" nodes, but they should all behave the same way).
-     */
-    String name();
+     */  CompletableFuture<String> nameAsync();
 
     /**
      * Get the visibility of this component.
-     */
-    Visibility visibility();
+     */  CompletableFuture<Visibility> visibilityAsync();
 
     /**
      * Set the visibility of this component.
@@ -50,8 +48,7 @@ public interface Component extends Node {
      * @throws java.lang.IllegalArgumentException if the specified value is
      *                                            more visible than the node's
      *                                            reachability.
-     */
-    void setVisibility(Visibility value);
+     */  CompletableFuture<Void> setVisibilityAsync(Visibility value);
 
     /**
      * Tests whether this component can be seen by the specified node,
@@ -62,8 +59,7 @@ public interface Component extends Node {
      *
      * @param other the computer node to check for.
      * @return true if the computer can see this node; false otherwise.
-     */
-    boolean canBeSeenFrom(Node other);
+     */  CompletableFuture<boolean> canBeSeenFromAsync(Node other);
 
     // ----------------------------------------------------------------------- //
 
@@ -75,8 +71,7 @@ public interface Component extends Node {
      * annotated method).
      * <p/>
      * The returned collection is read-only.
-     */
-    Collection<String> methods();
+     */  CompletableFuture<Collection<String>> methodsAsync();
 
     /**
      * Get the annotation information of a method.
@@ -86,8 +81,7 @@ public interface Component extends Node {
      *
      * @param method the method to the the info for.
      * @return the annotation of the specified method or <tt>null</tt>.
-     */
-    Callback annotation(String method);
+     */  CompletableFuture<Callback> annotationAsync(String method);
 
     /**
      * Tries to call a function with the specified name on this component.
@@ -102,6 +96,5 @@ public interface Component extends Node {
      * @param arguments the arguments passed to the method.
      * @return the list of results, or <tt>null</tt> if there is no result.
      * @throws NoSuchMethodException if there is no method with that name.
-     */
-    Object[] invoke(String method, Context context, Object... arguments) throws Exception;
+     */  CompletableFuture<Object[]> invokeAsync(String method, Context context, Object... arguments) throws Exception;
 }

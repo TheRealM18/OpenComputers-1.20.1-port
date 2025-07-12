@@ -27,8 +27,7 @@ public interface PathProvider {
      *
      * @param stack the stack to get the documentation path to.
      * @return the path to the page, <tt>null</tt> if none is known.
-     */
-    String pathFor(ItemStack stack);
+     */  CompletableFuture<String> pathForAsync(ItemStack stack);
 
     /**
      * Get the path to the documentation page for the provided block.
@@ -39,6 +38,5 @@ public interface PathProvider {
      * @param world the world containing the block.
      * @param pos   the position coordinate of the block.
      * @return the path to the page, <tt>null</tt> if none is known.
-     */
-    String pathFor(World world, BlockPos pos);
+     */  CompletableFuture<String> pathForAsync(World world, BlockPos pos);
 }

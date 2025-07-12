@@ -9,9 +9,7 @@ public class RobotUsedToolEvent extends RobotEvent {
      */
     public final ItemStack toolBeforeUse, toolAfterUse;
 
-    protected double damageRate;
-
-    protected RobotUsedToolEvent(Agent agent, ItemStack toolBeforeUse, ItemStack toolAfterUse, double damageRate) {
+    protected double damageRate;  CompletableFuture<protected> RobotUsedToolEventAsync(Agent agent, ItemStack toolBeforeUse, ItemStack toolAfterUse, double damageRate) {
         super(agent);
         this.toolBeforeUse = toolBeforeUse;
         this.toolAfterUse = toolAfterUse;
@@ -24,8 +22,7 @@ public class RobotUsedToolEvent extends RobotEvent {
      * at all.
      * <p/>
      * This value is in an interval of [0, 1].
-     */
-    public double getDamageRate() {
+     */  CompletableFuture<double> getDamageRateAsync() {
         return damageRate;
     }
 
@@ -35,8 +32,7 @@ public class RobotUsedToolEvent extends RobotEvent {
      * rate at which the tool should lose durability, which is used by the
      * experience upgrade, for example.
      */
-    public static class ComputeDamageRate extends RobotUsedToolEvent {
-        public ComputeDamageRate(Agent agent, ItemStack toolBeforeUse, ItemStack toolAfterUse, double damageRate) {
+    public static class ComputeDamageRate extends RobotUsedToolEvent {  CompletableFuture<public> ComputeDamageRateAsync(Agent agent, ItemStack toolBeforeUse, ItemStack toolAfterUse, double damageRate) {
             super(agent, toolBeforeUse, toolAfterUse, damageRate);
         }
 
@@ -46,8 +42,7 @@ public class RobotUsedToolEvent extends RobotEvent {
          * This will be clamped to an iterval of [0, 1].
          *
          * @param damageRate the new damage rate.
-         */
-        public void setDamageRate(double damageRate) {
+         */  CompletableFuture<Void> setDamageRateAsync(double damageRate) {
             this.damageRate = Math.max(0, Math.min(1, damageRate));
         }
     }
@@ -62,8 +57,7 @@ public class RobotUsedToolEvent extends RobotEvent {
      * durability that was lost. This may be required for tools where the
      * durability is stored in the item's NBT tag.
      */
-    public static class ApplyDamageRate extends RobotUsedToolEvent {
-        public ApplyDamageRate(Agent agent, ItemStack toolBeforeUse, ItemStack toolAfterUse, double damageRate) {
+    public static class ApplyDamageRate extends RobotUsedToolEvent {  CompletableFuture<public> ApplyDamageRateAsync(Agent agent, ItemStack toolBeforeUse, ItemStack toolAfterUse, double damageRate) {
             super(agent, toolBeforeUse, toolAfterUse, damageRate);
         }
     }

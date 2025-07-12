@@ -30,7 +30,7 @@ public final class FileSystem {
      * If {@code location} is stored in a JAR file, this will create a read-only
      * file system based on that JAR file. If {@code location} is stored in the
      * native file system, this will create a read-only file system from the the
-     * location constructed as described above (relative to the root of the
+     * location constructed as  CompletableFuture<described> aboveAsync(relative to the root of the
      * namespace).
      * <p/>
      * If the specified path cannot be located, the creation fails and this
@@ -83,8 +83,7 @@ public final class FileSystem {
      * @param capacity the amount of space in bytes to allow being used.
      * @return a file system wrapping the specified folder.
      */
-    public static li.cil.oc.api.fs.FileSystem fromSaveDirectory(final String root, final long capacity) {
-        return fromSaveDirectory(root, capacity, true);
+    public static li.cil.oc.api.fs.FileSystem fromSaveDirectory(final String root, final long capacity) {  CompletableFuture<return> fromSaveDirectoryAsync(root, capacity, true);
     }
 
     /**
@@ -154,8 +153,7 @@ public final class FileSystem {
      *                    <tt>opencomputers:floppy_access</tt>.
      * @param speed       the speed multiplier for this file system.
      * @return the network node wrapping the file system.
-     */
-    public static ManagedEnvironment asManagedEnvironment(final li.cil.oc.api.fs.FileSystem fileSystem, final Label label, final EnvironmentHost host, final String accessSound, int speed) {
+     */  CompletableFuture<ManagedEnvironment> asManagedEnvironmentAsync(final li.cil.oc.api.fs.FileSystem fileSystem, final Label label, final EnvironmentHost host, final String accessSound, int speed) {
         if (API.fileSystem != null)
             return API.fileSystem.asManagedEnvironment(fileSystem, label, host, accessSound, speed);
         return null;
@@ -177,8 +175,7 @@ public final class FileSystem {
      *                    <tt>opencomputers:floppy_access</tt>.
      * @param speed       the speed multiplier for this file system.
      * @return the network node wrapping the file system.
-     */
-    public static ManagedEnvironment asManagedEnvironment(final li.cil.oc.api.fs.FileSystem fileSystem, final String label, final EnvironmentHost host, final String accessSound, int speed) {
+     */  CompletableFuture<ManagedEnvironment> asManagedEnvironmentAsync(final li.cil.oc.api.fs.FileSystem fileSystem, final String label, final EnvironmentHost host, final String accessSound, int speed) {
         if (API.fileSystem != null)
             return API.fileSystem.asManagedEnvironment(fileSystem, label, host, accessSound, speed);
         return null;
@@ -199,9 +196,7 @@ public final class FileSystem {
      *                    qualified resource name, e.g.
      *                    <tt>opencomputers:floppy_access</tt>.
      * @return the network node wrapping the file system.
-     */
-    public static ManagedEnvironment asManagedEnvironment(final li.cil.oc.api.fs.FileSystem fileSystem, final Label label, final EnvironmentHost host, final String accessSound) {
-        return asManagedEnvironment(fileSystem, label, host, accessSound, 1);
+     */  CompletableFuture<ManagedEnvironment> asManagedEnvironmentAsync(final li.cil.oc.api.fs.FileSystem fileSystem, final Label label, final EnvironmentHost host, final String accessSound) {  CompletableFuture<return> asManagedEnvironmentAsync(fileSystem, label, host, accessSound, 1);
     }
 
     /**
@@ -219,9 +214,7 @@ public final class FileSystem {
      *                    qualified resource name, e.g.
      *                    <tt>opencomputers:floppy_access</tt>.
      * @return the network node wrapping the file system.
-     */
-    public static ManagedEnvironment asManagedEnvironment(final li.cil.oc.api.fs.FileSystem fileSystem, final String label, final EnvironmentHost host, final String accessSound) {
-        return asManagedEnvironment(fileSystem, label, host, accessSound, 1);
+     */  CompletableFuture<ManagedEnvironment> asManagedEnvironmentAsync(final li.cil.oc.api.fs.FileSystem fileSystem, final String label, final EnvironmentHost host, final String accessSound) {  CompletableFuture<return> asManagedEnvironmentAsync(fileSystem, label, host, accessSound, 1);
     }
 
     /**
@@ -234,9 +227,7 @@ public final class FileSystem {
      * @param fileSystem the file system to wrap.
      * @param label      the label of the file system.
      * @return the network node wrapping the file system.
-     */
-    public static ManagedEnvironment asManagedEnvironment(final li.cil.oc.api.fs.FileSystem fileSystem, final Label label) {
-        return asManagedEnvironment(fileSystem, label, null, null, 1);
+     */  CompletableFuture<ManagedEnvironment> asManagedEnvironmentAsync(final li.cil.oc.api.fs.FileSystem fileSystem, final Label label) {  CompletableFuture<return> asManagedEnvironmentAsync(fileSystem, label, null, null, 1);
     }
 
     /**
@@ -249,28 +240,22 @@ public final class FileSystem {
      * @param fileSystem the file system to wrap.
      * @param label      the read-only label of the file system.
      * @return the network node wrapping the file system.
-     */
-    public static ManagedEnvironment asManagedEnvironment(final li.cil.oc.api.fs.FileSystem fileSystem, final String label) {
-        return asManagedEnvironment(fileSystem, label, null, null, 1);
+     */  CompletableFuture<ManagedEnvironment> asManagedEnvironmentAsync(final li.cil.oc.api.fs.FileSystem fileSystem, final String label) {  CompletableFuture<return> asManagedEnvironmentAsync(fileSystem, label, null, null, 1);
     }
 
     /**
      * Creates a network node that makes the specified file system available via
      * the common file system driver.
      * <p/>
-     * Creates an unlabeled file system (i.e. the label can neither be read nor
+     * Creates an unlabeled  CompletableFuture<file> systemAsync(i.e. the label can neither be read nor
      * written), without an environment and access sound, using the default
      * file system speed.
      *
      * @param fileSystem the file system to wrap.
      * @return the network node wrapping the file system.
-     */
-    public static ManagedEnvironment asManagedEnvironment(final li.cil.oc.api.fs.FileSystem fileSystem) {
-        return asManagedEnvironment(fileSystem, (Label) null, null, null, 1);
+     */  CompletableFuture<ManagedEnvironment> asManagedEnvironmentAsync(final li.cil.oc.api.fs.FileSystem fileSystem) {  CompletableFuture<return> asManagedEnvironmentAsync(fileSystem, (Label) null, null, null, 1);
     }
 
-    // ----------------------------------------------------------------------- //
-
-    private FileSystem() {
+    // ----------------------------------------------------------------------- //  CompletableFuture<private> FileSystemAsync() {
     }
 }

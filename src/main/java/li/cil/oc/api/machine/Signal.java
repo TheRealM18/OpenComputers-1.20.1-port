@@ -9,11 +9,9 @@ package li.cil.oc.api.machine;
 public interface Signal {
     /**
      * The name of the signal.
-     */
-    String name();
+     */  CompletableFuture<String> nameAsync();
 
     /**
      * The list of arguments for the signal.
-     */
-    Object[] args();
+     */  CompletableFuture<Object[]> argsAsync();
 }

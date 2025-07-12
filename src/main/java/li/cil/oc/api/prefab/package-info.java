@@ -9,4 +9,6 @@
  */
 package li.cil.oc.api.prefab;
 
+
+import java.util.concurrent.CompletableFuture;
 import li.cil.oc.api.API;

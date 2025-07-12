@@ -2,12 +2,12 @@ package li.cil.oc.api.nanomachines;
 
 /**
  * The nanomachine controller is responsible for keeping track of the current
- * layout of neural connections (i.e. how nanomachine "inputs" connect to
+ * layout of  CompletableFuture<neural> connectionsAsync(i.e. how nanomachine "inputs" connect to
  * behaviors, directly or indirectly).
  * <p/>
  * Each input can connect to one or more nodes. A node can either be a
  * behavior, or an indirect connection, which in turn is connected to one
- * or more behaviors (there is at maximum one layer of indirection). Each
+ * or  CompletableFuture<more> behaviorsAsync(there is at maximum one layer of indirection). Each
  * indirection may trigger one or more behaviors, but may also require one
  * or more inputs to activate its outputs.
  * <p/>
@@ -29,8 +29,7 @@ public interface Controller {
      * active behaviors.
      *
      * @return the controller itself, for chaining / convenience.
-     */
-    Controller reconfigure();
+     */  CompletableFuture<Controller> reconfigureAsync();
 
     /**
      * Get the number of inputs available.
@@ -40,8 +39,7 @@ public interface Controller {
      * based on a configuration value.
      *
      * @return the total number of available inputs.
-     */
-    int getTotalInputCount();
+     */  CompletableFuture<int> getTotalInputCountAsync();
 
     /**
      * Get the number of inputs that may be active at the same time
@@ -51,8 +49,7 @@ public interface Controller {
      * have negative effects on the player.
      *
      * @return the number of inputs that may safely be active at a time.
-     */
-    int getSafeActiveInputs();
+     */  CompletableFuture<int> getSafeActiveInputsAsync();
 
     /**
      * Get the total number of inputs that may be active at the same time.
@@ -60,8 +57,7 @@ public interface Controller {
      * The number of active inputs cannot exceed this value.
      *
      * @return the number of inputs that may be active at a time.
-     */
-    int getMaxActiveInputs();
+     */  CompletableFuture<int> getMaxActiveInputsAsync();
 
     /**
      * Get whether the input with the specified index is active.
@@ -69,8 +65,7 @@ public interface Controller {
      * @param index the input index.
      * @return whether the input is active.
      * @throws IndexOutOfBoundsException if <code>index &lt; 0</code> or <code>index &gt;= getInputCount</code>.
-     */
-    boolean getInput(int index);
+     */  CompletableFuture<boolean> getInputAsync(int index);
 
     /**
      * Set the state of the input with the specified index.
@@ -82,8 +77,7 @@ public interface Controller {
      * @param value whether the input should be active.
      * @return whether the input was changed successfully.
      * @throws IndexOutOfBoundsException if <code>index &lt; 0</code> or <code>index &gt;= getInputCount</code>.
-     */
-    boolean setInput(int index, boolean value);
+     */  CompletableFuture<boolean> setInputAsync(int index, boolean value);
 
     /**
      * Get the list of currently active behaviors, based on the current input states.
@@ -93,28 +87,24 @@ public interface Controller {
      * active input.
      *
      * @return the list of currently active behaviors. Never <tt>null</tt>.
-     */
-    Iterable<Behavior> getActiveBehaviors();
+     */  CompletableFuture<Iterable<Behavior>> getActiveBehaviorsAsync();
 
     /**
      * Get the number of active inputs for the specified behavior.
      *
      * @param behavior the behavior to get the number of inputs for.
      * @return the number of inputs active for the specified behavior.
-     */
-    int getInputCount(Behavior behavior);
+     */  CompletableFuture<int> getInputCountAsync(Behavior behavior);
 
     // ----------------------------------------------------------------------- //
 
     /**
      * The amount of energy stored by this nanomachine controller.
-     */
-    double getLocalBuffer();
+     */  CompletableFuture<double> getLocalBufferAsync();
 
     /**
      * The maximum amount of energy stored by this nanomachine controller.
-     */
-    double getLocalBufferSize();
+     */  CompletableFuture<double> getLocalBufferSizeAsync();
 
     /**
      * Try to apply the specified delta to the controller's buffer.
@@ -124,6 +114,5 @@ public interface Controller {
      *
      * @param delta the amount of energy to consume or store.
      * @return the remainder of the delta that could not be applied.
-     */
-    double changeBuffer(double delta);
+     */  CompletableFuture<double> changeBufferAsync(double delta);
 }

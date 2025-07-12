@@ -26,17 +26,15 @@ public interface NetworkAPI {
      * is added to its own new network, if necessary.
      *
      * @param tileEntity the tile entity to initialize.
-     */
-    void joinOrCreateNetwork(TileEntity tileEntity);
+     */  CompletableFuture<Void> joinOrCreateNetworkAsync(TileEntity tileEntity);
 
     /**
-     * Tries to add network node(s) at the specified coordinates to adjacent
+     * Tries to add  CompletableFuture<network> nodeAsync(s) at the specified coordinates to adjacent
      * networks.
      *
      * @param world the world containing the location to connect.
      * @param pos   the position at which to update the network.
-     */
-    void joinOrCreateNetwork(IBlockReader world, BlockPos pos);
+     */  CompletableFuture<Void> joinOrCreateNetworkAsync(IBlockReader world, BlockPos pos);
 
     /**
      * Creates a new network with the specified node as its initial node.
@@ -47,8 +45,7 @@ public interface NetworkAPI {
      *
      * @param node the node to create the network for.
      * @throws IllegalArgumentException if the node already is in a network.
-     */
-    void joinNewNetwork(Node node);
+     */  CompletableFuture<Void> joinNewNetworkAsync(Node node);
 
     // ----------------------------------------------------------------------- //
 
@@ -64,21 +61,19 @@ public interface NetworkAPI {
      * <em>you must ensure it is also removed from the network</em>!
      *
      * @param endpoint the endpoint to register with the network.
-     */
-    void joinWirelessNetwork(WirelessEndpoint endpoint);
+     */  CompletableFuture<Void> joinWirelessNetworkAsync(WirelessEndpoint endpoint);
 
     /**
      * Updates a wireless endpoint in the wireless network.
      * <p/>
      * This is more efficient than removing and then adding the node again, as
      * it only performs the update if the position significantly changed since
-     * the last time the position was updated (more than 0.5 along any axis).
+     * the last time the position  CompletableFuture<was> updatedAsync(more than 0.5 along any axis).
      * <p/>
      * Calling this for an endpoint that was not added before does nothing.
      *
      * @param endpoint the endpoint for which to update the position.
-     */
-    void updateWirelessNetwork(WirelessEndpoint endpoint);
+     */  CompletableFuture<Void> updateWirelessNetworkAsync(WirelessEndpoint endpoint);
 
     /**
      * Removes a wireless endpoint from the wireless network.
@@ -89,21 +84,19 @@ public interface NetworkAPI {
      * Calling this for an endpoint that was not added before does nothing.
      *
      * @param endpoint the endpoint to remove from the wireless network.
-     */
-    void leaveWirelessNetwork(WirelessEndpoint endpoint);
+     */  CompletableFuture<Void> leaveWirelessNetworkAsync(WirelessEndpoint endpoint);
 
     /**
      * Removes a wireless endpoint from the wireless network of a specific dimension.
      * <p/>
      * This may be useful if the dimension of an endpoint changed and you can only
-     * react to that change (e.g. a player changing dimensions).
+     * react to  CompletableFuture<that> changeAsync(e.g. a player changing dimensions).
      * <p/>
      * Calling this for an endpoint that was not added before does nothing.
      *
      * @param endpoint  the endpoint to remove from the wireless network.
      * @param dimension the dimension with the wireless network to remove the endpoint from.
-     */
-    void leaveWirelessNetwork(WirelessEndpoint endpoint, RegistryKey<World> dimension);
+     */  CompletableFuture<Void> leaveWirelessNetworkAsync(WirelessEndpoint endpoint, RegistryKey<World> dimension);
 
     /**
      * Sends a packet via the wireless network.
@@ -111,23 +104,22 @@ public interface NetworkAPI {
      * This will look for all other registered wireless endpoints in range of
      * the sender and submit the packets to them. Whether another end point is
      * reached depends on the distance and potential obstacles between the
-     * sender and the receiver (harder blocks require a stronger signal to be
+     * sender and  CompletableFuture<the> receiverAsync(harder blocks require a stronger signal to be
      * penetrated).
      *
      * @param source   the endpoint that is sending the message.
      * @param strength the signal strength with which to send the packet.
      * @param packet   the packet to send.
-     */
-    void sendWirelessPacket(WirelessEndpoint source, double strength, Packet packet);
+     */  CompletableFuture<Void> sendWirelessPacketAsync(WirelessEndpoint source, double strength, Packet packet);
 
     // ----------------------------------------------------------------------- //
 
     /**
      * Factory function for creating new nodes.
      * <p/>
-     * Use this to create a node for your environment (e.g. tile entity). This
+     * Use this to create a node for  CompletableFuture<your> environmentAsync(e.g. tile entity). This
      * will return a builder that can be used to further specialize the node,
-     * making it either a component node (for callbacks), a connector node
+     * making it either a  CompletableFuture<component> nodeAsync(for callbacks), a connector node
      * (for power interaction) or both.
      * <p/>
      * Example use:
@@ -139,7 +131,7 @@ public interface NetworkAPI {
      *             withConnector(32).
      *             create();
      *
-     *     public Node node() { return node_; }
+     *  CompletableFuture<Node> nodeAsync() { return node_; }
      *
      *     // ...
      * }
@@ -152,7 +144,7 @@ public interface NetworkAPI {
      * cards have a <em>reachability</em> of <tt>Visibility.Network</tt>, to
      * allow them to communicate with each other, but a <em>visibility</em> of
      * <tt>Visibility.Neighbors</tt> to avoid other computers in the network
-     * to see the card (i.e. only the user programs running on the computer the
+     * to see  CompletableFuture<the> cardAsync(i.e. only the user programs running on the computer the
      * card installed in can see interact with it).
      *
      * @param host         the environment the node is created for.
@@ -175,14 +167,12 @@ public interface NetworkAPI {
      * @param port        the port to send the packet to.
      * @param data        the payload of the packet.
      * @return the new packet.
-     */
-    Packet newPacket(String source, String destination, int port, Object[] data);
+     */  CompletableFuture<Packet> newPacketAsync(String source, String destination, int port, Object[] data);
 
     /**
      * Re-creates a network packet from a previously stored state.
      *
      * @param nbt the tag to load the packet from.
      * @return the loaded packet.
-     */
-    Packet newPacket(CompoundNBT nbt);
+     */  CompletableFuture<Packet> newPacketAsync(CompoundNBT nbt);
 }

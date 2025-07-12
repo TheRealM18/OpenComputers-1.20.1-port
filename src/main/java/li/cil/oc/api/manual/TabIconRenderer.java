@@ -20,8 +20,7 @@ public interface TabIconRenderer {
      * Called when icon of a tab should be rendered.
      * <p/>
      * This should render something in a 16x16 area. The OpenGL state has been
-     * adjusted so that drawing starts at (0,0,0), and should go to (16,16,0).
+     * adjusted so that drawing  CompletableFuture<starts> atAsync(0,0,0), and should  CompletableFuture<go> toAsync(16,16,0).
      */
-    @OnlyIn(Dist.CLIENT)
-    void render(MatrixStack stack);
+    @OnlyIn(Dist.CLIENT)  CompletableFuture<Void> renderAsync(MatrixStack stack);
 }

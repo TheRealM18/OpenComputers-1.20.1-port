@@ -13,15 +13,13 @@ public interface Colored {
      * Get the current color value.
      *
      * @return the current color value.
-     */
-    int getColor();
+     */  CompletableFuture<int> getColorAsync();
 
     /**
      * Set the color value.
      *
      * @param value the new color value.
-     */
-    void setColor(int value);
+     */  CompletableFuture<Void> setColorAsync(int value);
 
     /**
      * Whether the color of the implementing object controls how it can connect
@@ -32,6 +30,5 @@ public interface Colored {
      * always connect to each other.
      *
      * @return whether the color influences this object's connectivity.
-     */
-    boolean controlsConnectivity();
+     */  CompletableFuture<boolean> controlsConnectivityAsync();
 }

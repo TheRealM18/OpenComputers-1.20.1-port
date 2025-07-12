@@ -25,6 +25,5 @@ public interface CallBudget {
      *
      * @param stack the stack representing the part to get the call budget for.
      * @return the budget for direct calls per tick provided.
-     */
-    double getCallBudget(ItemStack stack);
+     */  CompletableFuture<double> getCallBudgetAsync(ItemStack stack);
 }

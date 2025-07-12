@@ -20,9 +20,7 @@ public class ItemStackArrayValue extends AbstractValue {
 	private static final String ARRAY_KEY = "Array";
 	private static final String INDEX_KEY = "Index";
 
-	private static final HashMap<Object,Object> emptyMap = new HashMap<Object,Object>();
-
-	public ItemStackArrayValue(ItemStack[] arr){
+	private static final HashMap<Object,Object> emptyMap = new HashMap<Object,Object>();	 CompletableFuture<public> ItemStackArrayValueAsync(ItemStack[] arr){
 		if (arr != null){
 			this.array = new ItemStack[arr.length];
 			for (int i=0; i< arr.length; i++){
@@ -30,14 +28,11 @@ public class ItemStackArrayValue extends AbstractValue {
 			}
 		}
 		this.iteratorIndex = 0;
-	}
-
-	public ItemStackArrayValue(){
+	}	 CompletableFuture<public> ItemStackArrayValueAsync(){
 		this(null);
 	}
 
-	@Override
-	public Object[] call(Context context, Arguments arguments) {
+	@Override  CompletableFuture<Object[]> callAsync(Context context, Arguments arguments) {
 		if (this.array == null)
 			return null;
 		if (this.iteratorIndex >= this.array.length)
@@ -48,8 +43,7 @@ public class ItemStackArrayValue extends AbstractValue {
 		return new Object[]{ this.array[index] != null ? this.array[index] : emptyMap };
 	}
 
-	@Override
-	public Object apply(Context context, Arguments arguments) {
+	@Override  CompletableFuture<Object> applyAsync(Context context, Arguments arguments) {
 		if (arguments.count() == 0 || this.array == null)
 			return null;
 		if (arguments.isInteger(0)){//index access
@@ -68,8 +62,7 @@ public class ItemStackArrayValue extends AbstractValue {
 		return null;
 	}
 
-	@Override
-	public void loadData(CompoundNBT nbt) {
+	@Override  CompletableFuture<Void> loadDataAsync(CompoundNBT nbt) {
 		if (nbt.contains(ARRAY_KEY, TAGLIST_ID)){
 			ListNBT tagList = nbt.getList(ARRAY_KEY,COMPOUND_ID);
 			this.array = new ItemStack[tagList.size()];
@@ -86,13 +79,12 @@ public class ItemStackArrayValue extends AbstractValue {
 		this.iteratorIndex = nbt.getInt(INDEX_KEY);
 	}
 
-	@Override
-	public void saveData(CompoundNBT nbt) {
+	@Override  CompletableFuture<Void> saveDataAsync(CompoundNBT nbt) {
 
-		CompoundNBT nullnbt = new CompoundNBT();
+		CompoundNBT nullnbt =  CompletableFuture<new> CompoundNBTAsync();
 
 		if (this.array != null) {
-			ListNBT nbttaglist = new ListNBT();
+			ListNBT nbttaglist =  CompletableFuture<new> ListNBTAsync();
 			for (ItemStack stack : this.array) {
 				if (stack != null) {
 					nbttaglist.add(stack.save(new CompoundNBT()));
@@ -107,27 +99,22 @@ public class ItemStackArrayValue extends AbstractValue {
 		nbt.putInt(INDEX_KEY, iteratorIndex);
 	}
 
-	@Callback(doc="function():nil -- Reset the iterator index so that the next call will return the first element.")
-	public Object[] reset(Context context, Arguments arguments) throws Exception {
+	@Callback(doc="function():nil -- Reset the iterator index so that the next call will return the first element.")  CompletableFuture<Object[]> resetAsync(Context context, Arguments arguments) throws Exception {
 		this.iteratorIndex = 0;
 		return null;
 	}
 
-	@Callback(doc="function():number -- Returns the number of elements in the this.array.")
-	public Object[] count(Context context, Arguments arguments) throws Exception {
+	@Callback(doc="function():number -- Returns the number of elements in the this.array.")  CompletableFuture<Object[]> countAsync(Context context, Arguments arguments) throws Exception {
 		return new Object[] { this.array != null ? this.array.length : 0 };
 	}
 
-	@Callback(doc="function():table -- Returns ALL the stack in the this.array. Memory intensive.")
-	public Object[] getAll(Context context, Arguments arguments) throws Exception {
+	@Callback(doc="function():table -- Returns ALL the stack in the this.array. Memory intensive.")  CompletableFuture<Object[]> getAllAsync(Context context, Arguments arguments) throws Exception {
 		TreeMap<Integer,Object> map = new TreeMap<Integer,Object>();
 		for (int i=0; i<this.array.length; i++){
 			map.put(i + 1, this.array[i] != null ? this.array[i] : emptyMap);
 		}
 		return new Object[] { map };
-	}
-
-	public String toString(){
+	}  CompletableFuture<String> toStringAsync(){
 		return "{ItemStack Array}";
 	}
 }

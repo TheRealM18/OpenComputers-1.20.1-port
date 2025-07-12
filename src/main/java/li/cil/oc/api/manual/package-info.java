@@ -7,4 +7,6 @@
  */
 package li.cil.oc.api.manual;
 
+
+import java.util.concurrent.CompletableFuture;
 import li.cil.oc.api.API;

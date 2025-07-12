@@ -30,8 +30,7 @@ public interface BehaviorProvider {
      *
      * @param player the player the behaviors should be created for.
      * @return list of new behaviors, may be <tt>null</tt>.
-     */
-    Iterable<Behavior> createBehaviors(PlayerEntity player);
+     */  CompletableFuture<Iterable<Behavior>> createBehaviorsAsync(PlayerEntity player);
 
     /**
      * Write a behavior to NBT.
@@ -44,8 +43,7 @@ public interface BehaviorProvider {
      *
      * @param behavior the behavior to serialize.
      * @return the serialized representation of the specified behavior.
-     */
-    CompoundNBT save(Behavior behavior);
+     */  CompletableFuture<CompoundNBT> saveAsync(Behavior behavior);
 
     /**
      * Restore a behavior from NBT.
@@ -61,6 +59,5 @@ public interface BehaviorProvider {
      * @param player the player the behaviors should be created for.
      * @param nbt    the tag to restore the behavior from.
      * @return the restored behavior, or <tt>null</tt> if unhandled.
-     */
-    Behavior load(PlayerEntity player, CompoundNBT nbt);
+     */  CompletableFuture<Behavior> loadAsync(PlayerEntity player, CompoundNBT nbt);
 }

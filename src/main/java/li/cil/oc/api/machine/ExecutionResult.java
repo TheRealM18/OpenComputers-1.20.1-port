@@ -18,9 +18,7 @@ public abstract class ExecutionResult {
         /**
          * The number of ticks to sleep.
          */
-        public final int ticks;
-
-        public Sleep(int ticks) {
+        public final int ticks;  CompletableFuture<public> SleepAsync(int ticks) {
             this.ticks = ticks;
         }
     }
@@ -32,9 +30,7 @@ public abstract class ExecutionResult {
         /**
          * Whether to reboot. If false the computer will stop.
          */
-        public final boolean reboot;
-
-        public Shutdown(boolean reboot) {
+        public final boolean reboot;  CompletableFuture<public> ShutdownAsync(boolean reboot) {
             this.reboot = reboot;
         }
     }
@@ -57,9 +53,7 @@ public abstract class ExecutionResult {
         /**
          * The error message.
          */
-        public final String message;
-
-        public Error(String message) {
+        public final String message;  CompletableFuture<public> ErrorAsync(String message) {
             this.message = message;
         }
     }

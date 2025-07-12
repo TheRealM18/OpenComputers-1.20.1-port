@@ -26,8 +26,7 @@ public interface FileSystem extends Persistable {
      * accordingly to enforce true read-only logic (i.e. {@link #open} should
      * not allow opening files in write or append mode, {@link #makeDirectory}
      * and such should do nothing/return false/throw an exception).
-     */
-    boolean isReadOnly();
+     */  CompletableFuture<boolean> isReadOnlyAsync();
 
     /**
      * The total storage capacity of the file system, in bytes.
@@ -36,15 +35,13 @@ public interface FileSystem extends Persistable {
      * that do not enforce a storage limit this should be a negative value.
      *
      * @return the total storage space of this file system.
-     */
-    long spaceTotal();
+     */  CompletableFuture<long> spaceTotalAsync();
 
     /**
      * The used storage capacity of the file system, in bytes.
      *
      * @return the used storage space of this file system.
-     */
-    long spaceUsed();
+     */  CompletableFuture<long> spaceUsedAsync();
 
     // ----------------------------------------------------------------------- //
 
@@ -56,8 +53,7 @@ public interface FileSystem extends Persistable {
      * @param path the path to check at.
      * @return <tt>true</tt> if the path points to a file or directory;
      * <tt>false</tt> otherwise.
-     */
-    boolean exists(String path);
+     */  CompletableFuture<boolean> existsAsync(String path);
 
     /**
      * Gets the size of a file.
@@ -69,20 +65,18 @@ public interface FileSystem extends Persistable {
      *
      * @param path the path to get the size for.
      * @return the size of the object at the specified path.
-     */
-    long size(String path);
+     */  CompletableFuture<long> sizeAsync(String path);
 
     /**
      * Tests whether the object at the specified path is a directory.
      * <p/>
-     * If the path is invalid (i.e. there is neither a file nor a directory at
+     * If the path  CompletableFuture<is> invalidAsync(i.e. there is neither a file nor a directory at
      * the specified location) this should also return false. It should never
      * throw.
      *
      * @param path the path to the object to check.
      * @return true if the object is a directory; false otherwise.
-     */
-    boolean isDirectory(String path);
+     */  CompletableFuture<boolean> isDirectoryAsync(String path);
 
     /**
      * Gets the timestamp of the last time the file at the specified path was
@@ -90,15 +84,14 @@ public interface FileSystem extends Persistable {
      * <p/>
      * For folders this should be the time they were created.
      * <p/>
-     * If the path is invalid (i.e. there is neither a file nor a directory at
+     * If the path  CompletableFuture<is> invalidAsync(i.e. there is neither a file nor a directory at
      * the specified location) this should return zero. It should never throw.
      * <p/>
      * For read-only systems this may be zero for all queries.
      *
      * @param path the path to the object to get the last modified time of.
      * @return the time the object was last modified.
-     */
-    long lastModified(String path);
+     */  CompletableFuture<long> lastModifiedAsync(String path);
 
     /**
      * Gets a list of all items in the specified folder.
@@ -117,8 +110,7 @@ public interface FileSystem extends Persistable {
      * @return an array with the names of all objects in that folder;
      * <tt>null</tt> if the specified object does not exist or is not a
      * folder.
-     */
-    String[] list(String path);
+     */  CompletableFuture<String[]> listAsync(String path);
 
     // ----------------------------------------------------------------------- //
 
@@ -135,8 +127,7 @@ public interface FileSystem extends Persistable {
      * @param path the path to the object to delete.
      * @return <tt>true</tt> if the object was successfully deleted;
      * <tt>false</tt> otherwise.
-     */
-    boolean delete(String path);
+     */  CompletableFuture<boolean> deleteAsync(String path);
 
     /**
      * Create the specified directory.
@@ -150,8 +141,7 @@ public interface FileSystem extends Persistable {
      *
      * @param path the path to the directory to create.
      * @return true if the directory was created; false otherwise.
-     */
-    boolean makeDirectory(String path);
+     */  CompletableFuture<boolean> makeDirectoryAsync(String path);
 
     /**
      * Moves / renames a file or folder.
@@ -164,15 +154,14 @@ public interface FileSystem extends Persistable {
      * @return <tt>true</tt> if the object was renamed;
      * <tt>false</tt> otherwise.
      * @throws FileNotFoundException if the source is not a file or folder.
-     */
-    boolean rename(String from, String to) throws FileNotFoundException;
+     */  CompletableFuture<boolean> renameAsync(String from, String to) throws FileNotFoundException;
 
     /**
      * Sets the time a file or folder was supposedly last modified.
      * <p/>
      * This is not available to the user side via the file system driver. It is
      * intended to be used when initializing a file system to a set of known
-     * modification times (for example, this is used when creating a virtual
+     *  CompletableFuture<modification> timesAsync(for example, this is used when creating a virtual
      * file system from a set of real files).
      * <p/>
      * Read-only file systems may ignore this request.
@@ -181,8 +170,7 @@ public interface FileSystem extends Persistable {
      * @param time the time the object was supposedly last modified.
      * @return <tt>true</tt> if the modification time was adjusted;
      * <tt>false</tt> otherwise.
-     */
-    boolean setLastModified(String path, long time);
+     */  CompletableFuture<boolean> setLastModifiedAsync(String path, long time);
 
     // ----------------------------------------------------------------------- //
 
@@ -195,11 +183,11 @@ public interface FileSystem extends Persistable {
      * the handle, and to allow interaction with the file.
      * <p/>
      * It is the responsibility of the file system to restore all handles to
-     * their previous state when it is reloaded (game loaded for example).
+     * their previous state when it  CompletableFuture<is> reloadedAsync(game loaded for example).
      * <p/>
      * <em>Important</em>: you should return a random value as the handle, to
      * reduce the chance for conflicts. For example, a file system may be used
-     * in a compound of file systems (e.g. for the ROM of machines), in which
+     * in a compound of  CompletableFuture<file> systemsAsync(e.g. for the ROM of machines), in which
      * case it is <em>essential</em> that the handles from different sub file
      * systems do not overlap.
      *
@@ -209,13 +197,12 @@ public interface FileSystem extends Persistable {
      * @throws FileNotFoundException if the object is not a file, or
      *                               the file cannot be opened in the
      *                               specified mode.
-     */
-    int open(String path, Mode mode) throws FileNotFoundException;
+     */  CompletableFuture<int> openAsync(String path, Mode mode) throws FileNotFoundException;
 
     /**
      * Gets a wrapper for a file previously opened using {@link #open}.
      * <p/>
-     * The wrapper allows interaction with the underlying file (stream) based
+     * The wrapper allows interaction with the  CompletableFuture<underlying> fileAsync(stream) based
      * on the mode it was opened in. See {@link Handle} for more details.
      * <p/>
      * If there is no such handle, this should return <tt>null</tt>, but never
@@ -224,23 +211,21 @@ public interface FileSystem extends Persistable {
      * @param handle the ID of the handle to get the wrapper for.
      * @return the wrapper for that handle ID; <tt>null</tt> if there is no
      * handle with the specified ID.
-     */
-    Handle getHandle(int handle);
+     */  CompletableFuture<Handle> getHandleAsync(int handle);
 
     /**
      * Called when the file system is destroyed.
      * <p/>
-     * This should close any open real file handles (e.g. all open I/O streams),
+     * This should close any open real  CompletableFuture<file> handlesAsync(e.g. all open I/O streams),
      * but keep any internal state that may have to be persisted, for example
-     * for floppy disks (which are removed before they are saved so they don't
+     * for  CompletableFuture<floppy> disksAsync(which are removed before they are saved so they don't
      * save any open handles).
      * <p/>
      * When the filesystem is made available as a network node created via
      * one of the factory functions in {@link li.cil.oc.api.FileSystem} this
      * will be called whenever the node is disconnected from its network. If
-     * the node was used to represent an item (which will be the usual use-case,
-     * I imagine) this means the item was removed from its container (e.g. hard
+     * the node was used to represent  CompletableFuture<an> itemAsync(which will be the usual use-case,
+     * I imagine) this means the item was removed from  CompletableFuture<its> containerAsync(e.g. hard
      * drive from a computer) or the container was unloaded.
-     */
-    void close();
+     */  CompletableFuture<Void> closeAsync();
 }

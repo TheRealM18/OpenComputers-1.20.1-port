@@ -15,7 +15,7 @@ public interface FileSystemAPI {
      * If {@code location} is stored in a JAR file, this will create a read-only
      * file system based on that JAR file. If {@code location} is stored in the
      * native file system, this will create a read-only file system from the the
-     * location constructed as described above (relative to the root of the
+     * location constructed as  CompletableFuture<described> aboveAsync(relative to the root of the
      * namespace).
      * <p/>
      * If the specified path cannot be located, the creation fails and this
@@ -23,8 +23,7 @@ public interface FileSystemAPI {
      *
      * @param location the location where the file system's contents are stored.
      * @return a file system wrapping the specified resource.
-     */
-    FileSystem fromResource(ResourceLocation location);
+     */  CompletableFuture<FileSystem> fromResourceAsync(ResourceLocation location);
 
     /**
      * Creates a new <em>writable</em> file system in the save folder.
@@ -48,8 +47,7 @@ public interface FileSystemAPI {
      * @param capacity the amount of space in bytes to allow being used.
      * @param buffered whether data should only be written to disk when saving.
      * @return a file system wrapping the specified folder.
-     */
-    FileSystem fromSaveDirectory(String root, long capacity, boolean buffered);
+     */  CompletableFuture<FileSystem> fromSaveDirectoryAsync(String root, long capacity, boolean buffered);
 
     /**
      * Creates a new <em>writable</em> file system that resides in memory.
@@ -61,8 +59,7 @@ public interface FileSystemAPI {
      *
      * @param capacity the capacity of the file system.
      * @return a file system residing in memory.
-     */
-    FileSystem fromMemory(long capacity);
+     */  CompletableFuture<FileSystem> fromMemoryAsync(long capacity);
 
     /**
      * Wrap a file system retrieved via one of the <tt>from???</tt> methods to
@@ -70,8 +67,7 @@ public interface FileSystemAPI {
      *
      * @param fileSystem the file system to wrap.
      * @return the specified file system wrapped to be read-only.
-     */
-    FileSystem asReadOnly(final FileSystem fileSystem);
+     */  CompletableFuture<FileSystem> asReadOnlyAsync(final FileSystem fileSystem);
 
     /**
      * Creates a network node that makes the specified file system available via
@@ -110,8 +106,7 @@ public interface FileSystemAPI {
      *                    <tt>opencomputers:floppy_access</tt>.
      * @param speed       the speed multiplier for this file system.
      * @return the network node wrapping the file system.
-     */
-    ManagedEnvironment asManagedEnvironment(FileSystem fileSystem, Label label, EnvironmentHost host, String accessSound, int speed);
+     */  CompletableFuture<ManagedEnvironment> asManagedEnvironmentAsync(FileSystem fileSystem, Label label, EnvironmentHost host, String accessSound, int speed);
 
     /**
      * Creates a network node that makes the specified file system available via
@@ -129,36 +124,30 @@ public interface FileSystemAPI {
      *                    <tt>opencomputers:floppy_access</tt>.
      * @param speed       the speed multiplier for this file system.
      * @return the network node wrapping the file system.
-     */
-    ManagedEnvironment asManagedEnvironment(FileSystem fileSystem, String label, EnvironmentHost host, String accessSound, int speed);
+     */  CompletableFuture<ManagedEnvironment> asManagedEnvironmentAsync(FileSystem fileSystem, String label, EnvironmentHost host, String accessSound, int speed);
 
     /**
      * @deprecated Don't use this directly, use the wrapper in {@link li.cil.oc.api.FileSystem}.
      */
-    @Deprecated
-    ManagedEnvironment asManagedEnvironment(FileSystem fileSystem, Label label, EnvironmentHost host, String accessSound);
+    @Deprecated  CompletableFuture<ManagedEnvironment> asManagedEnvironmentAsync(FileSystem fileSystem, Label label, EnvironmentHost host, String accessSound);
 
     /**
      * @deprecated Don't use this directly, use the wrapper in {@link li.cil.oc.api.FileSystem}.
      */
-    @Deprecated
-    ManagedEnvironment asManagedEnvironment(FileSystem fileSystem, String label, EnvironmentHost host, String accessSound);
+    @Deprecated  CompletableFuture<ManagedEnvironment> asManagedEnvironmentAsync(FileSystem fileSystem, String label, EnvironmentHost host, String accessSound);
 
     /**
      * @deprecated Don't use this directly, use the wrapper in {@link li.cil.oc.api.FileSystem}.
      */
-    @Deprecated
-    ManagedEnvironment asManagedEnvironment(FileSystem fileSystem, Label label);
+    @Deprecated  CompletableFuture<ManagedEnvironment> asManagedEnvironmentAsync(FileSystem fileSystem, Label label);
 
     /**
      * @deprecated Don't use this directly, use the wrapper in {@link li.cil.oc.api.FileSystem}.
      */
-    @Deprecated
-    ManagedEnvironment asManagedEnvironment(FileSystem fileSystem, String label);
+    @Deprecated  CompletableFuture<ManagedEnvironment> asManagedEnvironmentAsync(FileSystem fileSystem, String label);
 
     /**
      * @deprecated Don't use this directly, use the wrapper in {@link li.cil.oc.api.FileSystem}.
      */
-    @Deprecated
-    ManagedEnvironment asManagedEnvironment(FileSystem fileSystem);
+    @Deprecated  CompletableFuture<ManagedEnvironment> asManagedEnvironmentAsync(FileSystem fileSystem);
 }

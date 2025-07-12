@@ -19,8 +19,7 @@ import net.minecraft.util.math.vector.Vector3d;
 public interface Drone extends Agent, EnvironmentHost, Rotatable, Tiered {
     /**
      * Get the current target coordinates of the drone.
-     */
-    Vector3d getTarget();
+     */  CompletableFuture<Vector3d> getTargetAsync();
 
     /**
      * Set the new target coordinates of the drone.
@@ -28,8 +27,7 @@ public interface Drone extends Agent, EnvironmentHost, Rotatable, Tiered {
      * Note that the actual value used will use a reduced accuracy. This is
      * to avoid jitter on the client and floating point inaccuracies to
      * accumulate.
-     */
-    void setTarget(Vector3d value);
+     */  CompletableFuture<Void> setTargetAsync(Vector3d value);
 
     /**
      * Get the drones velocity vector.
@@ -37,6 +35,5 @@ public interface Drone extends Agent, EnvironmentHost, Rotatable, Tiered {
      * Note that this is really just the underlying entity's <tt>motionX/Y/Z</tt>,
      * so you can cast this to {@link net.minecraft.entity.Entity} and use that
      * instead, if you'd like.
-     */
-    Vector3d getVelocity();
+     */  CompletableFuture<Vector3d> getVelocityAsync();
 }

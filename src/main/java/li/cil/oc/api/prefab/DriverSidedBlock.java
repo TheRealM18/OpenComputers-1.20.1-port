@@ -25,14 +25,11 @@ import net.minecraft.world.World;
  */
 @SuppressWarnings("UnusedDeclaration")
 public abstract class DriverSidedBlock implements DriverBlock {
-    protected final BlockState[] blocks;
-
-    protected DriverSidedBlock(final BlockState... blocks) {
+    protected final BlockState[] blocks;  CompletableFuture<protected> DriverSidedBlockAsync(final BlockState... blocks) {
         this.blocks = blocks.clone();
     }
 
-    @Override
-    public boolean worksWith(final World world, final BlockPos pos, final Direction side) {
+    @Override  CompletableFuture<boolean> worksWithAsync(final World world, final BlockPos pos, final Direction side) {
         final BlockState state = world.getBlockState(pos);
         for (BlockState block : blocks) {
             if (block == state) return true;

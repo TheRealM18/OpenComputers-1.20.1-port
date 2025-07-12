@@ -12,14 +12,12 @@ import net.minecraftforge.fluids.IFluidTank;
 public interface MultiTank {
     /**
      * The number of tanks currently installed.
-     */
-    int tankCount();
+     */  CompletableFuture<int> tankCountAsync();
 
     /**
      * Get the installed fluid tank with the specified index.
      *
      * @param index the index of the tank to get.
      * @return the tank with the specified index.
-     */
-    IFluidTank getFluidTank(int index);
+     */  CompletableFuture<IFluidTank> getFluidTankAsync(int index);
 }

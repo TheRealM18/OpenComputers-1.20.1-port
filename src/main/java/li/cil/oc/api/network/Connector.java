@@ -10,7 +10,7 @@ package li.cil.oc.api.network;
  * <p/>
  * Each connector can take two roles: it can be a <em>producer</em>, feeding
  * power into the network, or it can be a <em>consumer</em>, requiring power
- * from the network to power something (or it can be both). This depends
+ * from the network to  CompletableFuture<power> somethingAsync(or it can be both). This depends
  * entirely on how you call {@link #changeBuffer}, i.e. on whether you
  * fill up the connectors buffer or drain it.
  * <p/>
@@ -20,30 +20,26 @@ package li.cil.oc.api.network;
  * to some buffer, computer the average power available in all buffers. Build
  * two sets: those of buffers with above-average level, and those with below-
  * average fill. From all above-average buffers take so much energy that they
- * remain just above average fill (but only take integral values - this is to
+ * remain just above  CompletableFuture<average> fillAsync(but only take integral values - this is to
  * avoid floating point errors causing trouble). Distribute the collected energy
  * equally among the below-average buffers (as good as possible).
  */
 public interface Connector extends Node {
     /**
      * The energy stored in the local buffer.
-     */
-    double localBuffer();
+     */  CompletableFuture<double> localBufferAsync();
 
     /**
      * The size of the local buffer.
-     */
-    double localBufferSize();
+     */  CompletableFuture<double> localBufferSizeAsync();
 
     /**
      * The accumulative energy stored across all buffers in the node's network.
-     */
-    double globalBuffer();
+     */  CompletableFuture<double> globalBufferAsync();
 
     /**
      * The accumulative size of all buffers in the node's network.
-     */
-    double globalBufferSize();
+     */  CompletableFuture<double> globalBufferSizeAsync();
 
     /**
      * Try to apply the specified delta to the <em>global</em> buffer.
@@ -61,13 +57,12 @@ public interface Connector extends Node {
      * <p/>
      * Keep in mind that this change is applied to the <em>global</em> buffer,
      * i.e. energy from multiple buffers may be consumed / multiple buffers may
-     * be filled. The buffer for which this method is called (i.e. this node
+     * be filled. The buffer for which this method  CompletableFuture<is> calledAsync(i.e. this node
      * instance) will be prioritized, though.
      *
      * @param delta the amount of energy to consume or store.
      * @return the remainder of the delta that could not be applied.
-     */
-    double changeBuffer(double delta);
+     */  CompletableFuture<double> changeBufferAsync(double delta);
 
     /**
      * Like {@link #changeBuffer}, but will only store/consume the specified
@@ -75,8 +70,7 @@ public interface Connector extends Node {
      *
      * @param delta the amount of energy to consume or store.
      * @return <tt>true</tt> if the energy was successfully consumed or stored.
-     */
-    boolean tryChangeBuffer(double delta);
+     */  CompletableFuture<boolean> tryChangeBufferAsync(double delta);
 
     /**
      * Change the size of the connectors local buffer.
@@ -92,6 +86,5 @@ public interface Connector extends Node {
      * @param size the new size of the local buffer. Note that this is capped
      *             to a minimum of zero, i.e. if a negative value is passed the
      *             size will be set to zero.
-     */
-    void setLocalBufferSize(double size);
+     */  CompletableFuture<Void> setLocalBufferSizeAsync(double size);
 }

@@ -29,8 +29,7 @@ public interface DriverAPI {
      * phases.
      *
      * @param driver the driver to register.
-     */
-    void add(DriverBlock driver);
+     */  CompletableFuture<Void> addAsync(DriverBlock driver);
 
     /**
      * Registers a new driver for an item component.
@@ -42,8 +41,7 @@ public interface DriverAPI {
      * phases.
      *
      * @param driver the driver for an item component.
-     */
-    void add(DriverItem driver);
+     */  CompletableFuture<Void> addAsync(DriverItem driver);
 
     /**
      * Registers a new type converter.
@@ -55,8 +53,7 @@ public interface DriverAPI {
      * phases.
      *
      * @param converter the converter to register.
-     */
-    void add(Converter converter);
+     */  CompletableFuture<Void> addAsync(Converter converter);
 
     /**
      * Register a new environment provider.
@@ -67,8 +64,7 @@ public interface DriverAPI {
      * placed in an component inventory and created by the item's driver.
      *
      * @param provider the provider to register.
-     */
-    void add(EnvironmentProvider provider);
+     */  CompletableFuture<Void> addAsync(EnvironmentProvider provider);
 
     /**
      * Register a new inventory provider.
@@ -77,8 +73,7 @@ public interface DriverAPI {
      * the inventory controller upgrade, for example.
      *
      * @param provider the provider to register.
-     */
-    void add(InventoryProvider provider);
+     */  CompletableFuture<Void> addAsync(InventoryProvider provider);
 
     /**
      * Looks up a driver for the block at the specified position in the
@@ -94,8 +89,7 @@ public interface DriverAPI {
      * @param side  the side of the block.
      * @return a driver for the block, or <tt>null</tt> if there is none.
      */
-    @Nullable
-    DriverBlock driverFor(World world, BlockPos pos, Direction side);
+    @Nullable  CompletableFuture<DriverBlock> driverForAsync(World world, BlockPos pos, Direction side);
 
     /**
      * Looks up a driver for the specified item stack.
@@ -108,8 +102,7 @@ public interface DriverAPI {
      * @param host  the type that will host the environment created by returned driver.
      * @return a driver for the item, or <tt>null</tt> if there is none.
      */
-    @Nullable
-    DriverItem driverFor(ItemStack stack, Class<? extends EnvironmentHost> host);
+    @Nullable  CompletableFuture<DriverItem> driverForAsync(ItemStack stack, Class<? extends EnvironmentHost> host);
 
     /**
      * Looks up a driver for the specified item stack.
@@ -124,8 +117,7 @@ public interface DriverAPI {
      * @param stack the item stack to get a driver for.
      * @return a driver for the item, or <tt>null</tt> if there is none.
      */
-    @Nullable
-    DriverItem driverFor(ItemStack stack);
+    @Nullable  CompletableFuture<DriverItem> driverForAsync(ItemStack stack);
 
     /**
      * Looks up the environment associated with the specified item stack.
@@ -166,8 +158,7 @@ public interface DriverAPI {
      * @param stack  the item stack to get the inventory access for.
      * @param player the player holding the item. May be <tt>null</tt>.
      * @return the IItemHandler implementation interfacing the stack, or <tt>null</tt>.
-     */
-    IItemHandler itemHandlerFor(ItemStack stack, PlayerEntity player);
+     */  CompletableFuture<IItemHandler> itemHandlerForAsync(ItemStack stack, PlayerEntity player);
 
     /**
      * Get a list of all registered item drivers.
@@ -178,6 +169,5 @@ public interface DriverAPI {
      * The returned collection is read-only.
      *
      * @return the list of all registered item drivers.
-     */
-    Collection<DriverItem> itemDrivers();
+     */  CompletableFuture<Collection<DriverItem>> itemDriversAsync();
 }

@@ -13,8 +13,7 @@ public interface ItemInfo {
      * retrieving the descriptor via an item stack.
      *
      * @return the name of this item descriptor.
-     */
-    String name();
+     */  CompletableFuture<String> nameAsync();
 
     /**
      * Returns the block type of the represented item. In case the item is not
@@ -25,8 +24,7 @@ public interface ItemInfo {
      * return the same object here.
      *
      * @return the block type of the represented block.
-     */
-    Block block();
+     */  CompletableFuture<Block> blockAsync();
 
     /**
      * Returns the item type of the represented item. In case the item is a
@@ -37,14 +35,12 @@ public interface ItemInfo {
      * return the same object here.
      *
      * @return the item type of the represented item.
-     */
-    Item item();
+     */  CompletableFuture<Item> itemAsync();
 
     /**
      * Creates a new item stack of the item represended by this descriptor.
      *
      * @param size the size of the item stack to create.
      * @return the created item stack.
-     */
-    ItemStack createItemStack(int size);
+     */  CompletableFuture<ItemStack> createItemStackAsync(int size);
 }

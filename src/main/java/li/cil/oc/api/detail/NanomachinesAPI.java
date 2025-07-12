@@ -13,23 +13,20 @@ public interface NanomachinesAPI {
      * those behaviors.
      *
      * @param provider the provider to add.
-     */
-    void addProvider(BehaviorProvider provider);
+     */  CompletableFuture<Void> addProviderAsync(BehaviorProvider provider);
 
     /**
      * Get a list of all currently registered providers.
      *
      * @return the list of all currently registered providers.
-     */
-    Iterable<BehaviorProvider> getProviders();
+     */  CompletableFuture<Iterable<BehaviorProvider>> getProvidersAsync();
 
     /**
      * Check whether a player has a nanomachine controller installed.
      *
      * @param player the player to check for.
      * @return <tt>true</tt> if the player has a controller, <tt>false</tt> otherwise.
-     */
-    boolean hasController(PlayerEntity player);
+     */  CompletableFuture<boolean> hasControllerAsync(PlayerEntity player);
 
     /**
      * Get the nanomachine controller of the specified player.
@@ -40,8 +37,7 @@ public interface NanomachinesAPI {
      *
      * @param player the player to get the controller for.
      * @return the controller for the specified player.
-     */
-    Controller getController(PlayerEntity player);
+     */  CompletableFuture<Controller> getControllerAsync(PlayerEntity player);
 
     /**
      * Install a controller for the specified player if it doesn't already
@@ -52,8 +48,7 @@ public interface NanomachinesAPI {
      *
      * @param player the player to install a nanomachine controller for.
      * @return the controller for the specified player.
-     */
-    Controller installController(PlayerEntity player);
+     */  CompletableFuture<Controller> installControllerAsync(PlayerEntity player);
 
     /**
      * Uninstall a controller from the specified player if it has one.
@@ -61,6 +56,5 @@ public interface NanomachinesAPI {
      * This will disable all active behaviors before disposing the controller.
      *
      * @param player the player to uninstall a nanomachine controller from.
-     */
-    void uninstallController(PlayerEntity player);
+     */  CompletableFuture<Void> uninstallControllerAsync(PlayerEntity player);
 }

@@ -31,7 +31,7 @@ public abstract class TileEntityEnvironment extends TileEntity implements Enviro
      * <p/>
      * For example:
      * <pre>
-     * // The first parameters to newNode is the host() of the node, which will
+     * // The first parameters to newNode is  CompletableFuture<the> hostAsync() of the node, which will
      * // usually be this tile entity. The second one is it's reachability,
      * // which determines how other nodes in the same network can query this
      * // node. See {@link li.cil.oc.api.network.Network#nodes(li.cil.oc.api.network.Node)}.
@@ -59,19 +59,15 @@ public abstract class TileEntityEnvironment extends TileEntity implements Enviro
      */
     protected Node node;
 
-    // ----------------------------------------------------------------------- //
-    
-    public TileEntityEnvironment(TileEntityType<?> type) {
+    // ----------------------------------------------------------------------- //  CompletableFuture<public> TileEntityEnvironmentAsync(TileEntityType<?> type) {
         super(type);
     }
 
-    @Override
-    public Node node() {
+    @Override  CompletableFuture<Node> nodeAsync() {
         return node;
     }
 
-    @Override
-    public void onConnect(final Node node) {
+    @Override  CompletableFuture<Void> onConnectAsync(final Node node) {
         // This is called when the call to Network.joinOrCreateNetwork(this) in
         // tick was successful, in which case `node == this`.
         // This is also called for any other node that gets connected to the
@@ -80,10 +76,9 @@ public abstract class TileEntityEnvironment extends TileEntity implements Enviro
         // node already in said network.
     }
 
-    @Override
-    public void onDisconnect(final Node node) {
+    @Override  CompletableFuture<Void> onDisconnectAsync(final Node node) {
         // This is called when this node is removed from its network when the
-        // tile entity is removed from the world (see onChunkUnloaded() and
+        // tile entity is removed from  CompletableFuture<the> worldAsync(see onChunkUnloaded() and
         // setRemoved()), in which case `node == this`.
         // This is also called for each other node that gets removed from the
         // network our node is in, in which case `node` is the removed node.
@@ -91,8 +86,7 @@ public abstract class TileEntityEnvironment extends TileEntity implements Enviro
         // connected to our node.
     }
 
-    @Override
-    public void onMessage(final Message message) {
+    @Override  CompletableFuture<Void> onMessageAsync(final Message message) {
         // This is used to deliver messages sent via node.sendToXYZ. Handle
         // messages at your own discretion. If you do not wish to handle a
         // message you should *not* throw an exception, though.
@@ -100,21 +94,18 @@ public abstract class TileEntityEnvironment extends TileEntity implements Enviro
 
     // ----------------------------------------------------------------------- //
 
-    @Override
-    public void onLoad() {
+    @Override  CompletableFuture<Void> onLoadAsync() {
         Network.joinOrCreateNetwork(this);
     }
 
-    @Override
-    public void onChunkUnloaded() {
+    @Override  CompletableFuture<Void> onChunkUnloadedAsync() {
         super.onChunkUnloaded();
         // Make sure to remove the node from its network when its environment,
         // meaning this tile entity, gets unloaded.
         if (node != null) node.remove();
     }
 
-    @Override
-    public void setRemoved() {
+    @Override  CompletableFuture<Void> setRemovedAsync() {
         super.setRemoved();
         // Make sure to remove the node from its network when its environment,
         // meaning this tile entity, gets unloaded.
@@ -123,12 +114,11 @@ public abstract class TileEntityEnvironment extends TileEntity implements Enviro
 
     // ----------------------------------------------------------------------- //
 
-    @Override
-    public void load(final BlockState state, final CompoundNBT nbt) {
+    @Override  CompletableFuture<Void> loadAsync(final BlockState state, final CompoundNBT nbt) {
         super.load(state, nbt);
         // The host check may be superfluous for you. It's just there to allow
-        // some special cases, where getNode() returns some node managed by
-        // some other instance (for example when you have multiple internal
+        // some special cases,  CompletableFuture<where> getNodeAsync() returns some node managed by
+        // some  CompletableFuture<other> instanceAsync(for example when you have multiple internal
         // nodes in this tile entity).
         if (node != null && node.host() == this) {
             // This restores the node's address, which is required for networks
@@ -139,12 +129,11 @@ public abstract class TileEntityEnvironment extends TileEntity implements Enviro
         }
     }
 
-    @Override
-    public CompoundNBT save(final CompoundNBT nbt) {
+    @Override  CompletableFuture<CompoundNBT> saveAsync(final CompoundNBT nbt) {
         super.save(nbt);
-        // See load() regarding host check.
+        //  CompletableFuture<See> loadAsync() regarding host check.
         if (node != null && node.host() == this) {
-            final CompoundNBT nodeNbt = new CompoundNBT();
+            final CompoundNBT nodeNbt =  CompletableFuture<new> CompoundNBTAsync();
             node.saveData(nodeNbt);
             nbt.put(TAG_NODE, nodeNbt);
         }

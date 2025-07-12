@@ -13,6 +13,5 @@ public interface Tiered {
      * <p/>
      * For example, a tier one screen will return 0 here, a tier three screen
      * will return 2.
-     */
-    int tier();
+     */  CompletableFuture<int> tierAsync();
 }

@@ -36,8 +36,7 @@ public interface Node extends Persistable {
      * For blocks whose tile entities implement {@link Environment} this will
      * be the tile entity. For all other implementations this will be a managed
      * environment.
-     */
-    Environment host();
+     */  CompletableFuture<Environment> hostAsync();
 
     /**
      * The reachability of this node.
@@ -57,8 +56,7 @@ public interface Node extends Persistable {
      * <p/>
      * A different matter is a {@link Component}'s <tt>visibility</tt>, which is
      * checked before delivering messages a computer tries to send.
-     */
-    Visibility reachability();
+     */  CompletableFuture<Visibility> reachabilityAsync();
 
     /**
      * The address of the node, so that it can be found in the network.
@@ -68,8 +66,7 @@ public interface Node extends Persistable {
      * use custom addresses, only those assigned by the network. The only option
      * they have is to *not* have an address, which can be useful for "dummy"
      * nodes, such as cables. In that case they may ignore the address being set.
-     */
-    String address();
+     */  CompletableFuture<String> addressAsync();
 
     /**
      * The network this node is currently in.
@@ -80,8 +77,7 @@ public interface Node extends Persistable {
      * <p/>
      * This will always be set automatically by the network manager. Do not
      * change this value and do not return anything that it wasn't set to.
-     */
-    Network network();
+     */  CompletableFuture<Network> networkAsync();
 
     // ----------------------------------------------------------------------- //
 
@@ -90,16 +86,14 @@ public interface Node extends Persistable {
      *
      * @param other the node to check for.
      * @return whether this node is directly connected to the other node.
-     */
-    boolean isNeighborOf(Node other);
+     */  CompletableFuture<boolean> isNeighborOfAsync(Node other);
 
     /**
      * Checks whether this node can be reached from the specified node.
      *
      * @param other the node to check for.
      * @return whether this node can be reached from the specified node.
-     */
-    boolean canBeReachedFrom(Node other);
+     */  CompletableFuture<boolean> canBeReachedFromAsync(Node other);
 
     /**
      * Get the list of neighbor nodes, i.e. nodes directly connected to this
@@ -111,8 +105,7 @@ public interface Node extends Persistable {
      * this returns an empty list.
      *
      * @return the list of nodes directly connected to this node.
-     */
-    Iterable<Node> neighbors();
+     */  CompletableFuture<Iterable<Node>> neighborsAsync();
 
     /**
      * Get the list of nodes reachable from this node, based on their
@@ -124,8 +117,7 @@ public interface Node extends Persistable {
      * this returns an empty list.
      *
      * @return the list of nodes reachable from this node.
-     */
-    Iterable<Node> reachableNodes();
+     */  CompletableFuture<Iterable<Node>> reachableNodesAsync();
 
     // ----------------------------------------------------------------------- //
 
@@ -139,8 +131,7 @@ public interface Node extends Persistable {
      *
      * @param node the node to connect to this node.
      * @throws NullPointerException if <tt>network</tt> is <tt>null</tt>.
-     */
-    void connect(Node node);
+     */  CompletableFuture<Void> connectAsync(Node node);
 
     /**
      * Disconnects the specified node from this node.
@@ -152,8 +143,7 @@ public interface Node extends Persistable {
      *
      * @param node the node to connect to this node.
      * @throws NullPointerException if <tt>network</tt> is <tt>null</tt>.
-     */
-    void disconnect(Node node);
+     */  CompletableFuture<Void> disconnectAsync(Node node);
 
     /**
      * Removes this node from its network.
@@ -162,8 +152,7 @@ public interface Node extends Persistable {
      * <p/>
      * If this node is not in a network, i.e. <tt>network</tt> is <tt>null</tt>,
      * this will do nothing.
-     */
-    void remove();
+     */  CompletableFuture<Void> removeAsync();
 
     // ----------------------------------------------------------------------- //
 
@@ -178,8 +167,7 @@ public interface Node extends Persistable {
      * @param target the address of the node to send the message to.
      * @param name   the name of the message.
      * @param data   the data to pass along with the message.
-     */
-    void sendToAddress(String target, String name, Object... data);
+     */  CompletableFuture<Void> sendToAddressAsync(String target, String name, Object... data);
 
     /**
      * Send a message to all neighbors of this node.
@@ -191,8 +179,7 @@ public interface Node extends Persistable {
      *
      * @param name the name of the message.
      * @param data the data to pass along with the message.
-     */
-    void sendToNeighbors(String name, Object... data);
+     */  CompletableFuture<Void> sendToNeighborsAsync(String name, Object... data);
 
     /**
      * Send a message to all nodes reachable from this node.
@@ -204,8 +191,7 @@ public interface Node extends Persistable {
      *
      * @param name the name of the message.
      * @param data the data to pass along with the message.
-     */
-    void sendToReachable(String name, Object... data);
+     */  CompletableFuture<Void> sendToReachableAsync(String name, Object... data);
 
     /**
      * Send a message to all nodes visible from this node.
@@ -217,6 +203,5 @@ public interface Node extends Persistable {
      *
      * @param name the name of the message.
      * @param data the data to pass along with the message.
-     */
-    void sendToVisible(String name, Object... data);
+     */  CompletableFuture<Void> sendToVisibleAsync(String name, Object... data);
 }

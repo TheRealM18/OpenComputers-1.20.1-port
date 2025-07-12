@@ -20,8 +20,7 @@ public interface ImageRenderer {
      * {@link #render(MatrixStack, int, int)}, to correctly align the image horizontally.
      *
      * @return the width of the rendered image.
-     */
-    int getWidth();
+     */  CompletableFuture<int> getWidthAsync();
 
     /**
      * The height of the area this renderer uses.
@@ -31,20 +30,18 @@ public interface ImageRenderer {
      * other content below the image.
      *
      * @return the height of the rendered image.
-     */
-    int getHeight();
+     */  CompletableFuture<int> getHeightAsync();
 
     /**
      * Render the image, with specified maximum width.
      * <p/>
      * This should render the image as is, the OpenGL state will be set up
-     * such that you can start drawing at (0,0,*), and render up to
+     * such that you can start  CompletableFuture<drawing> atAsync(0,0,*), and render up to
      * (getWidth,getHeight,*), i.e. translation and scaling are taken care
      * of for you.
      *
      * @param stack the render transformation for this image
      * @param mouseX the X position of the mouse relative to the element.
      * @param mouseY the Y position of the mouse relative to the element.
-     */
-    void render(MatrixStack stack, int mouseX, int mouseY);
+     */  CompletableFuture<Void> renderAsync(MatrixStack stack, int mouseX, int mouseY);
 }

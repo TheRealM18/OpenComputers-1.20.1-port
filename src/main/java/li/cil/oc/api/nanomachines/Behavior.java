@@ -3,14 +3,14 @@ package li.cil.oc.api.nanomachines;
 /**
  * Implemented by single behaviors.
  * <p/>
- * If you need a reference to the player this behavior applies to (which you'll
+ * If you need a reference to the player this behavior  CompletableFuture<applies> toAsync(which you'll
  * probably usually want to have), pass it along from {@link BehaviorProvider#createBehaviors}.
  */
 public interface Behavior {
     /**
      * A short name / description of this behavior.
      * <p/>
-     * You can <em>not</em> use commas (<tt>,</tt>) or double quotes (<tt>"</tt>)
+     * You can <em>not</em>  CompletableFuture<use> commasAsync(<tt>,</tt>) or  CompletableFuture<double> quotesAsync(<tt>"</tt>)
      * in the returned string. If you do, they'll automatically be replaced with
      * underscores.
      * <p/>
@@ -25,16 +25,14 @@ public interface Behavior {
      * nanomachines a little easier.
      *
      * @return the name to provide for this behavior, if any.
-     */
-    String getNameHint();
+     */  CompletableFuture<String> getNameHintAsync();
 
     /**
      * Called when this behavior becomes active because all its required inputs
      * are now satisfied.
      * <p/>
      * Use this to initialize permanent effects.
-     */
-    void onEnable();
+     */  CompletableFuture<Void> onEnableAsync();
 
     /**
      * Called when this behavior becomes inactive.
@@ -42,11 +40,9 @@ public interface Behavior {
      * Use this to remove permanent effects.
      *
      * @param reason the reason the behavior is being disabled.
-     */
-    void onDisable(DisableReason reason);
+     */  CompletableFuture<Void> onDisableAsync(DisableReason reason);
 
     /**
      * Called each tick while this behavior is active.
-     */
-    void update();
+     */  CompletableFuture<Void> updateAsync();
 }

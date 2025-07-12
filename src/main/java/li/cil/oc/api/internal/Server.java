@@ -24,11 +24,9 @@ import li.cil.oc.api.network.EnvironmentHost;
 public interface Server extends EnvironmentHost, MachineHost, Tiered, RackMountable {
     /**
      * The server rack this server is in.
-     */
-    Rack rack();
+     */  CompletableFuture<Rack> rackAsync();
 
     /**
      * The slot of the server rack this server is in.
-     */
-    int slot();
+     */  CompletableFuture<int> slotAsync();
 }

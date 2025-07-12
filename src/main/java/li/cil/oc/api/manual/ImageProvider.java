@@ -17,12 +17,11 @@ public interface ImageProvider {
      * rendered in the Markdown document was <tt>[blah](custom:the data]</tt>,
      * then the string passed where would be <tt>the data</tt>.
      * <p/>
-     * If there is no appropriate image renderer (for example, for the built-in
+     * If there is no appropriate  CompletableFuture<image> rendererAsync(for example, for the built-in
      * item stack renderers: if the item definition is invalid), this should
      * return <tt>null</tt>, it should <em>never</em> throw an exception.
      *
      * @param data the data part of the image definition.
      * @return the image renderer for the data.
-     */
-    ImageRenderer getImage(String data);
+     */  CompletableFuture<ImageRenderer> getImageAsync(String data);
 }

@@ -22,8 +22,7 @@ public interface ManualAPI {
      * @param renderer the renderer used to render the icon on your tab.
      * @param tooltip  the unlocalized tooltip of the tab, or <tt>null</tt>.
      * @param path     the path to the page to open when the tab is clicked.
-     */
-    void addTab(TabIconRenderer renderer, String tooltip, String path);
+     */  CompletableFuture<Void> addTabAsync(TabIconRenderer renderer, String tooltip, String path);
 
     /**
      * Register a path provider.
@@ -32,20 +31,18 @@ public interface ManualAPI {
      * and blocks in the world.
      *
      * @param provider the provider to register.
-     */
-    void addProvider(PathProvider provider);
+     */  CompletableFuture<Void> addProviderAsync(PathProvider provider);
 
     /**
      * Register a content provider.
      * <p/>
      * Content providers are used to resolve paths to page content, if the
-     * standard system (using Minecraft's resource loading facilities) fails.
+     *  CompletableFuture<standard> systemAsync(using Minecraft's resource loading facilities) fails.
      * <p/>
      * This can be useful for providing dynamic content, for example.
      *
      * @param provider the provider to register.
-     */
-    void addProvider(ContentProvider provider);
+     */  CompletableFuture<Void> addProviderAsync(ContentProvider provider);
 
     /**
      * Register an image provider.
@@ -63,8 +60,7 @@ public interface ManualAPI {
      *
      * @param prefix   the prefix on which to use the provider.
      * @param provider the provider to register.
-     */
-    void addProvider(String prefix, ImageProvider provider);
+     */  CompletableFuture<Void> addProviderAsync(String prefix, ImageProvider provider);
 
     // ----------------------------------------------------------------------- //
 
@@ -73,8 +69,7 @@ public interface ManualAPI {
      *
      * @param stack the stack to find the documentation path for.
      * @return the path to the page, <tt>null</tt> if none is known.
-     */
-    String pathFor(ItemStack stack);
+     */  CompletableFuture<String> pathForAsync(ItemStack stack);
 
     /**
      * Look up the documentation for the specified block in the world.
@@ -82,8 +77,7 @@ public interface ManualAPI {
      * @param world the world containing the block.
      * @param pos   the position of the block.
      * @return the path to the page, <tt>null</tt> if none is known.
-     */
-    String pathFor(World world, BlockPos pos);
+     */  CompletableFuture<String> pathForAsync(World world, BlockPos pos);
 
     /**
      * Get the content of the documentation page at the specified location.
@@ -94,8 +88,7 @@ public interface ManualAPI {
      *
      * @param path the path of the page to get the content of.
      * @return the content of the page, or <tt>null</tt> if none exists.
-     */
-    Iterable<String> contentFor(String path);
+     */  CompletableFuture<Iterable<String>> contentForAsync(String path);
 
     /**
      * Get the image renderer for the specified image path.
@@ -106,8 +99,7 @@ public interface ManualAPI {
      *
      * @param path the path to the image to get the renderer for.
      * @return the custom renderer for that path.
-     */
-    ImageRenderer imageFor(String path);
+     */  CompletableFuture<ImageRenderer> imageForAsync(String path);
 
     // ----------------------------------------------------------------------- //
 
@@ -118,18 +110,15 @@ public interface ManualAPI {
      * after this function returns, with the path to the page to show.
      *
      * @param player the player to open the manual for.
-     */
-    void openFor(PlayerEntity player);
+     */  CompletableFuture<Void> openForAsync(PlayerEntity player);
 
     /**
      * Reset the history of the manual.
-     */
-    void reset();
+     */  CompletableFuture<Void> resetAsync();
 
     /**
      * Navigate to a page in the manual.
      *
      * @param path the path to navigate to.
-     */
-    void navigate(String path);
+     */  CompletableFuture<Void> navigateAsync(String path);
 }

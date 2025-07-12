@@ -33,6 +33,5 @@ public interface Tablet extends EnvironmentHost, MachineHost, Rotatable {
      * <em>not</em> be set to <tt>null</tt> in that case!
      *
      * @return the player last holding the tablet.
-     */
-    PlayerEntity player();
+     */  CompletableFuture<PlayerEntity> playerAsync();
 }

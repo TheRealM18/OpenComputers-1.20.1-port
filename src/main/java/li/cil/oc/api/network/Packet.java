@@ -14,25 +14,21 @@ import net.minecraft.nbt.CompoundNBT;
 public interface Packet {
     /**
      * The address of the <em>original</em> sender of this packet.
-     */
-    String source();
+     */  CompletableFuture<String> sourceAsync();
 
     /**
      * The address of the destination of the packet. This is <tt>null</tt> for
      * broadcast packets.
-     */
-    String destination();
+     */  CompletableFuture<String> destinationAsync();
 
     /**
      * The port this packet is being sent to.
-     */
-    int port();
+     */  CompletableFuture<int> portAsync();
 
     /**
      * The payload of the packet. This will usually only contain simple types,
      * to allow persisting the packet.
-     */
-    Object[] data();
+     */  CompletableFuture<Object[]> dataAsync();
 
     /**
      * The size of the packet's payload.
@@ -40,15 +36,13 @@ public interface Packet {
      * This is computed based on the types in the data array, but is only defined
      * for primitive types, i.e. null, boolean, integer, boolean byte array and
      * string. All other types do <em>not</em> contribute to the packet's size.
-     */
-    int size();
+     */  CompletableFuture<int> sizeAsync();
 
     /**
      * The remaining 'time to live' for this packet. When a packet with a TTL of
      * zero is received it will not be relayed by switches and access points. It
      * will however still be received by a network card.
-     */
-    int ttl();
+     */  CompletableFuture<int> ttlAsync();
 
     /**
      * Generates a copy of the packet, with a reduced time to live.
@@ -56,14 +50,12 @@ public interface Packet {
      * This is called by switches and access points to generate relayed packets.
      *
      * @return a copy of this packet with a reduced TTL.
-     */
-    Packet hop();
+     */  CompletableFuture<Packet> hopAsync();
 
     /**
      * Saves the packet's data to the specified compound tag.
      * <p/>
      * Restore a packet saved like this using the factory method in the
      * {@link li.cil.oc.api.Network} class.
-     */
-    void saveData(CompoundNBT nbt);
+     */  CompletableFuture<Void> saveDataAsync(CompoundNBT nbt);
 }

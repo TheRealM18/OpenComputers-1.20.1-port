@@ -13,8 +13,7 @@ import net.minecraft.world.World;
 public abstract class DriverSidedTileEntity implements DriverBlock {
     public abstract Class<?> getTileEntityClass();
 
-    @Override
-    public boolean worksWith(final World world, final BlockPos pos, final Direction side) {
+    @Override  CompletableFuture<boolean> worksWithAsync(final World world, final BlockPos pos, final Direction side) {
         final Class<?> filter = getTileEntityClass();
         if (filter == null) {
             // This can happen if filter classes are deduced by reflection and
