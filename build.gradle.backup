@@ -1,0 +1,191 @@
+plugins {
+    id 'eclipse'
+    id 'maven-publish'
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+    id 'org.parchmentmc.librarian.forgegradle' version '1.2.0'
+}
+
+version = project.mod_version
+group = project.mod_group
+archivesBaseName = project.mod_name
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+repositories {
+    mavenCentral()
+    maven { url = 'https://maven.minecraftforge.net' }
+    maven { url = 'https://maven.parchmentmc.org' }
+    maven { url = 'https://maven.tterrag.com' }
+    maven { url = 'https://maven.cil.li/' }
+    maven { url = 'https://dvs1.progwml6.com/files/maven' }
+    maven { url = 'https://modmaven.dev' }
+    maven { url = 'https://maven.theillusivec4.top/' }
+    
+    flatDir {
+        dir 'libs'
+    }
+}
+
+minecraft {
+    mappings channel: 'official', version: '1.20.1'
+    
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+    
+    // Default run configurations.
+    // These can be tweaked, removed, or duplicated as needed.
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+            property 'forge.enabledGameTestNamespaces', 'opencomputers'
+            
+            mods {
+                opencomputers {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+            property 'forge.enabledGameTestNamespaces', 'opencomputers'
+            
+            mods {
+                opencomputers {
+                    source sourceSets.main
+                }
+            }
+        }
+        
+        data {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+            args '--mod', 'opencomputers', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            
+            mods {
+                opencomputers {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+repositories {
+    mavenCentral()
+    
+    // Minecraft Forge Maven
+    maven {
+        name = 'Forge'
+        url = 'https://maven.minecraftforge.net/'
+    }
+    
+    // Parchment Mappings
+    maven {
+        name = 'ParchmentMC'
+        url = 'https://maven.parchmentmc.org'
+    }
+    
+    // OpenComputers Maven
+    maven { 
+        name = 'OpenComputers'
+        url = 'https://maven.cil.li/'
+    }
+    
+    // Local libs directory for manual dependencies
+    flatDir {
+        dir 'libs'
+    }
+    
+    // Fallback repositories
+    maven { url 'https://maven.tterrag.com/' }  // For various mods
+    maven { url 'https://dvs1.progwml6.com/files/maven' }  // For JEI and similar
+    maven { url 'https://modmaven.dev' }  // For various mods
+    maven { 
+        name = 'TheIllusiveC4 Maven'
+        url = 'https://maven.theillusivec4.top/'
+    }
+}
+
+dependencies {
+    // Minecraft Forge
+    minecraft 'net.minecraftforge:forge:1.20.1-47.1.0'
+    
+    // Apply Mixin AP
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    
+    // OpenComputers core libraries from local libs
+    implementation fg.deobf(files("libs/OpenComputers-MC1.20.1-1.9.1.0-api.jar"))
+    
+    // Core OpenComputers libraries (embedded)
+    implementation fg.deobf(files(
+        "libs/OC-LuaJ-20230703.1.jar",
+        "libs/OC-JNLua-20230703.1.jar",
+        "libs/OC-JNLua-Natives-20230703.1.jar"
+    ))
+    
+    // Optional development dependencies
+    runtimeOnly fg.deobf("mezz.jei:jei-1.20.1-forge:15.2.0.27") { transitive = false }
+    // runtimeOnly fg.deobf("mekanism:Mekanism:1.20.1-10.4.2.665")
+    // runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.20.1-81")
+    // runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.20.1-5.6.0.0")
+}
+
+processResources {
+    inputs.property 'version', project.version
+    
+    filesMatching('META-INF/mods.toml') {
+        expand 'version': project.version
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+jar {
+    manifest {
+        attributes([
+            "Specification-Title": project.mod_id,
+            "Specification-Vendor": "OpenComputers Team",
+            "Specification-Version": "1",
+            "Implementation-Title": project.name,
+            "Implementation-Version": project.version,
+            "Implementation-Vendor" : "OpenComputers Team",
+            "MixinConfigs": "opencomputers.mixins.json"
+        ])
+    }
+    
+    // Include all dependencies in the JAR
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    } {
+        exclude 'META-INF/*.RSA', 'META-INF/*.SF', 'META-INF/*.DSA'
+    }
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+task devJar(type: Jar) {
+    from sourceSets.main.output
+    classifier = 'dev'
+    manifest {
+        attributes([
+            'FMLAT': 'oc_at.cfg'
+        ])
+    }
+}
+
+artifacts {
+    archives sourcesJar
+    archives devJar
+}

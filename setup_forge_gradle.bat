@@ -1,5 +1,128 @@
-#!/usr/bin/env sh
+@echo off
+setlocal enabledelayedexpansion
 
+:: Set Java 17 home
+set JAVA_HOME="C:\Program Files\Eclipse Adoptium\jdk-17.0.15.6-hotspot"
+set PATH=%JAVA_HOME%\bin;%PATH%
+
+echo Java version:
+java -version
+echo.
+echo JAVA_HOME is set to %JAVA_HOME%
+echo.
+
+:: Clean up old Gradle files
+echo Cleaning up old Gradle files...
+if exist gradlew del /q /f gradlew
+if exist gradlew.bat del /q /f gradlew.bat
+if exist gradle rmdir /s /q gradle
+if exist .gradle rmdir /s /q .gradle
+if exist gradle-*.zip del /q /f gradle-*.zip
+
+:: Create gradle wrapper directory
+if not exist gradle\wrapper mkdir gradle\wrapper
+
+:: Create gradle-wrapper.properties
+echo Creating gradle-wrapper.properties...
+echo distributionBase=GRADLE_USER_HOME> gradle\wrapper\gradle-wrapper.properties
+echo distributionPath=wrapper/dists>> gradle\wrapper\gradle-wrapper.properties
+echo distributionUrl=https\://services.gradle.org/distributions/gradle-7.5.1-bin.zip>> gradle\wrapper\gradle-wrapper.properties
+echo zipStoreBase=GRADLE_USER_HOME>> gradle\wrapper\gradle-wrapper.properties
+echo zipStorePath=wrapper/dists>> gradle\wrapper\gradle-wrapper.properties
+
+:: Download gradle-wrapper.jar
+echo Downloading gradle-wrapper.jar...
+powershell -Command "(New-Object System.Net.WebClient).DownloadFile('https://github.com/gradle/gradle/raw/v7.5.1/gradle/wrapper/gradle-wrapper.jar', 'gradle/wrapper/gradle-wrapper.jar')"
+
+:: Create gradlew and gradlew.bat
+echo Creating gradlew and gradlew.bat...
+echo @"
+@rem
+@rem Copyright 2015 the original author or authors.
+@rem
+@rem Licensed under the Apache License, Version 2.0 (the "License");
+@rem you may not use this file except in compliance with the License.
+@rem You may obtain a copy of the License at
+@rem
+@rem      https://www.apache.org/licenses/LICENSE-2.0
+@rem
+@rem Unless required by applicable law or agreed to in writing, software
+@rem distributed under the License is distributed on an "AS IS" BASIS,
+@rem WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+@rem See the License for the specific language governing permissions and
+@rem limitations under the License.
+@rem
+
+@if "%DEBUG%%*"=="" @echo off
+@rem ##########################################################################
+@rem
+@rem  Gradle startup script for Windows
+@rem
+@rem ##########################################################################
+
+@rem Set local scope for the variables with windows NT shell
+if "%OS%"=="Windows_NT" setlocal
+
+set DIRNAME=%~dp0
+if "%DIRNAME%"=="" set DIRNAME=.
+set APP_BASE_NAME=%~n0
+set APP_HOME=%DIRNAME%
+
+@rem Resolve any "." and ".." in APP_HOME
+set APP_HOME=%APP_HOME:\\=/%
+set SCRIPT_NAME=%~f0
+set SCRIPT_ARGS=%*
+
+@rem Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
+set DEFAULT_JVM_OPTS="-Xmx64m" "-Xms64m"
+
+@rem Find java.exe
+if defined JAVA_HOME goto findJavaFromJavaHome
+
+set JAVA_EXE=java
+set JAVA_EXE_PATH=!JAVA_EXE! -version 2>&1
+if not "%ERRORLEVEL%"=="0" (
+  echo.
+  echo ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
+  echo.
+  echo Please set the JAVA_HOME variable in your environment to match the
+  echo location of your Java installation.
+  echo.
+  exit /b 1
+)
+goto execute
+
+:findJavaFromJavaHome
+set JAVA_HOME=%JAVA_HOME:"=%
+set JAVA_EXE=%JAVA_HOME%/bin/java.exe
+
+if exist "%JAVA_EXE%" goto execute
+
+echo.
+echo ERROR: JAVA_HOME is set to an invalid directory: %JAVA_HOME%
+echo.
+echo Please set the JAVA_HOME variable in your environment to match the
+echo location of your Java installation.
+
+goto fail
+
+:execute
+@rem Setup the command line
+
+set CLASSPATH=%APP_HOME%\gradle\wrapper\gradle-wrapper.jar
+
+@rem Execute Gradle
+"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %GRADLE_OPTS% "-Dorg.gradle.appname=%APP_BASE_NAME%" -classpath "%CLASSPATH%" org.gradle.wrapper.GradleWrapperMain %*
+
+:end
+@rem End local scope for the variables with windows NT shell
+if "%OS%"=="Windows_NT" endlocal
+
+:omega
+" > gradlew.bat
+
+:: Create gradlew (Unix script)
+echo '#!/bin/sh
 #
 # Copyright 2015 the original author or authors.
 #
@@ -23,6 +146,7 @@
 ##############################################################################
 
 # Attempt to set APP_HOME
+
 # Resolve links: $0 may be a link
 PRG="$0"
 # Need this for relative symlinks.
@@ -82,7 +206,6 @@ esac
 
 CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
 
-
 # Determine the Java command to use to start the JVM.
 if [ -n "$JAVA_HOME" ] ; then
     if [ -x "$JAVA_HOME/jre/sh/java" ] ; then
@@ -130,7 +253,6 @@ fi
 if [ "$cygwin" = "true" -o "$msys" = "true" ] ; then
     APP_HOME=`cygpath --path --mixed "$APP_HOME"`
     CLASSPATH=`cygpath --path --mixed "$CLASSPATH"`
-
     JAVACMD=`cygpath --unix "$JAVACMD"`
 
     # We build the pattern for arguments to be converted via cygpath
@@ -154,7 +276,7 @@ if [ "$cygwin" = "true" -o "$msys" = "true" ] ; then
         if [ $CHECK -ne 0 ] && [ $CHECK2 -eq 0 ] ; then                    ### Added a condition
             eval `echo args$i`=`cygpath --path --ignore --mixed "$arg"`
         else
-            eval `echo args$i`="\"$arg\""
+            eval `echo args$i`=\"$arg\"
         fi
         i=`expr $i + 1`
     done
@@ -180,6 +302,27 @@ save () {
 APP_ARGS=`save "$@"`
 
 # Collect all arguments for the java command, following the shell quoting and substitution rules
-eval set -- $DEFAULT_JVM_OPTS $JAVA_OPTS $GRADLE_OPTS "\"-Dorg.gradle.appname=$APP_BASE_NAME\"" -classpath "\"$CLASSPATH\"" org.gradle.wrapper.GradleWrapperMain "$APP_ARGS"
+eval set -- $DEFAULT_JVM_OPTS $JAVA_OPTS $GRADLE_OPTS "-Dorg.gradle.appname=$APP_BASE_NAME" -classpath "$CLASSPATH" org.gradle.wrapper.GradleWrapperMain "$APP_ARGS"
 
 exec "$JAVACMD" "$@"
+' > gradlew
+
+:: Make scripts executable
+attrib +r gradlew.bat
+attrib +r gradlew
+
+:: Verify the wrapper
+echo Verifying Gradle wrapper...
+call gradlew --version
+
+echo.
+echo Setting up ForgeGradle...
+echo.
+
+:: Run the setup with the correct Java version
+call gradlew setupDecompWorkspace --refresh-dependencies --stacktrace --info
+
+echo.
+echo If you see no errors above, the setup is complete.
+echo You can now run the build using: gradlew build
+

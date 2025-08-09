@@ -1,1 +1,38 @@
-rootProject.name = "OpenComputers"
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        maven { 
+            name = 'Forge'
+            url = 'https://maven.minecraftforge.net/'
+        }
+        maven { 
+            name = 'ParchmentMC'
+            url = 'https://maven.parchmentmc.org/'
+        }
+        maven {
+            name = 'Sponge'
+            url = 'https://repo.spongepowered.org/repository/maven-public/'
+        }
+    }
+    
+    // Configure the ForgeGradle plugin
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.namespace == 'net.minecraftforge.gradle') {
+                useModule "net.minecraftforge.gradle:ForgeGradle:${requested.version}"
+            }
+        }
+    }
+}
+
+// Set the root project name
+rootProject.name = 'opencomputers'
+
+// Enable Gradle's version catalog (if needed in the future)
+enableFeaturePreview('VERSION_CATALOGS')
+
+// Print build information at configuration time
+println '\n=== Project Configuration ==='
+println "Root Project: ${rootProject.name}"
+println "Project Directory: ${rootProject.projectDir}"
+println '==========================\n'
